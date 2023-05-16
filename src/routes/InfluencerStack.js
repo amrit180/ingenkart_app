@@ -1,0 +1,79 @@
+import React from "react";
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from "@react-navigation/stack";
+
+import BottomTab from "./BottomTab";
+import {
+  BrandProfile,
+  Campaigns,
+  EditCategory,
+  EditProfile,
+  MessageScreen,
+  Notification,
+  PublicBrandProfile,
+  PublicProfile,
+  Settings,
+  SingleCampaign,
+  Story,
+  UserProfile,
+  Wallet,
+  Wishlist,
+} from "../screens";
+
+const Stack = createStackNavigator();
+const InfluencerStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: true,
+        gestureDirection: "horizontal",
+        presentation: "card",
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        animationEnabled: true,
+      }}
+    >
+      <Stack.Screen name="BottomTab" component={BottomTab} />
+      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="Story" component={Story} />
+      <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen name="Wishlist" component={Wishlist} />
+      <Stack.Screen name="UserProfile" component={PublicProfile} />
+      {/* <Stack.Screen name="BrandProfile" component={BrandProfile} /> */}
+      <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="EditCategory" component={EditCategory} />
+      <Stack.Screen name="Campaigns" component={Campaigns} />
+      <Stack.Screen name="TopTabs" component={Campaigns} />
+      <Stack.Screen name="Wallet" component={Wallet} />
+
+      <Stack.Screen
+        name="SingleCampaign"
+        component={SingleCampaign}
+        options={{
+          // animationEnabled: false,
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="MessageScreen"
+        component={MessageScreen}
+        options={{
+          // animationEnabled: false,
+          gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="BrandProfile"
+        component={PublicBrandProfile}
+        options={{
+          // animationEnabled: false,
+          gestureEnabled: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+export default InfluencerStack;

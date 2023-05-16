@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ingenkart",
+    "name": "Ingenkart",
     "slug": "ingenkart",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,20 +11,31 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "userInterfaceStyle": "light"
     },
     "android": {
+      "package": "com.ingenkart",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "userInterfaceStyle": "light"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
+    "userInterfaceStyle": "light"
   }
 }
