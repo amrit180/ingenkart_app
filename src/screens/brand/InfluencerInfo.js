@@ -101,7 +101,7 @@ const InfluencerInfo = () => {
               fontSize={26}
             />
             <AppText
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+              text="By providing this information, you enable us to tailor your influencer journey ."
               fontSize={13}
               color={colors.black50}
             />

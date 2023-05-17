@@ -193,7 +193,7 @@ const CampaignMedia = () => {
               fontSize={26}
             />
             <AppText
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+              text="Upload the media files which represts you the best"
               fontSize={13}
               color={colors.black50}
             />

@@ -149,25 +149,28 @@ const SheetNumber = ({ childref, number, routesLength }) => {
       ).catch((err) => console.log(err.response.data));
       // console.log(res.data);
       if (res.data.success) {
-        const { user } = await signInWithCustomToken(
-          firebaseAuth,
-          res.data.token
-        );
-        const firebaseAccessToken = (await user.getIdTokenResult()).token;
         if (routesLength > 1) {
+          const { user } = await signInWithCustomToken(
+            firebaseAuth,
+            res.data.token
+          );
+          const firebaseAccessToken = (await user.getIdTokenResult()).token;
           await createOrUpdateUser(
             auth?.role === "brand" ? brandAuthData : influencerAuthData,
             firebaseAccessToken
           ).catch((e) => console.log(e.response.data));
+        } else {
+          const { user } = await signInWithCustomToken(
+            firebaseAuth,
+            res.data.token
+          );
+          const firebaseAccessToken = (await user.getIdTokenResult()).token;
         }
       }
 
       setLoading(false);
       dispatch(setPhoneVerified({ phoneVerified: true }));
 
-      // navigation.replace(
-      //   user?.role === 'brand' ? 'BrandStack' : 'InfluencerStack',
-      // );
       Keyboard.dismiss();
       scrollTo(0);
     } catch (err) {

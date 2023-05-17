@@ -175,7 +175,7 @@ const LogoUpload = ({ navigation }) => {
         />
         <AppText
           fontSize={13}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+          text="To enhance your brand identity and create a cohesive online presence, we invite you to upload your logo"
           color={colors.black50}
           mt={h(0.01)}
         />
@@ -218,7 +218,7 @@ const LogoUpload = ({ navigation }) => {
           fontSize={15}
         />
         <AppText
-          text="We need your photograph to ensure your identity."
+          text="We need your brand logo to ensure your identity."
           textAlign="center"
           mt={h(0.025)}
           fontFamily={"Inter_500Medium"}

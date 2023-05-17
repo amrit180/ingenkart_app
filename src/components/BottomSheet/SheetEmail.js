@@ -188,7 +188,7 @@ const SheetEmail = ({ childref }) => {
             <AppText
               fontFamily={"Poppins_600SemiBold"}
               fontSize={26}
-              text="Verify your Number"
+              text="Verify your Email"
               mt={h(0.01)}
             />
             <AppText

@@ -21,6 +21,8 @@ const StoryBox = ({ data }) => {
         },
       ]}
     >
+      {/* <Text> {JSON.stringify(data, 2, 4)} </Text> */}
+
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}

@@ -57,7 +57,7 @@ const Choose = () => {
           fontSize={26}
         />
         <AppText
-          text="Tell us who you are, two more words."
+          text="Tell us who you are, select your identity."
           fontSize={13}
           color={colors.black70}
         />

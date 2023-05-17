@@ -163,7 +163,7 @@ const LogoUpload = ({ navigation }) => {
         />
         <AppText
           fontSize={13}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+          text="To personalise your profile and make a lasting impression  we kindly request you to upload a picture"
           color={colors.black50}
           mt={h(0.01)}
         />

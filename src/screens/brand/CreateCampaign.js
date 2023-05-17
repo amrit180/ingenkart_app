@@ -160,7 +160,7 @@ const CreateCampaign = () => {
             fontSize={26}
           />
           <AppText
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+            text="Create campaign and take the first step towards the grand journey ahead"
             fontSize={13}
             color={colors.black50}
           />

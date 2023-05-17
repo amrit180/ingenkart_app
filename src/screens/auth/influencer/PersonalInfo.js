@@ -115,7 +115,7 @@ const PersonalInfo = ({ navigation }) => {
         />
         <AppText
           fontSize={13}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          text="By providing this information, you enable us to tailor your influencer journey."
           color={colors.black50}
           mt={h(0.01)}
         />

@@ -7,6 +7,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   Animated,
+  Pressable,
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { h, w } from "../../config/utilFunction";
@@ -130,7 +131,8 @@ const Story = ({ route }) => {
             );
           })}
         </View>
-        <View
+        <Pressable
+          onPress={() => navigation.goBack()}
           style={[
             global.center,
             {
@@ -145,7 +147,7 @@ const Story = ({ route }) => {
           ]}
         >
           <Icon name={cross} size={w(0.05)} />
-        </View>
+        </Pressable>
       </View>
     </Layout>
   );

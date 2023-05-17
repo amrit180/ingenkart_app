@@ -149,7 +149,7 @@ const ChooseCategory = ({ navigation }) => {
         />
         <AppText
           fontSize={13}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+          text="To better understand your expertise please choose the category that best represents you."
           color={colors.black50}
           mt={h(0.01)}
         />

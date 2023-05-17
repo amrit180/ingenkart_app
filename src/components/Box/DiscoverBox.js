@@ -33,7 +33,7 @@ const DiscoverBox = ({ data, squareCardData }) => {
           />
           <AppText
             fontSize={13}
-            text="Discover latest and lorem ipsum"
+            text="Discover the latest campaigns you can apply"
             color={colors.black70}
           />
         </View>

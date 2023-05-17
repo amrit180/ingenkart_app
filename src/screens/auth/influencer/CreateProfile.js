@@ -49,6 +49,7 @@ import { emailVerification } from "../../../functions/auth";
 
 import { HelperText } from "react-native-paper";
 import { mailformat } from "../../../config/Values";
+import { AboutText } from "../../../config/textUsed";
 
 const CreateProfile = ({ navigation }) => {
   const { auth } = useSelector((state) => ({ ...state }));
@@ -91,7 +92,12 @@ const CreateProfile = ({ navigation }) => {
       }
     }
   };
-
+  // useEffect
+  useEffect(() => {
+    const myBio =
+      auth?.role === "brand" ? AboutText?.brand : AboutText?.influencer;
+    dispatch(setBio({ bio: myBio }));
+  }, [auth.role, dispatch]);
   return (
     <Layout>
       <GestureHandlerRootView
@@ -114,7 +120,7 @@ const CreateProfile = ({ navigation }) => {
             />
             <AppText
               fontSize={13}
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              text="Creating your profile is the first step towards unlocking a world of exciting opportunities. To create your profile, please provide the following information:"
               color={colors.black50}
               mt={h(0.01)}
             />

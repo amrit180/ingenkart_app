@@ -7,7 +7,7 @@ const initialState = {
   phone: "",
   companyName: "",
   tagLine: "",
-  bio: "Hi there! we are here to connect with great people like you to build innovative & inspiring campaigns. Let's connect and inspire!",
+  bio: "",
   uuid: uuid.v4(),
   website: "https://",
   instagramUrl: "https://instagram.com/",

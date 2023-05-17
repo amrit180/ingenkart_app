@@ -465,7 +465,7 @@ const SingleCampaign = ({ route }) => {
                 mb={h(0.02)}
               />
               <AppText
-                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+                text="These products are listed by company and is to be used for ceating content"
                 fontSize={13}
                 color={colors.black50}
                 mb={h(0.01)}
@@ -495,7 +495,7 @@ const SingleCampaign = ({ route }) => {
                 mb={h(0.02)}
               />
               <AppText
-                text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+                text="Reference Images are a guide to how exactly the content should look if it is in the form of post or story"
                 fontSize={13}
                 color={colors.black50}
                 mb={h(0.01)}
@@ -549,7 +549,7 @@ const SingleCampaign = ({ route }) => {
                     mb={h(0.02)}
                   />
                   <AppText
-                    text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."
+                    text="Reference Video acts as the guide for making content around the product mentioned above"
                     fontSize={13}
                     color={colors.black50}
                     mb={h(0.01)}

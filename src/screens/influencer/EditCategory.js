@@ -164,7 +164,7 @@ const EditCategory = ({ navigation }) => {
         />
         <AppText
           fontSize={13}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+          text="Choose the categories which explains you best and participate in campaigns of those categories"
           color={colors.black50}
           mt={h(0.01)}
         />

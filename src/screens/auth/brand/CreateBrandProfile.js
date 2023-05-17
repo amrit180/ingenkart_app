@@ -53,6 +53,7 @@ import as from "@react-native-async-storage/async-storage";
 import { emailVerification } from "../../../functions/auth";
 import { mailformat } from "../../../config/Values";
 import { HelperText } from "react-native-paper";
+import { AboutText } from "../../../config/textUsed";
 
 const CreateBrandProfile = ({ navigation }) => {
   const { auth } = useSelector((state) => ({ ...state }));
@@ -99,6 +100,12 @@ const CreateBrandProfile = ({ navigation }) => {
       }
     }
   };
+  // useEffect
+  useEffect(() => {
+    const myBio =
+      auth?.role === "brand" ? AboutText?.brand : AboutText?.influencer;
+    dispatch(setBio({ bio: myBio }));
+  }, [auth.role, dispatch]);
 
   return (
     <Layout>
@@ -122,7 +129,7 @@ const CreateBrandProfile = ({ navigation }) => {
             />
             <AppText
               fontSize={13}
-              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+              text="Creating your profile is the first step towards unlocking a world of exciting opportunities. By completing your profile, you can showcase your unique talents and attract brands for you."
               color={colors.black50}
               mt={h(0.01)}
             />

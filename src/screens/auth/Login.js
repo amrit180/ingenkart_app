@@ -119,7 +119,11 @@ const Login = () => {
           />
           <AppText
             fontSize={13}
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            text={
+              routesLength > 1
+                ? "To get started, please enter your phone number below. We take privacy and security seriously, and your phone number will be used solely for authentication purposes."
+                : "Login to gain access to a world of influencer collaborations and brand partnerships. Our platform connects influencers with brands, and create impactful campaigns together."
+            }
             color={colors.black50}
             mt={h(0.01)}
           />

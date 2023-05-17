@@ -53,16 +53,27 @@ const IDiscover = ({ route }) => {
       // console.warn(categoryId);
       getCategoriesCampaign(categoryId);
     }
-  }, [category, isFocused, page]);
+  }, [category, isFocused]);
+  useEffect(() => {
+    if (category === "all") {
+      getCategoriesCampaignByPage(categoryIds);
+      // console.warn("ALL ID=>", category);
+    } else {
+      const categoryId = [data?.find((item) => item?.name === category)?.id];
+      // console.warn(categoryId);
+      getCategoriesCampaignByPage(categoryId);
+    }
+  }, [page]);
 
   useEffect(() => {
     if (campaignName.replace(/\s/g, "")?.length > 0) {
       getSearch();
     }
   }, [campaignName]);
+
   // functions
   // campaign will be fetched based on the categoryList which is an array od category IDs
-  const getCategoriesCampaign = (categorylist) => {
+  const getCategoriesCampaignByPage = (categorylist) => {
     setLoadingCampaign(true);
     getCampaign(user?.token, page, limit, user?.role, user?._id, categorylist)
       .then((res) => {
@@ -70,6 +81,25 @@ const IDiscover = ({ route }) => {
           const array = [...campaign, ...res?.data?.campaigns];
           const uniqueArray = [...new Set(array)];
           setCampaigns(uniqueArray);
+          setLoadingCampaign(false);
+          setTotalDocuments(res.data?.totalDocuments);
+          console.log(
+            "FETCHING CAMPAIGN BASED ON CATEGORIES===================>",
+            res.data
+          );
+        }
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        setLoadingCampaign(false);
+      });
+  };
+  const getCategoriesCampaign = (categorylist) => {
+    setLoadingCampaign(true);
+    getCampaign(user?.token, page, limit, user?.role, user?._id, categorylist)
+      .then((res) => {
+        if (res.data.success) {
+          setCampaigns(res?.data?.campaigns);
           setLoadingCampaign(false);
           setTotalDocuments(res.data?.totalDocuments);
           console.log(
