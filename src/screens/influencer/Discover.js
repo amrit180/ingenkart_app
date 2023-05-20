@@ -25,6 +25,7 @@ const IDiscover = ({ route }) => {
   const childref = useRef(null);
   const { user } = useSelector((s) => ({ ...s }));
   const isFocused = useIsFocused();
+  const [filter, setFilter] = useState(null);
   // state
   const [campaign, setCampaigns] = useState([]);
   const [campaignName, setCampaignName] = useState("");
@@ -38,7 +39,7 @@ const IDiscover = ({ route }) => {
   const SwipeSheet = useCallback((value) => {
     childref.current.scrollTo(value);
   }, []);
-
+  console.log(filter);
   // useEffect(() => {
   //   setCategory("all");
   // }, []);
@@ -47,10 +48,9 @@ const IDiscover = ({ route }) => {
   useEffect(() => {
     if (category === "all") {
       getCategoriesCampaign(categoryIds);
-      // console.warn("ALL ID=>", category);
     } else {
       const categoryId = [data?.find((item) => item?.name === category)?.id];
-      // console.warn(categoryId);
+
       getCategoriesCampaign(categoryId);
     }
   }, [category, isFocused]);
@@ -242,7 +242,7 @@ const IDiscover = ({ route }) => {
             </View>
           )}
         </ScrollView>
-        <SheetExplore childref={childref} />
+        <SheetExplore childref={childref} setFilter={setFilter} />
       </View>
     </Layout>
   );

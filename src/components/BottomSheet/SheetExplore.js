@@ -25,7 +25,7 @@ const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 const MAX_TRANSALTE_Y = -height / 1.3;
 
-const SheetExplore = ({ childref }) => {
+const SheetExplore = ({ childref, setFilter }) => {
   const translateY = useSharedValue(0);
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
@@ -116,7 +116,11 @@ const SheetExplore = ({ childref }) => {
           rBottomSheetStyle,
         ]}
       >
-        {user?.role === "brand" ? <BrandSearchBox /> : <BrandSearchBox />}
+        {user?.role === "brand" ? (
+          <BrandSearchBox setFilter={setFilter} scrollTo={scrollTo} />
+        ) : (
+          <BrandSearchBox setFilter={setFilter} scrollTo={scrollTo} />
+        )}
       </Animated.View>
       <TouchableWithoutFeedback onPress={() => scrollTo(0)}>
         <Animated.View

@@ -84,3 +84,10 @@ export const getEditorChoiceAPI = async (authtoken) => {
     },
   });
 };
+export const getFilterAPI = async (authtoken) => {
+  return await axios.get(`${API}/influencer/filter-campaigns`, {
+    headers: {
+      authorization: authtoken,
+    },
+  });
+};

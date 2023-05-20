@@ -9,10 +9,10 @@ import {
 import React from "react";
 import colors from "../assets/colors";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, bg }) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: bg || colors.white }}>
         {children}
       </SafeAreaView>
     </TouchableWithoutFeedback>

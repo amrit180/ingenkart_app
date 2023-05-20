@@ -32,6 +32,7 @@ const AppText = ({
   }
   return (
     <Text
+      adjustsFontSizeToFit={true}
       style={{
         fontFamily: fontFamily || "Poppins_400Regular",
         fontSize: fs(fontSize) || fs(14),

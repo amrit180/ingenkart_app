@@ -41,31 +41,52 @@ const sortType = [
     id: 1,
     name: "Most to least influencers",
     value: "Most to least influencers",
+    sortBy: "influencer",
+    sortOrder: "desc",
   },
   {
     id: 2,
     name: "Least to most influencers",
     value: "Least to most influencers",
+    sortBy: "influencer",
+    sortOrder: "asc",
   },
   {
     id: 3,
     name: "Budget High to Low",
     value: "Budget High to Low",
+    sortBy: "budget",
+    sortOrder: "desc",
   },
   {
     id: 4,
     name: "Budget Low to High",
     value: "Budget Low to High",
+    sortBy: "budget",
+    sortOrder: "asc",
   },
 ];
 
-const BrandSearchBox = () => {
+const BrandSearchBox = ({ setFilter, scrollTo }) => {
   const [filterType, setFilterType] = useState("");
   const [isEnabled, setIsEnabled] = useState(false);
   const [active, setActive] = useState("");
 
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
+  console.log(filterType, isEnabled, active);
+  const handleClear = () => {
+    setFilterType("");
+    setIsEnabled(false);
+    setActive("");
+  };
+  const handleFilter = () => {
+    setFilter({
+      filterType,
+      isEnabled,
+      active,
+    });
+  };
   return (
     <View style={{ height: h(0.9) }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -196,6 +217,7 @@ const BrandSearchBox = () => {
             ]}
           >
             <Button
+              onPress={handleClear}
               variant={"outline"}
               height={h(0.07)}
               width={w(0.38)}
@@ -213,6 +235,10 @@ const BrandSearchBox = () => {
             ]}
           >
             <Button
+              onPress={() => {
+                handleFilter();
+                scrollTo(0);
+              }}
               variant={"standard"}
               height={h(0.07)}
               width={w(0.38)}

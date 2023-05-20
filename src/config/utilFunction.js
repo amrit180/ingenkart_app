@@ -1,6 +1,6 @@
 import moment from "moment/moment";
 import { Dimensions, PixelRatio, Platform } from "react-native";
-const { height, width } = Dimensions.get("window");
+const { height, width, fontScale } = Dimensions.get("window");
 export const REF_HEIGHT = 850.2189307543382;
 
 export const calTime = (time) => {
@@ -47,12 +47,7 @@ export const w = (val) => {
 };
 
 export function fs(fontSize) {
-  const standardLength = width > height ? width : height;
-  const offset = width > height ? 0 : Platform.OS === "ios" ? 78 : 0;
-  const deviceHeight =
-    Platform.OS === "android" ? standardLength - offset : standardLength;
-  const heightPercent = (fontSize * deviceHeight) / REF_HEIGHT;
-  return Math.round(heightPercent);
+  return fontSize / fontScale;
 }
 
 export const nFormatter = (num) => {

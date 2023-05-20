@@ -39,6 +39,7 @@ const initialState = {
   wishlist: [],
   notification: [],
   newNotification: false,
+  credits: 0,
   accountType: "basic",
   isLoading: true,
 };
@@ -50,9 +51,9 @@ export const getAsyncUser = createAsyncThunk(
     // console.log("token", authtoken);
     try {
       const resp = await currentUser(authtoken);
-      // console.log(authtoken, "usersl8ice");
+      // console.log(, "usersl8ice");
       const user = resp.data.user;
-      console.log(user, "userSlice");
+      console.log(user.credits, "userSlice");
       let data = {
         email: user.email,
         token: authtoken,
@@ -67,7 +68,7 @@ export const getAsyncUser = createAsyncThunk(
         bio: user.about,
         city: user.city,
         state: user.state,
-
+        credits: user.credits,
         tagLine: user.userProfile.tagLine,
         website: user.userProfile.websiteUrl,
         profilePicture: {
@@ -95,6 +96,7 @@ export const getAsyncUser = createAsyncThunk(
         gender: user.gender,
         budget: user.userProfile.budget,
         barter: user.userProfile.barterAvailability,
+        credits: user.credits,
         profilePicture: {
           reference: user?.profilePicture?.reference,
           url: user?.profilePicture?.url,
@@ -234,6 +236,7 @@ const userSlice = createSlice({
           (state.budget.min = payload.budget?.min),
           (state.budget.max = payload.budget?.max),
           (state.state = payload.state),
+          (state.credits = payload.credits),
           (state.linkedinUrl = payload.linkedinUrl),
           (state.website = payload.website),
           (state.instagramUrl = payload.instagramUrl),
