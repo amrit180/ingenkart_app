@@ -76,10 +76,9 @@ const CreateProfile = ({ navigation }) => {
       await as.setItem("@auth_user", JSON.stringify(auth));
       navigation.navigate("PersonalInfo");
     } else {
-      console.log("hit");
       if (
         auth?.firstName?.length < 3 ||
-        auth?.lastName?.length < 3 ||
+        auth?.lastName?.length < 0 ||
         auth?.bio?.length < 10 ||
         !auth?.email.match(mailformat) ||
         !auth?.tnc
@@ -87,7 +86,7 @@ const CreateProfile = ({ navigation }) => {
         dispatch(setError({ error: true }));
       } else {
         dispatch(setError({ error: false }));
-        console.log("hott");
+
         if (auth?.email !== "") SwipeSheet(-h(0.7));
       }
     }
@@ -153,14 +152,14 @@ const CreateProfile = ({ navigation }) => {
                 value={auth?.lastName}
                 onChangeText={(t) => dispatch(setLastName({ lastName: t }))}
                 variant="text"
-                mb={auth?.error && auth?.lastName?.length < 3 ? 0 : h(0.03)}
+                mb={auth?.error && auth?.lastName?.length < 0 ? 0 : h(0.03)}
                 width={0.85}
                 fontFamily={"Montserrat_500Medium"}
                 fontSize={16}
                 maxLength={100}
                 textAlign="left"
-                error={auth?.error && auth?.lastName?.length < 3}
-                message="Tag Line should be at least 3 characters"
+                error={auth?.error && auth?.lastName?.length < 0}
+                message="Tag Line should be at least 0 characters"
               />
 
               <Input

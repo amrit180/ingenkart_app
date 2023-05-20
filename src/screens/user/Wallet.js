@@ -1,24 +1,43 @@
-import {Button, View} from 'react-native';
-import React from 'react';
-import colors from '../../assets/colors';
-import {AppText, SingleCampaignHeader, WalletSheet} from '../../components';
-
-import {useRef} from 'react';
-import {useCallback} from 'react';
+import React, { useState } from "react";
+import { ScrollView, View, Animated, Text } from "react-native";
 
 const Wallet = () => {
-  const childref = useRef(null);
-  const SwipeSheet = useCallback(value => {
-    childref.current.scrollTo(value);
-  }, []);
+  const [scrollY, setScrollY] = useState(0);
+  const [isAnimated, setIsAnimated] = useState(false);
+
+  const translateY = scrollY.interpolate({
+    inputRange: [0, 500],
+    outputRange: [-500, 0],
+    extrapolate: "clamp",
+  });
+
   return (
-    <>
-      <View style={{flex: 1, backgroundColor: colors.grey217}}>
-        <SingleCampaignHeader brandName={'Wallet'} right={false} />
+    <ScrollView
+      onScroll={() => {
+        setScrollY(scrollY + 1);
+        if (scrollY >= 500) {
+          setIsAnimated(true);
+        }
+      }}
+    >
+      <View style={styles.header}>
+        <Text>This is the header</Text>
       </View>
-      <WalletSheet childref={childref} />
-    </>
+      <View style={[styles.content, { transform: [{ translateY }] }]}>
+        <Text>This is the content</Text>
+      </View>
+    </ScrollView>
   );
+};
+
+const styles = {
+  header: {
+    position: "sticky",
+    top: 0,
+  },
+  content: {
+    height: 100,
+  },
 };
 
 export default Wallet;

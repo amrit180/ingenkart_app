@@ -24,11 +24,11 @@ import WalletBox from "../Box/WalletBox";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
-const MAX_TRANSALTE_Y = -height / 1.2;
+const MAX_TRANSALTE_Y = -height / 1.3;
 
 const WalletSheet = ({ childref }) => {
   const translateY = useSharedValue(-height / 1.5);
-  const [loading, setLoading] = useState(false);
+
   const user = useSelector((state) => state.user);
   const transY = useRef(0);
   const scrollTo = useCallback((destination) => {

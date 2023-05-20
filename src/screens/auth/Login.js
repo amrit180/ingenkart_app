@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Pressable } from "react-native";
+import { View, TouchableOpacity, Pressable, Button as But } from "react-native";
 import React, { useCallback, useRef, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import colors from "../../assets/colors";
@@ -52,10 +52,7 @@ const Login = () => {
       }
     } else {
       if (auth?.phoneVerified) {
-        await AsyncStorage.setItem("@auth_user", JSON.stringify(auth));
-        navigation.replace(
-          auth?.role === "brand" ? "BrandStack" : "InfluencerStack"
-        );
+        pass;
       } else {
         if (res) {
           dispatch(setError({ error: true }));
@@ -65,7 +62,7 @@ const Login = () => {
           const resp = await phoneVerification(auth?.uuid, auth?.phone).catch(
             (err) => console.log(err.response.data)
           );
-          // console.log(resp.data);
+
           if (resp.data.success) {
             SwipeSheet(-h(0.75));
           }
@@ -259,6 +256,7 @@ const Login = () => {
             </View>
           )}
           {/* <Text>{JSON.stringify(auth?.phone)}</Text> */}
+          {/* <But title="Press" onPress={() => AsyncStorage.clear()} /> */}
         </View>
         <SheetNumber
           childref={nsheetRef}

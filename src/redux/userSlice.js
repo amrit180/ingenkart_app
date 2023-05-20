@@ -52,7 +52,7 @@ export const getAsyncUser = createAsyncThunk(
       const resp = await currentUser(authtoken);
       // console.log(authtoken, "usersl8ice");
       const user = resp.data.user;
-      // console.log(user, "userSlice");
+      console.log(user, "userSlice");
       let data = {
         email: user.email,
         token: authtoken,

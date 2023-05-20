@@ -29,6 +29,7 @@ import { setToken } from "../../redux/userSlice";
 import { createOrUpdateUser, verifyNumberOtp } from "../../functions/auth";
 import { signInWithCustomToken } from "firebase/auth";
 import { firebaseAuth } from "../../../firebase";
+import as from "@react-native-async-storage/async-storage";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
 const MAX_TRANSALTE_Y = -height / 1.2;
@@ -150,15 +151,18 @@ const SheetNumber = ({ childref, number, routesLength }) => {
       // console.log(res.data);
       if (res.data.success) {
         if (routesLength > 1) {
-          const { user } = await signInWithCustomToken(
-            firebaseAuth,
-            res.data.token
-          );
-          const firebaseAccessToken = (await user.getIdTokenResult()).token;
           await createOrUpdateUser(
-            auth?.role === "brand" ? brandAuthData : influencerAuthData,
-            firebaseAccessToken
-          ).catch((e) => console.log(e.response.data));
+            auth?.role === "brand" ? brandAuthData : influencerAuthData
+          )
+            .then(async () => {
+              await as.removeItem("@auth_user");
+              const { user } = await signInWithCustomToken(
+                firebaseAuth,
+                res.data.token
+              );
+              dispatch(cleanReducer());
+            })
+            .catch((e) => console.log(e.response.data));
         } else {
           const { user } = await signInWithCustomToken(
             firebaseAuth,

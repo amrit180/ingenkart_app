@@ -49,7 +49,7 @@ const App = () => {
       const unsubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
         if (user) {
           const idToken = await user?.getIdTokenResult();
-          // console.log(idToken?.token);
+          console.log(idToken?.token, "App.js");
           dispatch(getAsyncUser(idToken?.token));
           getbookmark();
 
