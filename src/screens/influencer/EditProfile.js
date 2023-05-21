@@ -229,7 +229,7 @@ const EditProfile = () => {
           textAlign="left"
           value={user?.lastName}
           placeholder="Last Name"
-          onChangeText={(t) => dispatch(setLastName({ lastName: t }))}
+          onChangeText={(t) => dispatch({ lastName: t })}
         />
         {/* <Input
           fontSize={14}

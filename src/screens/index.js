@@ -34,7 +34,8 @@ import MessageScreen from "./chat/MessageScreen";
 import ChatLists from "./chat/ChatLists";
 import PublicBrandProfile from "./user/PublicBrandProfile";
 import PublicProfile from "./user/PublicProfile";
-import Kycform from "./user/KYCFORM";
+import Kycform from "./user/Kycform";
+import KycDocument from "./user/KycDocument";
 
 export {
   Login,
@@ -73,5 +74,6 @@ export {
   PublicBrandProfile,
   ChatLists,
   PublicProfile,
+  KycDocument,
   Kycform,
 };

@@ -10,6 +10,7 @@ import {
   Campaigns,
   EditCategory,
   EditProfile,
+  KycDocument,
   Kycform,
   MessageScreen,
   Notification,
@@ -48,6 +49,7 @@ const InfluencerStack = () => {
       <Stack.Screen name="Campaigns" component={Campaigns} />
       <Stack.Screen name="TopTabs" component={Campaigns} />
       <Stack.Screen name="Wallet" component={Wallet} />
+      <Stack.Screen name="KycDocument" component={KycDocument} />
 
       <Stack.Screen
         name="SingleCampaign"
