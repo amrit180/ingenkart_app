@@ -136,14 +136,14 @@ const MessageScreen = ({ route }) => {
           timeStamps: moment().format(),
         });
       }
-      // await sendChat(data, user?.token)
-      //   .then((res) => {
-      //     console.log(res.data);
-      //     if (res.data.success) {
-      //       setText("");
-      //     }
-      //   })
-      //   .catch((err) => console.log(err.message));
+      await sendChat(data, user?.token)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.success) {
+            setText("");
+          }
+        })
+        .catch((err) => console.log(err.message));
       setText("");
     }
   };
@@ -173,14 +173,14 @@ const MessageScreen = ({ route }) => {
       });
     }
 
-    // await sendChat(data, user?.token)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     if (res.data.success) {
-    //       setText("");
-    //     }
-    //   })
-    //   .catch((err) => console.log(err.message));
+    await sendChat(data, user?.token)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success) {
+          setText("");
+        }
+      })
+      .catch((err) => console.log(err.message));
   };
 
   const reportChatforuser = () => {

@@ -20,10 +20,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { clicktoupload, upload } from "../../container/icons";
 import { global } from "../../styles";
 import { setCampaignBanner } from "../../redux/createCampaignSlice";
-import * as ImagePicker from "expo-image-picker";
 import { createCampaignAPI } from "../../functions/brand";
 import { useNavigation } from "@react-navigation/native";
 import { storage } from "../../../firebase";
+import * as ImagePicker from "expo-image-picker";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import uuid from "react-native-uuid";
 
@@ -80,7 +80,6 @@ const CampaignMedia = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const imageName = uuid.v4();
   useEffect(() => {
     if (image) {
       uploadImage();

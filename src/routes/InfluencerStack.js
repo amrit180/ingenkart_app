@@ -6,6 +6,7 @@ import {
 
 import BottomTab from "./BottomTab";
 import {
+  BankDetails,
   BrandProfile,
   Campaigns,
   EditCategory,
@@ -50,6 +51,7 @@ const InfluencerStack = () => {
       <Stack.Screen name="TopTabs" component={Campaigns} />
       <Stack.Screen name="Wallet" component={Wallet} />
       <Stack.Screen name="KycDocument" component={KycDocument} />
+      <Stack.Screen name="BankDetails" component={BankDetails} />
 
       <Stack.Screen
         name="SingleCampaign"

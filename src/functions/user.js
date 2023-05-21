@@ -97,3 +97,68 @@ export const sendChat = async (value, authtoken) => {
     },
   });
 };
+
+export const addKycDetails = async (
+  fullName,
+  currentAddress,
+  panNumber,
+  userId,
+  authtoken
+) => {
+  return await axios.post(
+    `${API}/influencer/add-kyc-details`,
+    {
+      fullName,
+      currentAddress,
+      panNumber,
+      userId,
+    },
+    {
+      headers: {
+        authorization: authtoken,
+      },
+    }
+  );
+};
+export const uploadKycDocuments = async (
+  adharDocumentLink,
+  panDocumentLink,
+  userId,
+  authtoken
+) => {
+  return await axios.post(
+    `${API}/influencer/upload-kyc-documents`,
+    {
+      adharDocumentLink,
+      panDocumentLink,
+      userId,
+    },
+    {
+      headers: {
+        authorization: authtoken,
+      },
+    }
+  );
+};
+export const addKycBankDetails = async (
+  bankAccountName,
+  accountNumber,
+  ifscCode,
+  userId,
+  authtoken
+) => {
+  return await axios.post(
+    `${API}/influencer/add-kyc-bank-details`,
+    {
+      bankAccountName,
+      accountNumber,
+      ifscCode,
+      userId,
+    },
+    {
+      headers: {
+        authorization: authtoken,
+      },
+    }
+  );
+};

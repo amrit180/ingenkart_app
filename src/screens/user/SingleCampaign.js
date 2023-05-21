@@ -152,9 +152,9 @@ const SingleCampaign = ({ route }) => {
     return item?.appliedInfluencer.includes(user?._id);
   };
   const shortlistedInfluencer = () => {
-    return item?.shortlistedInfluencer.includes(user?._id);
+    return item?.shortlistedInfluencer?.includes(user?._id);
   };
-  console.log(JSON.stringify(item.shortlistedInfluencer, null, 4));
+
   if (loading)
     return (
       <Layout>

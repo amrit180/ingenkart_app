@@ -36,6 +36,7 @@ import PublicBrandProfile from "./user/PublicBrandProfile";
 import PublicProfile from "./user/PublicProfile";
 import Kycform from "./user/Kycform";
 import KycDocument from "./user/KycDocument";
+import BankDetails from "./user/BankDetails";
 
 export {
   Login,
@@ -76,4 +77,5 @@ export {
   PublicProfile,
   KycDocument,
   Kycform,
+  BankDetails,
 };
