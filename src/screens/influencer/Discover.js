@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 import { searchCampaign } from "../../functions/user";
 import { useIsFocused } from "@react-navigation/native";
 import { empty } from "../../container/images";
+import { getFilterAPI } from "../../functions/influencer";
 
 const IDiscover = ({ route }) => {
   const item = route.params;
@@ -57,10 +58,9 @@ const IDiscover = ({ route }) => {
   useEffect(() => {
     if (category === "all") {
       getCategoriesCampaignByPage(categoryIds);
-      // console.warn("ALL ID=>", category);
     } else {
       const categoryId = [data?.find((item) => item?.name === category)?.id];
-      // console.warn(categoryId);
+
       getCategoriesCampaignByPage(categoryId);
     }
   }, [page]);
@@ -70,8 +70,28 @@ const IDiscover = ({ route }) => {
       getSearch();
     }
   }, [campaignName]);
+  useEffect(() => {
+    if (filter) {
+      getCampaignbyfilter();
+    }
+  }, [filter]);
 
   // functions
+  const getCampaignbyfilter = () => {
+    getFilterAPI(
+      user?.token,
+      page,
+      limit,
+      filter?.active,
+      filter?.filterType,
+      filter?.isEnabled
+    )
+      .then((res) => {
+        setCampaigns(res.data.campaigns);
+      })
+      .catch((err) => console.log(err.response.data));
+  };
+
   // campaign will be fetched based on the categoryList which is an array od category IDs
   const getCategoriesCampaignByPage = (categorylist) => {
     setLoadingCampaign(true);

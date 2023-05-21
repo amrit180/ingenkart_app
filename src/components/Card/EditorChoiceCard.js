@@ -134,8 +134,8 @@ const EditorChoiceCard = ({ data, mt, wishlist }) => {
                 <AppText
                   fontFamily={"Poppins_600SemiBold"}
                   text={
-                    data?.campaignName?.length > 20
-                      ? data?.campaignName.substring(0, 20) + "..."
+                    data?.campaignName?.length > 18
+                      ? data?.campaignName.substring(0, 18) + "..."
                       : data?.campaignName
                   }
                   fontSize={19}

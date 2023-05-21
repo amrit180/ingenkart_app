@@ -93,6 +93,7 @@ const SingleCampaign = ({ route }) => {
 
   const allImage = () => {
     setImageList([
+      { id: uuid.v4(), uri: item.campaignBanner },
       ...item?.productReference.map((v) => {
         return {
           id: uuid.v4(),
@@ -107,7 +108,7 @@ const SingleCampaign = ({ route }) => {
       }),
     ]);
   };
-  // console.log(JSON.stringify(item._id, null, 4));
+  // console.log(JSON.stringify(item.campaignBanner, null, 4));
   const applyCampaign = async () => {
     setApply(true);
     await connectToCampaign(user?.token, {
@@ -150,7 +151,10 @@ const SingleCampaign = ({ route }) => {
   const alreadyApplied = () => {
     return item?.appliedInfluencer.includes(user?._id);
   };
-
+  const shortlistedInfluencer = () => {
+    return item?.shortlistedInfluencer.includes(user?._id);
+  };
+  console.log(JSON.stringify(item.shortlistedInfluencer, null, 4));
   if (loading)
     return (
       <Layout>
@@ -704,12 +708,24 @@ const SingleCampaign = ({ route }) => {
 
             <Button
               onPress={
-                apply ? null : alreadyApplied() ? applyCampaign : applyCampaign
+                shortlistedInfluencer()
+                  ? null
+                  : apply
+                  ? null
+                  : alreadyApplied()
+                  ? applyCampaign
+                  : applyCampaign
               }
               variant="standard"
               height={w(0.12)}
               width={w(0.7)}
-              name={`${alreadyApplied() ? "Applied" : "Apply Now"}`}
+              name={`${
+                shortlistedInfluencer()
+                  ? "Shortlisted"
+                  : alreadyApplied()
+                  ? "Applied"
+                  : "Apply Now"
+              }`}
               fontSize={14}
               isLoading={apply}
             />

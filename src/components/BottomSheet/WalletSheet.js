@@ -23,6 +23,7 @@ import AppText from "../AppText";
 import Icon from "../Icon";
 import { blackadd } from "../../container/icons";
 import WalletBox from "../Box/WalletBox";
+import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
@@ -30,7 +31,7 @@ const MAX_TRANSALTE_Y = -h(0.8);
 
 const WalletSheet = ({ childref }) => {
   const translateY = useSharedValue(-height / 1.3);
-
+  const navigation = useNavigation();
   const user = useSelector((state) => state.user);
   const transY = useRef(0);
   const scrollTo = useCallback((destination) => {
@@ -122,11 +123,6 @@ const WalletSheet = ({ childref }) => {
         ]}
       >
         <WalletBox />
-        <ScrollView>
-          <Pressable>
-            <Text>{JSON.stringify(user, null, 4)}</Text>
-          </Pressable>
-        </ScrollView>
       </Animated.View>
 
       <Animated.View
@@ -155,6 +151,7 @@ const WalletSheet = ({ childref }) => {
           {user?.credits}
         </Animated.Text>
         <TouchableOpacity
+          onPress={() => navigation.navigate("Kycform")}
           style={{
             height: h(0.04),
             width: w(0.45),

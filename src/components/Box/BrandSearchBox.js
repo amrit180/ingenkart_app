@@ -41,29 +41,37 @@ const sortType = [
     id: 1,
     name: "Most to least influencers",
     value: "Most to least influencers",
-    sortBy: "influencer",
-    sortOrder: "desc",
+    sort: {
+      sortBy: "influencer",
+      sortOrder: "desc",
+    },
   },
   {
     id: 2,
     name: "Least to most influencers",
     value: "Least to most influencers",
-    sortBy: "influencer",
-    sortOrder: "asc",
+    sort: {
+      sortBy: "influencer",
+      sortOrder: "asc",
+    },
   },
   {
     id: 3,
     name: "Budget High to Low",
     value: "Budget High to Low",
-    sortBy: "budget",
-    sortOrder: "desc",
+    sort: {
+      sortBy: "budget",
+      sortOrder: "desc",
+    },
   },
   {
     id: 4,
     name: "Budget Low to High",
     value: "Budget Low to High",
-    sortBy: "budget",
-    sortOrder: "asc",
+    sort: {
+      sortBy: "budget",
+      sortOrder: "asc",
+    },
   },
 ];
 
@@ -74,7 +82,6 @@ const BrandSearchBox = ({ setFilter, scrollTo }) => {
 
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  console.log(filterType, isEnabled, active);
   const handleClear = () => {
     setFilterType("");
     setIsEnabled(false);
@@ -130,7 +137,7 @@ const BrandSearchBox = ({ setFilter, scrollTo }) => {
             }}
           >
             {sortType?.map((item, i) => (
-              <Pressable key={i} onPress={() => setFilterType(item.value)}>
+              <Pressable key={i} onPress={() => setFilterType(item.sort)}>
                 <View style={global.between}>
                   <AppText
                     text={item.name}
@@ -138,7 +145,7 @@ const BrandSearchBox = ({ setFilter, scrollTo }) => {
                     fontSize={13}
                   />
                   <Icon
-                    name={filterType === item.value ? verified : radio}
+                    name={filterType === item.sort ? verified : radio}
                     size={w(0.05)}
                   />
                 </View>

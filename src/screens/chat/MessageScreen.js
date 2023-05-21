@@ -44,7 +44,7 @@ import { send } from "../../container/icons";
 import { getDate, h, w } from "../../config/utilFunction";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../../../firebase";
-import { reportChat } from "../../functions/user";
+import { reportChat, sendChat } from "../../functions/user";
 const MessageScreen = ({ route }) => {
   const { user } = useSelector((state) => ({ ...state }));
   const { uid, id, imageUrl, name, room, uploader, connectionId, isClosed } =
@@ -117,11 +117,11 @@ const MessageScreen = ({ route }) => {
   // formating data to send to server
   let data = {
     connectionId: uid,
-    docModel: "Campaign",
+    docModel: "User",
     imageUrl: user?.profilePicture?.url,
     senderId: userId,
     text: text,
-
+    room: room,
     timeStamps: moment().format(),
     uploader: { ...uploader, isRequired: false },
     urlLinks: [],
@@ -136,6 +136,14 @@ const MessageScreen = ({ route }) => {
           timeStamps: moment().format(),
         });
       }
+      // await sendChat(data, user?.token)
+      //   .then((res) => {
+      //     console.log(res.data);
+      //     if (res.data.success) {
+      //       setText("");
+      //     }
+      //   })
+      //   .catch((err) => console.log(err.message));
       setText("");
     }
   };
@@ -165,13 +173,14 @@ const MessageScreen = ({ route }) => {
       });
     }
 
-    // await sendMessage(data, user?.token)
-    //   .then(res => {
+    // await sendChat(data, user?.token)
+    //   .then((res) => {
+    //     console.log(res.data);
     //     if (res.data.success) {
-    //       setText('');
+    //       setText("");
     //     }
     //   })
-    //   .catch(err => console.log(err.message));
+    //   .catch((err) => console.log(err.message));
   };
 
   const reportChatforuser = () => {
@@ -216,7 +225,7 @@ const MessageScreen = ({ route }) => {
             item.uploader.isRequired &&
             item.uploader.status == false
           ) {
-            SwipeSheet(-h(0.9));
+            SwipeSheet(-h(0.72));
             setUpdateId(item.id);
           } else if (
             item.uploader.isApproved == true &&

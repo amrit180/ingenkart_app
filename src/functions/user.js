@@ -89,3 +89,11 @@ export const blockChat = async (authtoken, userId, connectionId) => {
     }
   );
 };
+
+export const sendChat = async (value, authtoken) => {
+  return await axios.post(`${API}/user/add-message`, value, {
+    headers: {
+      authorization: authtoken,
+    },
+  });
+};

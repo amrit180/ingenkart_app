@@ -10,6 +10,7 @@ import {
   Campaigns,
   EditCategory,
   EditProfile,
+  Kycform,
   MessageScreen,
   Notification,
   PublicBrandProfile,
@@ -41,7 +42,7 @@ const InfluencerStack = () => {
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="Wishlist" component={Wishlist} />
       <Stack.Screen name="UserProfile" component={PublicProfile} />
-      {/* <Stack.Screen name="BrandProfile" component={BrandProfile} /> */}
+      <Stack.Screen name="Kycform" component={Kycform} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="EditCategory" component={EditCategory} />
       <Stack.Screen name="Campaigns" component={Campaigns} />

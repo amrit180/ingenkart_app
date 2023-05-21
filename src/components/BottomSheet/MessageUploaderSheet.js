@@ -24,7 +24,7 @@ import BrandSearchBox from "../Box/BrandSearchBox";
 import ChatUploaderBox from "../Box/ChatUploaderBox";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
-const MAX_TRANSALTE_Y = -height / 1.12;
+const MAX_TRANSALTE_Y = -height / 1.2;
 
 const MessageUploaderSheet = ({ childref, handleSubmit }) => {
   const translateY = useSharedValue(0);

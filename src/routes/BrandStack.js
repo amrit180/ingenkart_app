@@ -11,6 +11,8 @@ import {
   CreateCampaign,
   EditProfile,
   InfluencerInfo,
+  KYCFORM,
+  Kycform,
   MessageScreen,
   Notification,
   PublicProfile,
@@ -47,6 +49,7 @@ const BrandStack = () => {
       <Stack.Screen name="CampaignMedia" component={CampaignMedia} />
       <Stack.Screen name="Wallet" component={Wallet} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="Kycform" component={Kycform} />
       <Stack.Screen
         name="MessageScreen"
         component={MessageScreen}
