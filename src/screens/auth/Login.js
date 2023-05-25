@@ -1,5 +1,5 @@
 import { View, TouchableOpacity, Pressable, Button as But } from "react-native";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import colors from "../../assets/colors";
 import { h, w } from "../../config/utilFunction";
@@ -70,6 +70,12 @@ const Login = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (auth) {
+      handleNumberChange(auth?.phone);
+    }
+  }, [auth]);
 
   const SwipeSheet = useCallback((value) => {
     nsheetRef.current.scrollTo(value);
@@ -152,6 +158,7 @@ const Login = () => {
               }}
               maxLength={12}
               variant="number"
+              disabled={auth?.phoneVerified}
               width={0.68}
               placeholder="000 000 0000"
               fontFamily={"Montserrat_500Medium"}

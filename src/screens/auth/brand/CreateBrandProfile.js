@@ -198,6 +198,7 @@ const CreateBrandProfile = ({ navigation }) => {
                 placeholder="Email ID"
                 variant="email"
                 value={auth?.email}
+                disabled={auth?.emailVerified}
                 onChangeText={(t) => dispatch(setEmail({ email: t }))}
                 mb={auth?.error && !auth?.email.match(mailformat) ? 0 : h(0.01)}
                 width={0.85}

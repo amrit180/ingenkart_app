@@ -184,6 +184,7 @@ const CreateProfile = ({ navigation }) => {
               <Input
                 pH={w(0.025)}
                 placeholder="Email ID"
+                disabled={auth?.emailVerified}
                 variant="email"
                 value={auth?.email}
                 onChangeText={(t) => dispatch(setEmail({ email: t }))}

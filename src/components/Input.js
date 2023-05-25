@@ -32,6 +32,7 @@ const Input = ({
   message,
   error,
   textAlignVertical,
+  disabled,
 }) => {
   let [fontsLoaded] = useFonts({ Poppins_600SemiBold });
   if (!fontsLoaded) {
@@ -53,6 +54,7 @@ const Input = ({
             placeholderTextColor={colors.black30}
             value={value}
             ref={refValue}
+            editable={!disabled}
             maxLength={maxLength || 1}
             keyboardType="number-pad"
             onChangeText={(text) => onChangeText(text)}
@@ -164,6 +166,7 @@ const Input = ({
           <TextInput
             onFocus={onFocus}
             placeholder={placeholder}
+            editable={!disabled}
             placeholderTextColor={colors.black30}
             value={value}
             ref={refValue}

@@ -47,7 +47,7 @@ import as from "@react-native-async-storage/async-storage";
 import { urlFormat } from "../../../config/Values";
 import { global } from "../../../styles";
 import { calender, locationblack } from "../../../container/icons";
-import DatePicker from "react-native-date-picker";
+
 import { HelperText } from "react-native-paper";
 
 const gender = [
@@ -76,7 +76,9 @@ const PersonalInfo = ({ navigation }) => {
   const buttonRef = useRef(new Animated.Value(0)).current;
   const nsheetRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(
+    new Date(moment().subtract(14, "years").format())
+  );
 
   const dispatch = useDispatch();
   const handleSubmit = async () => {
@@ -185,7 +187,8 @@ const PersonalInfo = ({ navigation }) => {
           {open && (
             <DateTimePicker
               display={Platform.OS === "ios" ? "spinner" : "default"}
-              value={new Date()}
+              value={date}
+              maximumDate={new Date(moment().subtract(14, "years").format())}
               onChange={(e, tdate) => {
                 setOpen(false);
                 setDate(e.nativeEvent.timestamp);

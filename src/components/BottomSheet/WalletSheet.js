@@ -30,7 +30,7 @@ const { height } = Dimensions.get("screen");
 const MAX_TRANSALTE_Y = -h(0.8);
 
 const WalletSheet = ({ childref }) => {
-  const translateY = useSharedValue(-height / 1.3);
+  const translateY = useSharedValue(-height / 1.45);
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
   const transY = useRef(0);
@@ -55,7 +55,7 @@ const WalletSheet = ({ childref }) => {
     })
     .onEnd(() => {
       if (translateY.value > -height / 1.3) {
-        scrollTo(-height / 1.3);
+        scrollTo(-height / 1.45);
       } else if (translateY.value < -height / 1.3) {
         scrollTo(MAX_TRANSALTE_Y);
       }
@@ -137,36 +137,7 @@ const WalletSheet = ({ childref }) => {
             alignItems: "center",
           },
         ]}
-      >
-        <Animated.Text
-          style={[
-            {
-              color: colors.black,
-              fontSize: fs(30),
-              fontFamily: "Poppins_600SemiBold",
-            },
-          ]}
-        >
-          <AppText text={"₹"} />
-          {user?.credits}
-        </Animated.Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Kycform")}
-          style={{
-            height: h(0.04),
-            width: w(0.45),
-            backgroundColor: colors.white,
-            borderRadius: 50,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingHorizontal: w(0.02),
-          }}
-        >
-          <Icon name={blackadd} size={w(0.05)} />
-          <AppText text="Add a withdrwal method" fontSize={11} />
-        </TouchableOpacity>
-      </Animated.View>
+      ></Animated.View>
     </>
   );
 };

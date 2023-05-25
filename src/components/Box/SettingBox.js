@@ -40,6 +40,7 @@ const SettingBox = ({ user, numElement = 1, data }) => {
         navigation.navigate("Wallet");
         break;
       case "Transactions":
+        navigation.navigate("Wallet");
         break;
       case "Applied Campaigns":
         navigation.navigate("TopTabs");

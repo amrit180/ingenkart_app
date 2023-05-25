@@ -22,6 +22,7 @@ const SingleCampaignHeader = ({ brandName, brandPic, right = true }) => {
           {
             backgroundColor: colors.white,
             paddingHorizontal: w(0.05),
+            zIndex: 1000,
           },
         ]}
       >

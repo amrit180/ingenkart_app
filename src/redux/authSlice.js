@@ -28,7 +28,7 @@ const initialState = {
     isDefault: true,
   },
   age: 0,
-  barterAvailability: false,
+  barterAvailability: true,
   gender: "",
   budget: {
     min: 0,

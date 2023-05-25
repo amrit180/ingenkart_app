@@ -16,6 +16,7 @@ import {
 
 import {
   useFonts as useFontI,
+  Inter_400Regular,
   Inter_600SemiBold,
   Inter_500Medium,
   Inter_700Bold,
@@ -37,6 +38,7 @@ const useCustomFonts = () => {
     Poppins_300Light,
   });
   let [ILoaded] = useFontI({
+    Inter_400Regular,
     Inter_600SemiBold,
     Inter_500Medium,
     Inter_700Bold,

@@ -125,6 +125,7 @@ const SingleCampaign = ({ route }) => {
           });
           setApply(false);
         } else {
+          console.log(res.data);
           dispatch(
             setError({
               error: true,
