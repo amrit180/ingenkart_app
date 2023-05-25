@@ -85,7 +85,7 @@ const BHomepage = () => {
   const getAllStories = async () => {
     getStoryAPI(user?.token)
       .then((res) => {
-        // console.log("STORY DATA SUCCESS==>", res.data);
+        console.log("STORY DATA SUCCESS==>", res.data);
         setStoryData(res.data?.stories);
         setRefreshing(false);
       })

@@ -66,6 +66,7 @@ const Story = ({ route }) => {
   return (
     <Layout>
       <StatusBar barStyle={"light-content"} backgroundColor={colors.black} />
+
       <View
         style={{
           width: w(1),
@@ -74,7 +75,7 @@ const Story = ({ route }) => {
         }}
       >
         <ImageBackground
-          source={{ uri: content[current].storyMediaUrl }}
+          source={{ uri: content[current]?.storyMediaUrl }}
           onLoadEnd={() => {
             progress.setValue(0);
             onStart();
