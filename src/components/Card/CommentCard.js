@@ -19,7 +19,7 @@ const CommentCard = ({ item }) => {
           backgroundColor: colors.white,
           height: h(0.09),
           width: "100%",
-          paddingHorizontal: w(0.05),
+
           paddingVertical: h(0.01),
         },
       ]}

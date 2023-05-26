@@ -38,14 +38,33 @@ const CommentBox = ({ reelId, reload }) => {
     });
   };
   return (
-    <View style={{}}>
-      <FlatList
-        data={comments}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => {
-          return <CommentCard item={item} />;
-        }}
+    <View style={{ paddingHorizontal: w(0.05) }}>
+      <AppText
+        fontFamily={"Poppins_600SemiBold"}
+        fontSize={26}
+        text="Comments"
       />
+      {comments?.length > 0 ? (
+        <FlatList
+          data={comments}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => {
+            return <CommentCard item={item} />;
+          }}
+        />
+      ) : (
+        <View
+          style={{ height: h(0.3), width: "100%", justifyContent: "center" }}
+        >
+          <AppText
+            text={"No comments"}
+            textAlign={"center"}
+            fontSize={18}
+            fontFamily={"Poppins_600SemiBold"}
+          />
+          <AppText text={"Be the first one to comment"} textAlign={"center"} />
+        </View>
+      )}
     </View>
   );
 };

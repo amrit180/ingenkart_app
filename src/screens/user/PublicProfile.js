@@ -162,7 +162,9 @@ const PublicProfile = ({ route }) => {
                 ml={w(0.01)}
                 fontFamily={"Montserrat_500Medium"}
                 fontSize={12}
-                text={`Barter: ${user?.barterAvailibility ? "Yes" : "No"}`}
+                text={`Barter: ${
+                  user?.userProfile?.barterAvailability ? "Yes" : "No"
+                }`}
                 color={"rgba(139, 139, 139, 1)"}
               />
             </View>

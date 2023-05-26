@@ -19,7 +19,7 @@ import { getAllReels, likeOrUnlikeReels } from "../../functions/influencer";
 import { useSelector } from "react-redux";
 import { unmuteicon, muteicon } from "../../container/icons";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useScrollToTop } from "@react-navigation/native";
 
 const Reels = () => {
   const [activePostId, setActivePostId] = useState(null);
@@ -32,10 +32,13 @@ const Reels = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [reelLike, setReelLike] = useState([]);
   const videoRef = useRef(null);
-  const [limit, setLimit] = useState(5);
+  let limit = 5;
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const isFocused = useIsFocused();
+  const ref = useRef(null);
+
+  useScrollToTop(ref);
   useLayoutEffect(() => {
     getReels();
   }, []);
@@ -141,8 +144,9 @@ const Reels = () => {
             viewabilityConfig={{
               viewAreaCoveragePercentThreshold: 50, // Only consider visible items when at least 50% of the item is visible
             }}
+            ref={ref}
             onEndReached={loadMore}
-            onEndReachedThreshold={50}
+            onEndReachedThreshold={2}
             refreshControl={
               <RefreshControl refreshing={false} onRefresh={onRefresh} />
             }

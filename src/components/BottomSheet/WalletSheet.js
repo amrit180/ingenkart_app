@@ -27,10 +27,10 @@ import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("screen");
-const MAX_TRANSALTE_Y = -h(0.8);
+const MAX_TRANSALTE_Y = -height / 1.5;
 
 const WalletSheet = ({ childref }) => {
-  const translateY = useSharedValue(-height / 1.45);
+  const translateY = useSharedValue(-height / 1.5);
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
   const transY = useRef(0);
@@ -54,22 +54,15 @@ const WalletSheet = ({ childref }) => {
       translateY.value = Math.max(translateY.value, MAX_TRANSALTE_Y);
     })
     .onEnd(() => {
-      if (translateY.value > -height / 1.3) {
-        scrollTo(-height / 1.45);
-      } else if (translateY.value < -height / 1.3) {
+      if (translateY.value > -height / 1.5) {
+        scrollTo(-height / 1.5);
+      } else if (translateY.value < -height / 1.5) {
         scrollTo(MAX_TRANSALTE_Y);
       }
     });
   const rBottomSheetStyle = useAnimatedStyle(() => {
     return {
       transform: [{ translateY: translateY.value }],
-    };
-  });
-
-  const rBottomSheetView = useAnimatedStyle(() => {
-    // console.log(translateY.value);
-    return {
-      display: translateY.value > -760 ? "flex" : "none",
     };
   });
 
@@ -124,20 +117,6 @@ const WalletSheet = ({ childref }) => {
       >
         <WalletBox />
       </Animated.View>
-
-      <Animated.View
-        style={[
-          {
-            width: "100%",
-            height: h(0.25),
-            position: "absolute",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingHorizontal: w(0.05),
-            alignItems: "center",
-          },
-        ]}
-      ></Animated.View>
     </>
   );
 };

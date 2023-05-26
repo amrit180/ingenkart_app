@@ -32,7 +32,7 @@ const initialState = {
   gender: "",
   budget: {
     min: 0,
-    max: 0,
+    max: 10000,
   },
   tnc: false,
   error: false,
