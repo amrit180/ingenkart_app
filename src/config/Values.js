@@ -5,3 +5,5 @@ export const mailformat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const urlFormat =
   /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
 export const phoneFormat = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+export const apiKeyCloud =
+  "BNHW5frT0u1YAb6rylpjMZJuDc-8w1R6kJWBooexkyoOikJAt7LsEddjfEBZffv_I2LdYXxKAsBMKmzneAJY8bc";

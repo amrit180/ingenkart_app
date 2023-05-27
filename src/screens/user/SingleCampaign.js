@@ -119,13 +119,21 @@ const SingleCampaign = ({ route }) => {
       .then((res) => {
         console.log("res", res.data.success);
         if (res.data.success) {
-          setItem({
-            ...item,
-            appliedInfluencer: [...item.appliedInfluencer, user?._id],
-          });
+          if (alreadyApplied()) {
+            setItem({
+              ...item,
+              appliedInfluencer: item.appliedInfluencer.filter(
+                (v) => v !== user?._id
+              ),
+            });
+          } else {
+            setItem({
+              ...item,
+              appliedInfluencer: [...item.appliedInfluencer, user?._id],
+            });
+          }
           setApply(false);
         } else {
-          console.log(res.data);
           dispatch(
             setError({
               error: true,

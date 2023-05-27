@@ -44,12 +44,26 @@ const CampaignBox = ({ data, mv }) => {
           <Icon name={nextArrow} size={w(0.07)} />
         </TouchableOpacity>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* <AppText text={JSON.stringify(data[0], null, 4)} /> */}
-        {data?.map((v, i) => {
-          return <CampaignCard data={v} index={i} key={i} mv={mv} />;
-        })}
-      </ScrollView>
+      {data.length > 0 ? (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {/* <AppText text={JSON.stringify(data[0], null, 4)} /> */}
+          {data?.map((v, i) => {
+            return <CampaignCard data={v} index={i} key={i} mv={mv} />;
+          })}
+        </ScrollView>
+      ) : (
+        <View
+          style={{ height: h(0.3), width: "100%", justifyContent: "center" }}
+        >
+          <AppText
+            text={"No Campaign"}
+            textAlign={"center"}
+            fontSize={18}
+            fontFamily={"Poppins_600SemiBold"}
+          />
+          <AppText text={"Apply your first campaign!!!"} textAlign={"center"} />
+        </View>
+      )}
     </View>
   );
 };

@@ -172,12 +172,10 @@ const IHomepage = () => {
           <CreatorBox data={TopCreator} />
           <Hr alignSelf="center" width={"90%"} borderWidth={0.8} />
 
-          {joinedCampaign.concat(appliedCampaign)?.length > 0 && (
-            <CampaignBox
-              data={joinedCampaign.concat(appliedCampaign)}
-              mv={h(0.015)}
-            />
-          )}
+          <CampaignBox
+            data={joinedCampaign.concat(appliedCampaign)}
+            mv={h(0.015)}
+          />
         </Pressable>
       </ScrollView>
     </Layout>

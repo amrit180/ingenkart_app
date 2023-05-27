@@ -45,9 +45,7 @@ const ProfileHeader = ({ name }) => {
             color={"rgba(101, 101, 101, 1)"}
           />
         </View>
-        <Pressable>
-          <Icon name={greyshare} size={w(0.09)} />
-        </Pressable>
+        <Pressable>{/* <Icon name={greyshare} size={w(0.09)} /> */}</Pressable>
       </View>
       <Hr alignSelf="center" width={"100%"} borderWidth={0.5} />
     </>
