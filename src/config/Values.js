@@ -1,4 +1,4 @@
-export const API = "https://dev.incog.co.in/dev";
+export const API = "https://dev.incog.co.in";
 export const demoUrl =
   "https://firebasestorage.googleapis.com/v0/b/the-yellow-box.appspot.com/o/profile-pic%2Fdummy_600x400_ffffff_rgba(226%2C%20226%2C%20226%2C%201)_.png?alt=media&token=603445c0-5981-41a2-8e9f-6dfba843711e";
 export const mailformat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
