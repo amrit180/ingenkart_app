@@ -27,6 +27,7 @@ import uuid from "react-native-uuid";
 import {
   VideoUrlFormat,
   h,
+  isGenderEligible,
   nFormatter,
   textDeliverable,
   w,
@@ -67,6 +68,24 @@ const SingleCampaign = ({ route }) => {
   useEffect(() => {
     if (!loading && item) allImage();
   }, [loading]);
+
+  // const isGenderEligible = (current, allowed) => {
+  //   console.log(current, allowed);
+  //   let currentGender = current?.toLowerCase();
+  //   let allowedGender = allowed?.toLowerCase();
+
+  //   if (currentGender === allowedGender) return true;
+  //   if (currentGender === "others" && allowedGender === "others") return true;
+  //   if (allowedGender === "both" && currentGender === "male") return true;
+  //   if (allowedGender === "both" && currentGender === "female") return true;
+  //   if (allowedGender === "male & female" && currentGender === "female")
+  //     return true;
+  //   if (allowedGender === "male & female" && currentGender === "male")
+  //     return true;
+  //   if (allowedGender === "male & female" && currentGender === "others")
+  //     return true;
+  //   return false;
+  // };
 
   const getCampaignData = useCallback(async () => {
     setLoading(true);
@@ -715,29 +734,49 @@ const SingleCampaign = ({ route }) => {
               />
             </TouchableOpacity>
 
-            <Button
-              onPress={
-                shortlistedInfluencer()
-                  ? null
-                  : apply
-                  ? null
-                  : alreadyApplied()
-                  ? applyCampaign
-                  : applyCampaign
-              }
-              variant="standard"
-              height={w(0.12)}
-              width={w(0.7)}
-              name={`${
-                shortlistedInfluencer()
-                  ? "Shortlisted"
-                  : alreadyApplied()
-                  ? "Applied"
-                  : "Apply Now"
-              }`}
-              fontSize={14}
-              isLoading={apply}
-            />
+            {isGenderEligible(user?.gender, item?.gender) ? (
+              <Button
+                onPress={
+                  shortlistedInfluencer()
+                    ? null
+                    : apply
+                    ? null
+                    : alreadyApplied()
+                    ? applyCampaign
+                    : applyCampaign
+                }
+                variant="standard"
+                height={w(0.12)}
+                width={w(0.7)}
+                name={`${
+                  shortlistedInfluencer()
+                    ? "Shortlisted"
+                    : alreadyApplied()
+                    ? "Applied"
+                    : "Apply Now"
+                }`}
+                fontSize={14}
+                isLoading={apply}
+              />
+            ) : (
+              <Button
+                onPress={() => {
+                  dispatch(
+                    setError({
+                      error: true,
+                      message: "Ineligiblity due to Age and Gender",
+                      type: "error",
+                    })
+                  );
+                }}
+                variant="standard"
+                height={w(0.12)}
+                width={w(0.7)}
+                name={"Ineligible"}
+                fontSize={14}
+                isLoading={apply}
+              />
+            )}
           </View>
         )}
       </>

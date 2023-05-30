@@ -1,6 +1,14 @@
 import { View, ScrollView, Image, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
-import { AppText, Icon, Input, Layout, SimpleHeader } from "../../components";
+import {
+  AppText,
+  DropDownBudget,
+  DropDownGenderAuth,
+  Icon,
+  Input,
+  Layout,
+  SimpleHeader,
+} from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { w, h } from "../../config/utilFunction";
 import colors from "../../assets/colors";
@@ -13,7 +21,7 @@ import {
 } from "../../redux/userSlice";
 import { useState } from "react";
 import { ActivityIndicator } from "react-native-paper";
-import DatePicker from "react-native-date-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { calender, category } from "../../container/icons";
 import moment from "moment";
 import { global } from "../../styles";
@@ -37,7 +45,13 @@ const EditProfile = () => {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState();
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(
+    new Date(moment().subtract(14, "years").format())
+  );
+  const [showDate, setShowDate] = useState(
+    moment(user?.DOB).format("DD/MM/YYYY")
+  );
+
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -231,6 +245,19 @@ const EditProfile = () => {
           placeholder="Last Name"
           onChangeText={(t) => dispatch({ lastName: t })}
         />
+        {/* <DropDownGenderAuth
+          type="inline"
+          data={gender}
+          selected={gender.filter((v) => v.name == auth?.gender)[0]}
+          setSelected={(t) => dispatch(setGender({ gender: t.name }))}
+        />
+        <DropDownBudget
+          mt={h(0.04)}
+          type="inline"
+          data={budget}
+          selected={selectedBudget}
+          setSelected={setSelectedBudget}
+        /> */}
         {/* <Input
           fontSize={14}
           variant={'text'}
@@ -272,20 +299,20 @@ const EditProfile = () => {
             value={auth?.barterAvailability}
           />
         </View> */}
-        <DatePicker
-          modal
-          mode="date"
-          open={open}
-          date={date}
-          onConfirm={(date) => {
-            setOpen(false);
-            setDate(date);
-            dispatch(setDOB({ DOB: moment(date).format() }));
-          }}
-          onCancel={() => {
-            setOpen(false);
-          }}
-        />
+        {open && (
+          <DateTimePicker
+            display={Platform.OS === "ios" ? "spinner" : "default"}
+            value={date}
+            maximumDate={new Date(moment().subtract(14, "years").format())}
+            onChange={(e, tdate) => {
+              setOpen(false);
+              setDate(e.nativeEvent.timestamp);
+              dispatch(setDOB({ DOB: moment(date).format() }));
+              setShowDate(moment(e.nativeEvent.timestamp).format("DD/MM/YYYY"));
+            }}
+          />
+        )}
+
         <TouchableOpacity
           onPress={() => setOpen(true)}
           style={[
@@ -322,9 +349,7 @@ const EditProfile = () => {
             </View>
           )}
           <AppText
-            text={`${
-              user?.DOB === "" ? "DOB" : moment(user?.DOB).format("DD/MM/YYYY")
-            }`}
+            text={`${user?.DOB === "" ? "DOB" : showDate}`}
             fontFamily={"Montserrat_500Medium"}
             fontSize={15}
           />

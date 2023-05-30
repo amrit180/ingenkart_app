@@ -7,9 +7,12 @@ import { global } from "../../styles";
 import colors from "../../assets/colors";
 import { w } from "../../config/utilFunction";
 
-const CreatorCard = ({ data, index, ml }) => {
+const CreatorCard = ({ data, index, ml, onPress }) => {
   return (
-    <Pressable style={[global.start, { marginLeft: ml || 0 }]}>
+    <Pressable
+      style={[global.start, { marginLeft: ml || 0 }]}
+      onPress={onPress}
+    >
       <AppText
         text={index + 1 < 10 ? `0${index + 1}` : 10}
         fontSize={13}

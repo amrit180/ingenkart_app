@@ -10,10 +10,11 @@ import Icon from "../Icon";
 import CreatorCard from "../Card/CreatorCard";
 import { useSelector } from "react-redux";
 import { getTopCreatorAPI } from "../../functions/user";
+import { useNavigation } from "@react-navigation/native";
 const CreatorBox = () => {
   const { user } = useSelector((state) => ({ ...state }));
   const [data, setData] = useState([]);
-
+  const navigation = useNavigation();
   const page = 1;
   const limit = 10;
   useEffect(() => {
@@ -56,13 +57,19 @@ const CreatorBox = () => {
         </View>
         {/* <AppText text={JSON.stringify(data)} /> */}
         {/* <Pressable>
-          <Icon name={nextArrow} size={w(0.07)} />
+          <Icon n ame={nextArrow} size={w(0.07)} />
         </Pressable> */}
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {data?.map((v, i) => {
+        {data?.slice(0, 10).map((v, i) => {
           return (
-            <CreatorCard data={v} key={i} index={i} ml={i > 0 && w(0.15)} />
+            <CreatorCard
+              data={v}
+              key={i}
+              index={i}
+              ml={i > 0 && w(0.15)}
+              onPress={() => navigation.navigate("UserProfile", { id: v._id })}
+            />
           );
         })}
       </ScrollView>

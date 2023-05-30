@@ -36,15 +36,10 @@ import {
   setDOB,
   setError,
   setGender,
-  setInstagramUrl,
-  setLinkedinUrl,
-  setLocation,
-  setWebsite,
 } from "../../../redux/authSlice";
 import moment from "moment";
 import as from "@react-native-async-storage/async-storage";
 
-import { urlFormat } from "../../../config/Values";
 import { global } from "../../../styles";
 import { calender, locationblack } from "../../../container/icons";
 
@@ -69,15 +64,15 @@ const PersonalInfo = ({ navigation }) => {
   const [selectedBudget, setSelectedBudget] = useState(
     budget.filter((v) => v.min === auth?.budget?.min)[0] || null
   );
-  const [showDate, setShowDate] = useState(
-    moment(auth?.DOB).format("DD/MM/YYYY")
-  );
 
   const buttonRef = useRef(new Animated.Value(0)).current;
   const nsheetRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(
     new Date(moment().subtract(14, "years").format())
+  );
+  const [showDate, setShowDate] = useState(
+    moment(auth?.DOB).format("DD/MM/YYYY")
   );
 
   const dispatch = useDispatch();

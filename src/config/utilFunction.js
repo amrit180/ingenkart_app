@@ -154,3 +154,34 @@ export function getRandomInteger(min, max) {
   const randomValue = Math.floor(Math.random() * range) + min;
   return randomValue;
 }
+
+export const isGenderEligible = (text, newText) => {
+  const textWords = text?.toLowerCase().split(/[^\w']+/);
+  const newTextWords = newText?.toLowerCase().split(/[^\w']+/);
+
+  for (let i = 0; i < newTextWords?.length; i++) {
+    if (textWords.includes(newTextWords[i])) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+// export const isGenderEligible = (current, allowed) => {
+//   console.log(current, allowed);
+//   let currentGender = current?.toLowerCase();
+//   let allowedGender = allowed?.toLowerCase();
+
+//   if (currentGender === allowedGender) return true;
+//   if (currentGender === "others" && allowedGender === "others") return true;
+//   if (allowedGender === "both" && currentGender === "male") return true;
+//   if (allowedGender === "both" && currentGender === "female") return true;
+//   if (allowedGender === "male & female" && currentGender === "female")
+//     return true;
+//   if (allowedGender === "male & female" && currentGender === "male")
+//     return true;
+//   if (allowedGender === "male & female" && currentGender === "others")
+//     return true;
+//   return false;
+// };

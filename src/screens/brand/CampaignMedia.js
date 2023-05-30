@@ -29,9 +29,11 @@ import uuid from "react-native-uuid";
 
 const CampaignMedia = () => {
   const { createCampaign, user } = useSelector((state) => ({ ...state }));
+  const [loadingCampaign, setLoadingCampaign] = useState(false);
   const navigation = useNavigation();
   // create campaign
   const sendCampaignForApproval = () => {
+    setLoadingCampaign(true);
     const updatedCreateCampaign = {
       ...createCampaign, // copy all properties from the original object
       deliverableType: createCampaign.deliverable,
@@ -49,10 +51,12 @@ const CampaignMedia = () => {
     createCampaignAPI(user?.token, updatedCreateCampaign)
       .then((res) => {
         console.log("CREATE CAMPAIGN==>", res.data);
+        setLoadingCampaign(false);
         navigation.replace("UserProfile");
       })
       .catch((err) => {
         console.log("ERROR IN CREATING CAMPAIGN==>", err.response.data);
+        setLoadingCampaign(false);
       });
   };
 
@@ -357,11 +361,12 @@ const CampaignMedia = () => {
       >
         <Button
           name={"Create Campaign"}
-          onPress={movetonext}
+          onPress={loadingCampaign ? null : movetonext}
           variant={"standard"}
           height={h(0.07)}
           width={"100%"}
           alignSelf={"center"}
+          isLoading={loadingCampaign}
         />
       </View>
     </Layout>

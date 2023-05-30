@@ -41,6 +41,7 @@ const initialState = {
   newNotification: false,
   credits: 0,
   accountType: "basic",
+  gender: "",
   isLoading: true,
 };
 
@@ -93,7 +94,7 @@ export const getAsyncUser = createAsyncThunk(
         lastName: user.lastName,
         name: user.name,
         bio: user.about,
-        gender: user.gender,
+        gender: user.userProfile.gender,
         budget: user.userProfile.budget,
         barter: user.userProfile.barterAvailability,
         credits: user.credits,
@@ -232,6 +233,7 @@ const userSlice = createSlice({
           (state.companyName = payload.companyName),
           (state.tagLine = payload.tagLine),
           (state.location = payload.location),
+          (state.gender = payload.gender),
           (state.city = payload.city),
           (state.budget.min = payload.budget?.min),
           (state.budget.max = payload.budget?.max),

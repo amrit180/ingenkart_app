@@ -8,7 +8,7 @@ import {
   Image,
   RefreshControl,
 } from "react-native";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { Video } from "expo-av";
 import { h, w } from "../../config/utilFunction";
@@ -32,14 +32,14 @@ const Reels = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [reelLike, setReelLike] = useState([]);
   const videoRef = useRef(null);
-  let limit = 5;
+  let limit = 10;
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const isFocused = useIsFocused();
   const ref = useRef(null);
 
   useScrollToTop(ref);
-  useLayoutEffect(() => {
+  useEffect(() => {
     getReels();
   }, []);
   const getReels = async () => {
@@ -56,7 +56,7 @@ const Reels = () => {
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
-    const res = await getAllReels(user?.token, 1, 5, user?._id, [
+    const res = await getAllReels(user?.token, 1, limit, user?._id, [
       ...user?.categories,
     ]).catch((err) => console.log(err.response.data));
     // console.log(res.data);
@@ -66,12 +66,18 @@ const Reels = () => {
     }
   }, []);
   const loadMore = async () => {
-    const res = await getAllReels(user?.token, page + 1, limit, user?._id, [
-      ...user?.categories,
-    ]).catch((err) => console.log(err.response.data));
-    if (res.data.success) {
-      setData([...data, ...res.data.reels]);
-      setPage((v) => v + 1);
+    try {
+      const res = await getAllReels(user?.token, page + 1, limit, user?._id, [
+        ...user?.categories,
+      ]);
+      console.log(res.data);
+
+      if (res.data.success) {
+        setData((prevData) => [...prevData, ...res.data.reels]);
+        setPage((prevPage) => prevPage + 1);
+      }
+    } catch (err) {
+      console.log(err.response.data);
     }
   };
 
@@ -156,11 +162,11 @@ const Reels = () => {
                 <Pressable onPress={muteVideo}>
                   <Video
                     source={{
-                      uri: item?.videoUrl,
+                      uri: item.videoUrl,
                     }}
                     shouldPlay={videoId.current == item?._id && isFocused}
                     isMuted={mute}
-                    // posterSource={item?.coverImageUrl}
+                    posterSource={item?.coverImageUrl}
                     usePoster={true}
                     resizeMode="cover"
                     isLooping
