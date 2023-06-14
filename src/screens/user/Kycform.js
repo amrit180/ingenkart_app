@@ -25,7 +25,7 @@ const Kycform = () => {
   const [values, setValues] = useState({
     name: "",
     address: "",
-    pannumber: "sasasas",
+    pannumber: "",
   });
 
   function isValidPAN(panNumber) {

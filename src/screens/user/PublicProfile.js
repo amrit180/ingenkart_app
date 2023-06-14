@@ -5,12 +5,19 @@ import {
   Image,
   ScrollView,
   Animated,
+  Pressable,
+  TouchableOpacity,
+  Modal,
+  StyleSheet,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
   AppText,
   BoxShadow,
+  Button,
   Icon,
+  Input,
   Layout,
   ProfileHeader,
   SocialSegment,
@@ -21,6 +28,7 @@ import {
   barter,
   bguser,
   category,
+  commingsoon,
   instagram,
   location,
 } from "../../container/icons";
@@ -31,18 +39,32 @@ import {
   nFormatter,
   w,
 } from "../../config/utilFunction";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import colors from "../../assets/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { global } from "../../styles";
 import { getCampaign } from "../../functions/campaign";
 import { data } from "../../assets/data/CategoryData";
-import { getProfile } from "../../functions/user";
+import { getProfile, testinstaUsername } from "../../functions/user";
 import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { empty } from "../../container/images";
+import { addInstaFollower, getInstaPost } from "../../functions/influencer";
+import InstaMediaDisplay from "../../components/InstaMediaDisplay";
+import { setTestUsername } from "../../redux/userSlice";
 
 const PublicProfile = ({ route }) => {
   const userState = useSelector((state) => state.user);
   const [campaign, setCampaign] = useState([]);
+  const [instaPost, setInstaPost] = useState([]);
+
+  const [instaData, setInstaData] = useState({
+    followersCount: 0,
+    followingsCount: 0,
+    postCount: 0,
+    dp: "",
+  });
   // this state is used for segment selection
   const { id } = route.params;
   // console.log(id, "Public Profile");
@@ -57,10 +79,14 @@ const PublicProfile = ({ route }) => {
   useEffect(() => {
     getProfileOfBrand();
   }, []);
+  useEffect(() => {
+    if (user) {
+      getFollowers();
+    }
+  }, [user, user?.testUsername]);
 
   // getting profile of brand with id
   const getProfileOfBrand = async () => {
-    // const myId = id === "" ? id : userState?._id;
     try {
       await getProfile(userState?.token, id)
         .then((res) => {
@@ -71,26 +97,42 @@ const PublicProfile = ({ route }) => {
           );
         })
         .catch((err) => console.log(err.respose.data));
-
-      // await getAllCampaigns();
     } catch (err) {
       console.log(err.response.data);
     }
   };
 
-  const getAllCampaigns = async () => {
-    setLoading(true);
+  const getFollowers = async () => {
     try {
-      // console.log(user?.token, "profile");
-      await getCampaign(user?.token, 1, 5, "brand", id)
-        .then((res) => {
-          setCampaign(res.data.campaigns);
-        })
-        .catch((err) => console.log(err.response.data));
-      setLoading(false);
-    } catch (error) {
-      console.log(error.message);
-      setLoading(false);
+      // const res = await getInstaPost(user?._id, user?.token);
+      // if (res.data.success) {
+      //   setInstaPost(res.data.posts);
+      // }
+      const { data } = await axios.get(
+        `https://www.instagram.com/api/v1/users/web_profile_info/?username=${user?.testUsername}`,
+        {
+          headers: {
+            "User-Agent":
+              "Instagram 76.0.0.15.395 Android (24/7.0; 640dpi; 1440x2560; samsung; SM-G930F; herolte; samsungexynos8890; en_US; 138226743)",
+          },
+        }
+      );
+      console.log(data.data.user.edge_followed_by.count);
+
+      setInstaData({
+        followersCount: data.data.user.edge_followed_by?.count,
+        followingsCount: data.data.user.edge_follow?.count,
+        postCount: data.data.user.edge_owner_to_timeline_media?.count,
+        dp: data.data.user?.profile_pic_url_hd,
+      });
+      await addInstaFollower(
+        user?._id,
+        data.data.user.edge_followed_by?.count,
+        data.data.user.edge_follow?.count,
+        data.data.user?.profile_pic_url_hd
+      );
+    } catch (e) {
+      console.log(e.respose.data);
     }
   };
 
@@ -99,8 +141,8 @@ const PublicProfile = ({ route }) => {
       <ProfileHeader
         name={user?.firstName?.toLowerCase() + user?.lastName?.toLowerCase()}
       />
-      <ScrollView>
-        <View style={{ backgroundColor: colors.white, height: "100%" }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Pressable style={{ backgroundColor: colors.white, height: "100%" }}>
           <ImageBackground
             source={bguser}
             style={{ width: "100%", height: h(0.125) }}
@@ -128,7 +170,11 @@ const PublicProfile = ({ route }) => {
             </LinearGradient>
           </ImageBackground>
           <AppText
-            text={user.role === "brand" ? user.companyName : user.name}
+            text={
+              user.role === "brand"
+                ? user.companyName
+                : user.firstName + " " + user.lastName
+            }
             mt={h(0.06)}
             mb={h(0.03)}
             textAlign="center"
@@ -296,67 +342,27 @@ const PublicProfile = ({ route }) => {
             </View>
 
             <SocialSegment setState={setState} state={state} />
-            {/* <View style={[global.evenly, { marginTop: h(0.03) }]}>
-              <View>
-                <AppText
-                  text={"3.2M"}
-                  fontFamily={"Montserrat_700Bold"}
-                  fontSize={23}
-                />
-                <AppText
-                  text="VIEWS"
-                  fontSize={10}
-                  color={"rgba(101, 101, 101, 1)"}
-                  textAlign="center"
-                />
-              </View>
-              <View>
-                <AppText
-                  text="209K"
-                  fontFamily={"Montserrat_700Bold"}
-                  fontSize={23}
-                />
-                <AppText
-                  text="SUBSCRIBERS"
-                  fontSize={10}
-                  color={"rgba(101, 101, 101, 1)"}
-                  textAlign="center"
-                />
-              </View>
-              <View>
-                <AppText
-                  text="420"
-                  fontFamily={"Montserrat_700Bold"}
-                  fontSize={23}
-                />
-                <AppText
-                  text="VIDEOS"
-                  fontSize={10}
-                  color={"rgba(101, 101, 101, 1)"}
-                  textAlign="center"
-                />
-              </View>
-            </View> */}
-            <AppText
-              text="Comming Soon"
-              textAlign={"center"}
-              fontFamily={"Montserrat_700Bold"}
-              fontSize={23}
-              mt={h(0.07)}
-            />
+
+            <SocialData user={user} state={state} instaData={instaData} />
+          </View>
+          {state.active === 0 && (
             <View
               style={{
                 flexDirection: "row",
-                justifyContent: "space-between",
                 flexWrap: "wrap",
-                alignItems: "flex-start",
-                marginBottom: h(0.2),
+                justifyContent: "space-evenly",
+                marginTop: h(0.025),
+                marginBottom: h(0.1),
               }}
             >
-              {campaign.slice(1).map((v, i) => renderItem(v, i))}
+              {instaPost?.map((v, i) => {
+                return (
+                  <InstaMediaDisplay data={v} dp={instaData?.dp} key={i} />
+                );
+              })}
             </View>
-          </View>
-        </View>
+          )}
+        </Pressable>
       </ScrollView>
     </Layout>
   );
@@ -366,3 +372,276 @@ export default PublicProfile;
 const renderItem = (item, i) => {
   return <SquareCard data={item} key={i} mt={h(0.05)} />;
 };
+
+const SocialData = ({ state, user, instaData }) => {
+  if (state.active == 0)
+    return <InstaProfile user={user} state={state} instaData={instaData} />;
+  if (state.active == 1) return <CommingSoon />;
+  if (state.active == 2) return <CommingSoon />;
+};
+
+const InstaProfile = ({ user, state, instaData }) => {
+  const navigation = useNavigation();
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [username, setUsername] = useState("");
+  let dispatch = useDispatch();
+  const handleSubmit = async (username) => {
+    try {
+      await testinstaUsername(username, user?._id, user?.token).then(() => {
+        dispatch(setTestUsername({ testUsername: username }));
+        navigation.goBack();
+      });
+    } catch (e) {
+      console.log(e.respose.data);
+    }
+  };
+  return (
+    <>
+      {user?.testUsername ? (
+        <View style={[global.evenly, { marginTop: h(0.03) }]}>
+          <View>
+            <AppText
+              text={nFormatter(instaData?.followersCount)}
+              fontFamily={"Montserrat_700Bold"}
+              fontSize={23}
+              textAlign="center"
+            />
+            <AppText
+              text={"FOLLOWERS"}
+              fontSize={10}
+              color={"rgba(101, 101, 101, 1)"}
+              textAlign="center"
+            />
+          </View>
+          <View>
+            <AppText
+              text={nFormatter(instaData?.followingsCount)}
+              fontFamily={"Montserrat_700Bold"}
+              fontSize={23}
+              textAlign="center"
+            />
+            <AppText
+              text="FOLLOWINGS"
+              fontSize={10}
+              color={"rgba(101, 101, 101, 1)"}
+              textAlign="center"
+            />
+          </View>
+          <View>
+            <AppText
+              text={instaData.postCount}
+              fontFamily={"Montserrat_700Bold"}
+              fontSize={23}
+              textAlign="center"
+            />
+            <AppText
+              text="POSTS"
+              fontSize={10}
+              color={"rgba(101, 101, 101, 1)"}
+              textAlign="center"
+            />
+          </View>
+        </View>
+      ) : (
+        <View style={{ marginTop: h(0.05), marginBottom: h(0.1) }}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Input
+                  fontSize={14}
+                  variant={"text"}
+                  type="outline"
+                  width={0.78}
+                  textAlign="left"
+                  value={username}
+                  placeholder="Username"
+                  onChangeText={(t) => setUsername(t)}
+                />
+                <Button
+                  onPress={() => {
+                    handleSubmit(username);
+                    setUsername("");
+                    setModalVisible(false);
+                  }}
+                  variant="standard"
+                  height={h(0.07)}
+                  mt={h(0.009)}
+                  width={w(0.78)}
+                  name="Submit"
+                />
+              </View>
+            </View>
+          </Modal>
+          <Image
+            source={empty}
+            style={{ height: h(0.25), width: "100%", resizeMode: "contain" }}
+          />
+          <TouchableOpacity
+            style={{ marginTop: h(0.02) }}
+            onPress={() => setModalVisible(true)}
+          >
+            <AppText
+              color={colors.black70}
+              text={"Instagram not Connected,"}
+              fontSize={15}
+              textAlign={"center"}
+            />
+            <AppText
+              text={"Connect Now."}
+              fontSize={15}
+              textAlign={"center"}
+              textDecorationLine={"underline"}
+              color={colors.chatBlue}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
+    </>
+  );
+};
+
+const YoutubeProfile = ({ user, state, instaData }) => {
+  const navigation = useNavigation();
+  return (
+    <>
+      {user?.userProfile?.isInstaVerified ? (
+        <View style={[global.evenly, { marginTop: h(0.03) }]}>
+          <View>
+            <AppText
+              text={nFormatter(instaData?.followersCount)}
+              fontFamily={"Montserrat_700Bold"}
+              fontSize={23}
+              textAlign="center"
+            />
+            <AppText
+              text={"FOLLOWERS"}
+              fontSize={10}
+              color={"rgba(101, 101, 101, 1)"}
+              textAlign="center"
+            />
+          </View>
+          <View>
+            <AppText
+              text={nFormatter(instaData?.followingsCount)}
+              fontFamily={"Montserrat_700Bold"}
+              fontSize={23}
+              textAlign="center"
+            />
+            <AppText
+              text="FOLLOWINGS"
+              fontSize={10}
+              color={"rgba(101, 101, 101, 1)"}
+              textAlign="center"
+            />
+          </View>
+          <View>
+            <AppText
+              text={user?.userProfile?.totalInstaPosts}
+              fontFamily={"Montserrat_700Bold"}
+              fontSize={23}
+              textAlign="center"
+            />
+            <AppText
+              text="POSTS"
+              fontSize={10}
+              color={"rgba(101, 101, 101, 1)"}
+              textAlign="center"
+            />
+          </View>
+        </View>
+      ) : (
+        <View style={{ marginTop: h(0.05), marginBottom: h(0.1) }}>
+          <Image
+            source={empty}
+            style={{ height: h(0.25), width: "100%", resizeMode: "contain" }}
+          />
+          <TouchableOpacity
+            style={{ marginTop: h(0.02) }}
+            onPress={() => navigation.navigate("InstagramCheck")}
+          >
+            <AppText
+              color={colors.black70}
+              text={"Instagram not Connected,"}
+              fontSize={15}
+              textAlign={"center"}
+            />
+            <AppText
+              text={"Connect Now."}
+              fontSize={15}
+              textAlign={"center"}
+              textDecorationLine={"underline"}
+              color={colors.chatBlue}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
+    </>
+  );
+};
+
+const CommingSoon = () => {
+  return (
+    <View
+      style={[
+        global.center,
+        { width: "100%", height: h(0.2), marginTop: h(0.05) },
+      ]}
+    >
+      <Icon name={commingsoon} size={w(0.5)} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    // margin: 20,
+    width: w(0.8),
+    height: h(0.16),
+    backgroundColor: "white",
+    borderRadius: 20,
+    // padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+});

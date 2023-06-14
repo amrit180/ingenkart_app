@@ -69,24 +69,6 @@ const SingleCampaign = ({ route }) => {
     if (!loading && item) allImage();
   }, [loading]);
 
-  // const isGenderEligible = (current, allowed) => {
-  //   console.log(current, allowed);
-  //   let currentGender = current?.toLowerCase();
-  //   let allowedGender = allowed?.toLowerCase();
-
-  //   if (currentGender === allowedGender) return true;
-  //   if (currentGender === "others" && allowedGender === "others") return true;
-  //   if (allowedGender === "both" && currentGender === "male") return true;
-  //   if (allowedGender === "both" && currentGender === "female") return true;
-  //   if (allowedGender === "male & female" && currentGender === "female")
-  //     return true;
-  //   if (allowedGender === "male & female" && currentGender === "male")
-  //     return true;
-  //   if (allowedGender === "male & female" && currentGender === "others")
-  //     return true;
-  //   return false;
-  // };
-
   const getCampaignData = useCallback(async () => {
     setLoading(true);
     console.log("idparam", params.id);
@@ -734,7 +716,26 @@ const SingleCampaign = ({ route }) => {
               />
             </TouchableOpacity>
 
-            {isGenderEligible(user?.gender, item?.gender) ? (
+            {!user?.userProfile?.isInstaVerified ? (
+              <Button
+                onPress={() => {
+                  dispatch(
+                    setError({
+                      error: true,
+
+                      message: "First add your Social account",
+                      type: "error",
+                    })
+                  );
+                }}
+                variant="standard"
+                height={w(0.12)}
+                width={w(0.7)}
+                name={"Ineligible"}
+                fontSize={14}
+                isLoading={apply}
+              />
+            ) : isGenderEligible(user?.gender, item?.gender) ? (
               <Button
                 onPress={
                   shortlistedInfluencer()

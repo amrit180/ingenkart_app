@@ -134,11 +134,11 @@ const WishlistCard = ({ data, mt, wishlist }) => {
                 <AppText
                   fontFamily={"Poppins_600SemiBold"}
                   text={
-                    data?.campaignName?.length > 18
-                      ? data?.campaignName.substring(0, 18) + "..."
+                    data?.campaignName?.length > 16
+                      ? data?.campaignName.substring(0, 16) + "..."
                       : data?.campaignName
                   }
-                  fontSize={19}
+                  fontSize={17}
                 />
                 <Tags variant="primary" text="New!" ml={w(0.01)} />
               </View>

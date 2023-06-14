@@ -21,13 +21,13 @@ const CreatorCard = ({ data, index, ml, onPress }) => {
       />
       <Avatar
         variant="verifiedUser"
-        avatar={data?.profilePicture?.url}
+        avatar={data?.influencerId?.profilePicture?.url}
         icon={checkIcon}
         isize={0.04}
         size={0.12}
       />
       <AppText
-        text={data?.name}
+        text={data?.influencerId?.name}
         fontFamily={"Poppins_500Medium"}
         fontSize={16}
         ml={w(0.03)}

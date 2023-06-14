@@ -47,6 +47,13 @@ export const getProfile = async (authtoken, userId) => {
     },
   });
 };
+export const getTopCreators = async (authtoken, page) => {
+  return await axios.get(`${API}/user/top-creators-v2?page=${page}&limit=10`, {
+    headers: {
+      authorization: authtoken,
+    },
+  });
+};
 export const closeChat = async (authtoken, connectionId) => {
   return await axios.post(
     `${API}/brand/close-chat`,
@@ -154,6 +161,21 @@ export const addKycBankDetails = async (
       accountNumber,
       ifscCode,
       userId,
+    },
+    {
+      headers: {
+        authorization: authtoken,
+      },
+    }
+  );
+};
+
+export const testinstaUsername = async (username, userId, authtoken) => {
+  return await axios.post(
+    `${API}/user/test-username`,
+    {
+      userId,
+      username,
     },
     {
       headers: {

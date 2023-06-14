@@ -11,8 +11,10 @@ import {
   Campaigns,
   EditCategory,
   EditProfile,
+  InstaVerified,
   KycDocument,
   Kycform,
+  LocationInf,
   MessageScreen,
   Notification,
   PublicBrandProfile,
@@ -20,6 +22,7 @@ import {
   Settings,
   SingleCampaign,
   Story,
+  Subscription,
   UserProfile,
   Wallet,
   Wishlist,
@@ -39,9 +42,11 @@ const InfluencerStack = () => {
       }}
     >
       <Stack.Screen name="BottomTab" component={BottomTab} />
+      <Stack.Screen name="Subscription" component={Subscription} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Story" component={Story} />
       <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen name="InstagramCheck" component={InstaVerified} />
       <Stack.Screen name="Wishlist" component={Wishlist} />
       <Stack.Screen name="UserProfile" component={PublicProfile} />
       <Stack.Screen name="Kycform" component={Kycform} />
@@ -52,6 +57,7 @@ const InfluencerStack = () => {
       <Stack.Screen name="Wallet" component={Wallet} />
       <Stack.Screen name="KycDocument" component={KycDocument} />
       <Stack.Screen name="BankDetails" component={BankDetails} />
+      <Stack.Screen name="Location" component={LocationInf} />
 
       <Stack.Screen
         name="SingleCampaign"

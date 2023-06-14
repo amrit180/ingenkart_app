@@ -42,6 +42,7 @@ const initialState = {
   credits: 0,
   accountType: "basic",
   gender: "",
+  testUsername: "",
   isLoading: true,
 };
 
@@ -64,7 +65,7 @@ export const getAsyncUser = createAsyncThunk(
         role: user.role,
         categories: user?.categories,
         uid: user.uid,
-        name: user.name,
+        name: user.firstName,
         companyName: user.firstName,
         bio: user.about,
         city: user.city,
@@ -76,6 +77,7 @@ export const getAsyncUser = createAsyncThunk(
           reference: user?.profilePicture?.reference,
           url: user?.profilePicture?.url,
         },
+
         isLoading: false,
       };
       let idata = {
@@ -92,7 +94,7 @@ export const getAsyncUser = createAsyncThunk(
         uid: user.uid,
         firstName: user.firstName,
         lastName: user.lastName,
-        name: user.name,
+        name: `${user.firstName} ${user.lastName}`,
         bio: user.about,
         gender: user.userProfile.gender,
         budget: user.userProfile.budget,
@@ -103,10 +105,10 @@ export const getAsyncUser = createAsyncThunk(
           url: user?.profilePicture?.url,
         },
         userProfile: user.userProfile,
-
+        testUsername: user?.testUsername,
         isLoading: false,
       };
-      // console.log(JSON.stringify(data, null, 4));
+
       return user?.role === "brand" ? data : idata;
     } catch {
       return thunkAPI.rejectWithValue("something wait wrong");
@@ -127,6 +129,21 @@ const userSlice = createSlice({
     setDOB: (state, { payload }) => {
       state.DOB = payload.DOB;
     },
+    setTestUsername: (state, { payload }) => {
+      state.testUsername = payload.testUsername;
+    },
+    setGender: (state, { payload }) => {
+      state.gender = payload.gender;
+    },
+    setBudget: (state, { payload }) => {
+      state.budget = payload.budget;
+    },
+    setState: (state, { payload }) => {
+      state.state = payload.state;
+    },
+    setCity: (state, { payload }) => {
+      state.city = payload.city;
+    },
     setFirstName: (state, { payload }) => {
       state.firstName = payload.firstName;
     },
@@ -141,6 +158,9 @@ const userSlice = createSlice({
     },
     setBookmark: (state, { payload }) => {
       state.wishlist = payload.wishlist;
+    },
+    setBarter: (state, { payload }) => {
+      state.barter = payload.barterAvailability;
     },
     setNotifications: (state, { payload }) => {
       state.notification = payload.notification;
@@ -245,10 +265,11 @@ const userSlice = createSlice({
           (state.bio = payload.bio),
           (state.firstName = payload.firstName),
           (state.lastName = payload.lastName),
-          (state.name = payload.name),
+          (state.name = payload.firstName + " " + payload.lastName),
           (state.role = payload.role),
           (state.uid = payload.uid),
           (state.categories = payload.categories),
+          (state.testUsername = payload.testUsername),
           (state.tnc = payload.tnc),
           (state.profilePicture.url = payload.profilePicture.url),
           (state.profilePicture.isDefault = payload.profilePicture.isDefault),
@@ -280,9 +301,15 @@ export const {
   setBookmark,
   setProfilePicture,
   setDOB,
+  setGender,
+  setBudget,
+  setBarter,
+  setTestUsername,
   setCategories,
   setNewNotification,
   setNotifications,
+  setCity,
+  setState,
 } = userSlice.actions;
 
 export default userSlice.reducer;

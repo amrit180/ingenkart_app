@@ -8,7 +8,9 @@ import {
   ICreateBrandProfile,
   ILogoUpload,
   IPersonalInfo,
+  InstaVerified,
   Location,
+  SocialConnect,
 } from "../screens";
 const Stack = createStackNavigator();
 
@@ -28,6 +30,8 @@ const InfluencerAuthStack = () => {
       <Stack.Screen name="PersonalInfo" component={IPersonalInfo} />
       <Stack.Screen name="LogoUpload" component={ILogoUpload} />
       <Stack.Screen name="Location" component={Location} />
+      <Stack.Screen name="InstagramCheck" component={InstaVerified} />
+      <Stack.Screen name="SocialConnect" component={SocialConnect} />
       <Stack.Screen name="ChooseCategory" component={ChooseCategory} />
     </Stack.Navigator>
   );

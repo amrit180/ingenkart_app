@@ -30,7 +30,7 @@ const ProfileHeader = ({ name }) => {
           style={[
             global.start,
             {
-              height: h(0.08),
+              height: h(0.06),
             },
           ]}
         >

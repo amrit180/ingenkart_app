@@ -35,6 +35,7 @@ const SettingBox = ({ user, numElement = 1, data }) => {
         navigation.navigate("EditProfile");
         break;
       case "Your Subscription/get subscription":
+        navigation.navigate("Subscription");
         break;
       case "Wallet":
         navigation.navigate("Wallet");

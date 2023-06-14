@@ -9,29 +9,31 @@ import AppText from "../AppText";
 import Icon from "../Icon";
 import CreatorCard from "../Card/CreatorCard";
 import { useSelector } from "react-redux";
-import { getTopCreatorAPI } from "../../functions/user";
+import { getTopCreators } from "../../functions/user";
 import { useNavigation } from "@react-navigation/native";
 const CreatorBox = () => {
   const { user } = useSelector((state) => ({ ...state }));
   const [data, setData] = useState([]);
   const navigation = useNavigation();
   const page = 1;
-  const limit = 10;
   useEffect(() => {
     if (user) {
       getTopCreator();
     }
   }, [user]);
   const getTopCreator = () => {
-    getTopCreatorAPI(user?.token, page, limit)
+    getTopCreators(user?.token, page)
       .then((res) => {
-        console.log("TOP CREATOR_CREATOR BOX==>", res.data);
+        console.log(
+          "TOP CREATOR_CREATOR BOX==>",
+          res.data.influencers,
+          "hello"
+        );
         setData(res.data.influencers);
-        // console.warn(res.data.influencers[0], "hello");
+        console.warn(res.data.influencers[0], "hello");
       })
       .catch((err) => {
-        console.log("TOP CREATOR ERROR_CREATOR BOX==>", err);
-        // console.warn("hello", err.response.data);
+        console.log("TOP CREATOR ERROR_CREATOR BOX==>", err.response.data);
       });
   };
   return (
@@ -55,10 +57,6 @@ const CreatorBox = () => {
             color={colors.black70}
           />
         </View>
-        {/* <AppText text={JSON.stringify(data)} /> */}
-        {/* <Pressable>
-          <Icon n ame={nextArrow} size={w(0.07)} />
-        </Pressable> */}
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {data?.slice(0, 10).map((v, i) => {
@@ -68,7 +66,9 @@ const CreatorBox = () => {
               key={i}
               index={i}
               ml={i > 0 && w(0.15)}
-              onPress={() => navigation.navigate("UserProfile", { id: v._id })}
+              onPress={() =>
+                navigation.navigate("UserProfile", { id: v?.influencerId?._id })
+              }
             />
           );
         })}

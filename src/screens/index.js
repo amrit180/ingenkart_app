@@ -1,5 +1,6 @@
 import Choose from "./auth/Choose";
 import Location from "./auth/Location";
+import LocationInf from "./influencer/Location";
 import Login from "./auth/Login";
 import CreateBrandProfile from "./auth/brand/CreateBrandProfile";
 import LogoUpload from "./auth/brand/LogoUpload";
@@ -37,9 +38,15 @@ import PublicProfile from "./user/PublicProfile";
 import Kycform from "./user/Kycform";
 import KycDocument from "./user/KycDocument";
 import BankDetails from "./user/BankDetails";
-
+import InstaVerified from "./auth/influencer/InstaVerified";
+import SocialConnect from "./auth/influencer/SocialConnect";
+import Subscription from "./user/Subscription";
 export {
+  Subscription,
+  SocialConnect,
+  InstaVerified,
   Login,
+  LocationInf,
   EditCategory,
   Notification,
   SingleCampaign,

@@ -11,6 +11,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./src/redux/store";
 import { onAuthStateChanged } from "firebase/auth";
 import { db, firebaseAuth } from "./firebase";
+import * as Updates from "expo-updates";
 import {
   useBookmark,
   useCustomFonts,
@@ -60,6 +61,9 @@ const App = () => {
       });
       return () => unsubscribe();
     }, [dispatch]);
+    useEffect(() => {
+      onFetchUpdateAsync();
+    }, []);
 
     if (!MLoaded && !PLoaded && !ILoaded && isLoading) {
       return null;
@@ -72,6 +76,20 @@ const App = () => {
       </NavigationContainer>
     );
   };
+
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      // You can also add an alert() to see the error message in case of an error when fetching updates.
+      alert(`Error fetching latest Expo update: ${error}`);
+    }
+  }
   return (
     <Provider store={store}>
       <MyApp />

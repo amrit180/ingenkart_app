@@ -124,9 +124,6 @@ const PersonalInfo = ({ navigation }) => {
             paddingTop: h(0.03),
           }}
         >
-          {/* <AppText
-              text={JSON.stringify(gender.filter(v => v.name == auth?.gender))}
-            /> */}
           <DropDownGenderAuth
             type="inline"
             data={gender}
@@ -194,21 +191,7 @@ const PersonalInfo = ({ navigation }) => {
               }}
             />
           )}
-          {/* <DatePicker
-            modal
-            mode="date"
-            open={open}
-            date={date}
-            onConfirm={(date) => {
-              setOpen(false);
-              setDate(date);
-              dispatch(setDOB({ DOB: moment(date).format() }));
-              setShowDate(moment(date).format("DD/MM/YYYY"));
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-          /> */}
+
           <View style={{ position: "relative", marginTop: h(0.04) }}>
             <BoxShadow
               height={h(0.07)}

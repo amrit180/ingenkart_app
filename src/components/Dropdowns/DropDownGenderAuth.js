@@ -32,7 +32,7 @@ const DropDownGenderAuth = ({
         height={dropdownheight}
         width={"100%"}
         radius={13}
-        top={h(0.005)}
+        top={h(0.004)}
       />
       <Animated.View
         style={[

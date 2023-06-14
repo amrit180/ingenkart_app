@@ -54,7 +54,7 @@ const SingleCampaignHeader = ({ brandName, brandPic, right = true }) => {
           />
         </View>
         {right ? (
-          <Pressable>
+          <Pressable style={{ width: w(0.09) }}>
             {/* <Icon name={greyshare} size={w(0.09)} /> */}
           </Pressable>
         ) : (

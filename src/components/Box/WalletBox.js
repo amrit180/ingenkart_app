@@ -5,6 +5,7 @@ import Icon from "../Icon";
 import { arrowDown } from "../../container/icons";
 import { w } from "../../config/utilFunction";
 import { global } from "../../styles";
+import { empty } from "../../container/images";
 
 const WalletBox = () => {
   return (
@@ -17,6 +18,7 @@ const WalletBox = () => {
         />
         <Icon name={arrowDown} size={w(0.06)} />
       </View>
+      <Icon name={empty} size={w(0.85)} />
     </View>
   );
 };

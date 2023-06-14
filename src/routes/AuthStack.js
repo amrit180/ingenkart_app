@@ -2,7 +2,7 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from "@react-navigation/stack";
-import { Choose, Login } from "../screens";
+import { Choose, InstaVerified, Login } from "../screens";
 import BrandAuthStack from "./BrandAuthStack";
 import InfluencerAuthStack from "./InfluencerAuthStack";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,6 +47,7 @@ const AuthStack = () => {
       <Stack.Screen name="BrandAuthStack" component={BrandAuthStack} />
       <Stack.Screen name="BrandStack" component={BrandStack} />
       <Stack.Screen name="InfluencerStack" component={InfluencerStack} />
+
       <Stack.Screen
         name="InfluencerAuthStack"
         component={InfluencerAuthStack}

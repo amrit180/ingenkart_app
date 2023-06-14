@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import colors from "../assets/colors";
+import { Pressable } from "react-native";
 
 const Layout = ({ children, bg }) => {
   return (

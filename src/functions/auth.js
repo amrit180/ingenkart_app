@@ -65,3 +65,14 @@ export const getCategories = async () => {
   const { data } = await axios.get(`${API}/admin/category`);
   return data;
 };
+
+export const getAccessToken = async (userId, code, authtoken) => {
+  return await axios.get(
+    `${API}/auth/insta-access-token?userId=${userId}&code=${code}`,
+    {
+      headers: {
+        authorization: authtoken,
+      },
+    }
+  );
+};

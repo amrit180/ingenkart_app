@@ -108,3 +108,37 @@ export const getFilterAPI = async (
     }
   );
 };
+
+export const getInstaPost = async (userId, authtoken) => {
+  return await axios.get(
+    `${API}/influencer/insta-post-details?userId=${userId}`,
+    {
+      headers: {
+        authorization: authtoken,
+      },
+    }
+  );
+};
+
+export const addInstaFollower = async (
+  userId,
+  instaFollowers,
+  instaFollowing,
+  instaProfilePicture,
+  authtoken
+) => {
+  return await axios.post(
+    `${API}/influencer/add-following-count`,
+    {
+      userId,
+      instaFollowers,
+      instaFollowing,
+      instaProfilePicture,
+    },
+    {
+      headers: {
+        authorization: authtoken,
+      },
+    }
+  );
+};

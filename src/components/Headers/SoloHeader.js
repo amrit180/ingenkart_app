@@ -16,7 +16,7 @@ const SoloHeader = ({ title }) => {
       }}
     >
       <AppText fontFamily={"Poppins_600SemiBold"} fontSize={26} text={title} />
-      <Hr alignSelf="center" width={"100%"} borderWidth={0.5} />
+      {/* <Hr alignSelf="center" width={"100%"} borderWidth={0.5} /> */}
     </View>
   );
 };

@@ -16,6 +16,7 @@ import { moveVertical, scaleVertical } from "../../config/animation";
 import Hr from "../Hr";
 import { useDispatch, useSelector } from "react-redux";
 import { setBudget } from "../../redux/authSlice";
+import { setBudget as setBud } from "../../redux/userSlice";
 import AnimatedBoxShadow from "../AnimatedBoxShadow";
 
 const DropDownBudget = ({
@@ -24,6 +25,7 @@ const DropDownBudget = ({
   setSelected,
   type = "standard",
   mt,
+  user = false,
 }) => {
   const dropdownheight = useRef(new Animated.Value(h(0.07))).current;
   const { auth } = useSelector((state) => ({ ...state }));
@@ -96,14 +98,23 @@ const DropDownBudget = ({
                 pos: h(0.07),
               });
               setSelected(v);
-              dispatch(
-                setBudget({
-                  budget: {
-                    min: v.min,
-                    max: v.max,
-                  },
-                })
-              );
+              user
+                ? dispatch(
+                    setBud({
+                      budget: {
+                        min: v.min,
+                        max: v.max,
+                      },
+                    })
+                  )
+                : dispatch(
+                    setBudget({
+                      budget: {
+                        min: v.min,
+                        max: v.max,
+                      },
+                    })
+                  );
             }}
           >
             <View
