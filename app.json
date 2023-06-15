@@ -2,7 +2,7 @@
   "expo": {
     "name": "Ingenkart",
     "slug": "ingenkart",
-    "version": "1.0.6",
+    "version": "1.0.10",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -11,20 +11,24 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "userInterfaceStyle": "light"
     },
     "android": {
       "package": "com.ingenkart",
-      "versionCode": 8,
+      "versionCode": 10,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "userInterfaceStyle": "light"
       },
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -47,6 +51,12 @@
       "eas": {
         "projectId": "ef31dc3d-a10c-46fd-bc36-6275307f4ce9"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ef31dc3d-a10c-46fd-bc36-6275307f4ce9"
     }
   }
 }
