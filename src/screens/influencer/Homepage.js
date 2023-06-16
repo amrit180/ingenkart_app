@@ -112,7 +112,7 @@ const IHomepage = () => {
   };
 
   const getAllCampaigns = () => {
-    getCampaign(user?.token, 1, 5, user?.role, user?._id, user?.categories)
+    getCampaign(user?.token, 1, 4, user?.role, user?._id, user?.categories)
       .then((res) => {
         // console.log("CAMPAIGN INFLUENCER==>", res.data);
         setCampaign(res.data.campaigns);

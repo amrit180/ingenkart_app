@@ -307,7 +307,7 @@ const PublicProfile = ({ route }) => {
                     borderRightColor: colors.black30,
                   }}
                 >
-                  <AppText fontFamily={"Montserrat_600SemiBold"} text="130K" />
+                  <AppText fontFamily={"Montserrat_600SemiBold"} text="-" />
                   <AppText
                     text="Followers"
                     fontSize={8}
@@ -322,10 +322,7 @@ const PublicProfile = ({ route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <AppText
-                    fontFamily={"Montserrat_600SemiBold"}
-                    text={getRandomInteger(75, 99)}
-                  />
+                  <AppText fontFamily={"Montserrat_600SemiBold"} text={"-"} />
                   <AppText
                     text="Success Rate"
                     fontSize={8}

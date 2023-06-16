@@ -35,6 +35,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { mode } from "./src/config/Values";
 
 const App = () => {
   const MyApp = () => {
@@ -62,7 +63,9 @@ const App = () => {
       return () => unsubscribe();
     }, [dispatch]);
     useEffect(() => {
-      onFetchUpdateAsync();
+      if (mode === "PROD") {
+        onFetchUpdateAsync();
+      }
     }, []);
 
     if (!MLoaded && !PLoaded && !ILoaded && isLoading) {
