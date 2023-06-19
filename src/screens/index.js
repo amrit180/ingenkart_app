@@ -41,6 +41,7 @@ import BankDetails from "./user/BankDetails";
 import InstaVerified from "./auth/influencer/InstaVerified";
 import SocialConnect from "./auth/influencer/SocialConnect";
 import Subscription from "./user/Subscription";
+import InstaProfile from "./brand/InstaProfile";
 export {
   Subscription,
   SocialConnect,
@@ -85,4 +86,5 @@ export {
   KycDocument,
   Kycform,
   BankDetails,
+  InstaProfile,
 };

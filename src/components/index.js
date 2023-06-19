@@ -66,6 +66,7 @@ import ChatInfoSheet from "./BottomSheet/ChatInfoSheet";
 import EditorChoiceCard from "./Card/EditorChoiceCard";
 import CampaignSegment from "./Segment/CampaignSegment";
 import DropDownInfo from "./Dropdowns/DropDownInfo";
+import HomepageLoader from "./Loader/HomepageLoader";
 
 export {
   AnimatedBoxShadow,
@@ -136,4 +137,5 @@ export {
   EditorChoiceCard,
   CampaignSegment,
   DropDownInfo,
+  HomepageLoader,
 };

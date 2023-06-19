@@ -32,11 +32,24 @@ const Wishlist = () => {
       <ScrollView>
         <View style={{ paddingHorizontal: w(0.05), paddingTop: h(0.01) }}>
           {user?.wishlist?.length == 0 ? (
-            <Image
-              source={empty}
-              style={{ height: 200, width: "100%", marginTop: h(0.05) }}
-              resizeMode="contain"
-            />
+            <View
+              style={{
+                width: "100%",
+                height: h(0.75),
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                source={empty}
+                style={{
+                  height: 200,
+                  width: "100%",
+                  marginTop: h(0.05),
+                }}
+                resizeMode="contain"
+              />
+            </View>
           ) : (
             user?.wishlist?.map((c, i) => (
               <WishlistCard

@@ -7,14 +7,15 @@ const Hr = ({ width, height, borderWidth, alignSelf, mv, mr, mb, mt }) => {
     <View
       style={{
         width,
-        height,
+        height: height || 0,
         borderColor: colors.black10,
-        borderWidth: borderWidth,
+        borderBottomWidth: borderWidth,
         alignSelf: alignSelf || "center",
         marginRight: mr || 0,
         marginBottom: mb || 0,
         marginTop: mt || 0,
         marginVertical: mv || 0,
+        borderRadius: 10,
       }}
     />
   );

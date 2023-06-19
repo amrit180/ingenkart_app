@@ -106,7 +106,7 @@ export const getAsyncUser = createAsyncThunk(
         },
         userProfile: user.userProfile,
         testUsername: user?.testUsername,
-        isLoading: false,
+        isLoading: true,
       };
 
       return user?.role === "brand" ? data : idata;

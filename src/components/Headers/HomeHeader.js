@@ -22,19 +22,31 @@ const HomeHeader = () => {
       style={[
         global.between,
         {
-          height: h(0.07),
+          height: h(0.073),
           backgroundColor: colors.white,
           paddingHorizontal: w(0.05),
-          marginBottom: 1,
+          position: "relative",
+          elevation: 2,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.03,
+          shadowRadius: 1.41,
+          borderBottomColor: "rgba(0,0,0,0.07)",
+          borderBottomWidth: 0.5,
+          zIndex: 1,
         },
       ]}
     >
-      <Icon name={fulllogo} height={h(0.03)} width={w(0.3)} />
+      <Icon name={fulllogo} height={h(0.025)} width={w(0.25)} />
+
       <View
         style={[
           global.between,
           {
-            width: user?.role === "brand" ? w(0.2) : w(0.3),
+            width: user?.role === "brand" ? w(0.2) : w(0.33),
           },
         ]}
       >
@@ -61,8 +73,8 @@ const HomeHeader = () => {
           <Image
             source={{ uri: user?.profilePicture?.url }}
             style={{
-              height: h(0.05),
-              width: h(0.05),
+              height: h(0.045),
+              width: h(0.045),
               borderRadius: 100,
             }}
             resizeMode="cover"

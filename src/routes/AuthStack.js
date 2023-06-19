@@ -8,23 +8,15 @@ import InfluencerAuthStack from "./InfluencerAuthStack";
 import { useDispatch, useSelector } from "react-redux";
 import InfluencerStack from "./InfluencerStack";
 import BrandStack from "./BrandStack";
-import { setNewNotification, setNotifications } from "../redux/userSlice";
-import {
-  collection,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
-import { db } from "../../firebase";
-import { useEffect } from "react";
+import { HomepageLoader } from "../components";
 
 const Stack = createStackNavigator();
 const AuthStack = () => {
   const { user } = useSelector((s) => ({ ...s }));
 
-  return user?.isLoading ? null : (
+  return user?.isLoading ? (
+    <HomepageLoader />
+  ) : (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,

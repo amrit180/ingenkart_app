@@ -78,12 +78,20 @@ const Notification = () => {
             renderItem={renderItem}
           />
         ) : (
-          // <></>
-          <Image
-            source={empty}
-            style={{ height: 300, width: "100%" }}
-            resizeMode="contain"
-          />
+          <View
+            style={{
+              width: "100%",
+              height: h(0.75),
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={empty}
+              style={{ height: 200, width: "100%", resizeMode: "contain" }}
+              resizeMode="contain"
+            />
+          </View>
         )}
       </View>
     </Layout>

@@ -27,7 +27,18 @@ const StackHomeHeader = ({ name, noback }) => {
           height: h(0.07),
           backgroundColor: colors.white,
           paddingHorizontal: w(0.05),
-          marginBottom: 1,
+
+          elevation: 2,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.03,
+          shadowRadius: 1.41,
+          borderBottomColor: "rgba(0,0,0,0.07)",
+          borderBottomWidth: 0.5,
+          zIndex: 1,
         },
       ]}
     >
@@ -48,7 +59,7 @@ const StackHomeHeader = ({ name, noback }) => {
         style={[
           global.between,
           {
-            width: user?.role === "brand" ? w(0.2) : w(0.3),
+            width: user?.role === "brand" ? w(0.2) : w(0.33),
           },
         ]}
       >

@@ -167,7 +167,7 @@ const IHomepage = () => {
         {/* <Text>{JSON.stringify(storyData)} </Text> */}
         <Pressable>
           <StoryBox data={storyData} />
-          <Hr alignSelf="center" width={"90%"} borderWidth={0.5} />
+          <Hr alignSelf="center" width={"90%"} borderWidth={1.6} />
           <DiscoverBox data={editorChoiceCampaigns} squareCardData={campaign} />
           <CreatorBox data={TopCreator} />
           <Hr alignSelf="center" width={"90%"} borderWidth={0.8} />

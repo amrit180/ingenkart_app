@@ -36,6 +36,7 @@ import {
   where,
 } from "firebase/firestore";
 import { mode } from "./src/config/Values";
+import CampaignLoader from "./src/components/Loader/CampaignLoader";
 
 const App = () => {
   const MyApp = () => {
@@ -77,6 +78,7 @@ const App = () => {
         {err.error && <Error text={err.message} />}
         <StatusBar backgroundColor="white" style={"dark"} translucent={false} />
       </NavigationContainer>
+      // <CampaignLoader />
     );
   };
 
