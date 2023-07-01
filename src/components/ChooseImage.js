@@ -80,7 +80,7 @@ const ChooseImage = ({
             text={text}
             fontFamily={txtcolor ? "Poppins_400Regular" : "Poppins_600SemiBold"}
             color={txtcolor}
-            fontSize={ft || 14}
+            fontSize={ft || 12}
             top={txttop}
           />
         </View>

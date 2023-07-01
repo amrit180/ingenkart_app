@@ -16,7 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import AppText from "../AppText";
 
 const StackHomeHeader = ({ name, noback }) => {
-  const { user } = useSelector((state) => ({ ...state }));
+  const user = useSelector((state) => state.user);
   const navigation = useNavigation();
 
   return (
@@ -42,7 +42,7 @@ const StackHomeHeader = ({ name, noback }) => {
         },
       ]}
     >
-      <View style={global.start}>
+      <View style={[global.start, { height: "100%" }]}>
         {!noback && (
           <Pressable onPress={() => navigation.goBack()}>
             <Icon name={backArrow} size={w(0.1)} />
@@ -51,8 +51,9 @@ const StackHomeHeader = ({ name, noback }) => {
         <AppText
           text={name}
           fontFamily={"Poppins_600SemiBold"}
-          fontSize={24}
+          fontSize={20}
           ml={!noback ? w(0.03) : 0}
+          mt={h(0.005)}
         />
       </View>
       <View
@@ -60,6 +61,8 @@ const StackHomeHeader = ({ name, noback }) => {
           global.between,
           {
             width: user?.role === "brand" ? w(0.2) : w(0.33),
+
+            height: "100%",
           },
         ]}
       >
@@ -90,8 +93,8 @@ const StackHomeHeader = ({ name, noback }) => {
           <Image
             source={{ uri: user?.profilePicture?.url }}
             style={{
-              height: h(0.05),
-              width: h(0.05),
+              height: h(0.045),
+              width: h(0.045),
               borderRadius: 100,
             }}
             resizeMode="cover"

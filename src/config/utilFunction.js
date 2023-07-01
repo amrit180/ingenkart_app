@@ -1,6 +1,9 @@
 import moment from "moment/moment";
-import { Dimensions, PixelRatio, Platform } from "react-native";
+import { Dimensions, PixelRatio, Platform, ToastAndroid } from "react-native";
+import { WEB_API_KEY } from "./Values";
+import axios from "axios";
 const { height, width, fontScale } = Dimensions.get("window");
+
 export const REF_HEIGHT = 850.2189307543382;
 
 export const calTime = (time) => {
@@ -46,8 +49,14 @@ export const w = (val) => {
   return val * width;
 };
 
-export function fs(fontSize) {
-  return fontSize / fontScale;
+export function fs(size) {
+  // const widthBaseScale = width / 414;
+  // const heightBaseScale = height / 896;
+  // const newSize =
+  //   based === "height" ? size * heightBaseScale : size * widthBaseScale;
+  // return Math.round(PixelRatio.roundToNearestPixel(newSize));
+
+  return size / fontScale;
 }
 
 export const nFormatter = (num) => {
@@ -185,3 +194,33 @@ export const isGenderEligible = (text, newText) => {
 //     return true;
 //   return false;
 // };
+
+export const shareDeepLink = async (cimage, cname, cdesc) => {
+  const payload = {
+    dynamicLinkInfo: {
+      domainUriPrefix: "https://ingenkart.in/share",
+      link: "https://ingenkart.com",
+      androidInfo: {
+        androidPackageName: "com.ingenkart",
+      },
+      socialMetaTagInfo: {
+        socialTitle: cname,
+        socialDescription: cdesc,
+        socialImageLink: cimage,
+      },
+    },
+  };
+  try {
+    const url = `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${WEB_API_KEY}`;
+    const response = await axios.post(url, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data.shortLink;
+  } catch (error) {
+    console.log(error.response.data);
+  }
+};
+// exp://192.168.1.6:19000?campaign/645f3eb1abe6e838f16de851

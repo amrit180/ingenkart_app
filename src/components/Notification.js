@@ -24,8 +24,8 @@ const NotiComp = ({ variant, data, onPress }) => {
           <Avatar
             variant="verifiedUser"
             icon={checkIcon}
-            isize={0.04}
-            size={0.12}
+            isize={0.055}
+            size={0.11}
             avatar={data.campaign.banner}
           />
           <View style={{ marginLeft: w(0.02) }}>
@@ -33,16 +33,18 @@ const NotiComp = ({ variant, data, onPress }) => {
               <AppText
                 text="You have been shortlisted for "
                 color={colors.notiColorGray}
+                fontSize={12}
               />
               <AppText
                 fontFamily={"Poppins_600SemiBold"}
                 text={data.campaign.name.substr(0, 15) + "..."}
+                fontSize={12}
               />
             </View>
             <AppText
               text={calTime(data.timeStamps)}
               color={colors.black30}
-              fontSize={13}
+              fontSize={10}
             />
           </View>
         </View>
@@ -64,8 +66,8 @@ const NotiComp = ({ variant, data, onPress }) => {
           <Avatar
             variant="verifiedUser"
             icon={checkIcon}
-            isize={0.04}
-            size={0.12}
+            isize={0.055}
+            size={0.11}
             avatar={data.campaign.banner}
           />
           <View
@@ -82,20 +84,26 @@ const NotiComp = ({ variant, data, onPress }) => {
                 flexWrap: "wrap",
               }}
             >
-              <AppText text="Your request for " color={colors.notiColorGray} />
+              <AppText
+                text="Your request for "
+                color={colors.notiColorGray}
+                fontSize={12}
+              />
               <AppText
                 fontFamily={"Poppins_600SemiBold"}
                 text={data.campaign.name.substr(0, 20) + "..."}
+                fontSize={12}
               />
               <AppText
                 text=" has been rejected "
                 color={colors.notiColorGray}
+                fontSize={12}
               />
             </View>
             <AppText
               text={calTime(data.timeStamps)}
               color={colors.black30}
-              fontSize={13}
+              fontSize={10}
             />
           </View>
         </View>
@@ -117,8 +125,8 @@ const NotiComp = ({ variant, data, onPress }) => {
           <Avatar
             variant="verifiedUser"
             icon={checkIcon}
-            isize={0.04}
-            size={0.12}
+            isize={0.055}
+            size={0.11}
             avatar={data.brand.image}
           />
           <View
@@ -168,8 +176,8 @@ const NotiComp = ({ variant, data, onPress }) => {
           <Avatar
             variant="verifiedUser"
             icon={checkIcon}
-            isize={0.04}
-            size={0.12}
+            isize={0.055}
+            size={0.11}
             avatar={data.user.profilePicture}
           />
           <View
@@ -187,16 +195,18 @@ const NotiComp = ({ variant, data, onPress }) => {
               <AppText
                 text="An influencer connected to campaign"
                 color={colors.notiColorGray}
+                fontSize={12}
               />
               <AppText
                 fontFamily={"Poppins_600SemiBold"}
                 text={data.user.name}
+                fontSize={12}
               />
             </View>
             <AppText
               text={calTime(data.timeStamps)}
               color={colors.black30}
-              fontSize={13}
+              fontSize={10}
             />
           </View>
         </TouchableOpacity>
@@ -217,8 +227,8 @@ const NotiComp = ({ variant, data, onPress }) => {
           <Avatar
             variant="verifiedUser"
             icon={checkIcon}
-            isize={0.04}
-            size={0.12}
+            isize={0.055}
+            size={0.11}
             avatar={
               "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg"
             }
@@ -238,16 +248,18 @@ const NotiComp = ({ variant, data, onPress }) => {
               <AppText
                 text="You received your token payment of "
                 color={colors.notiColorGray}
+                fontSize={12}
               />
               <AppText
                 fontFamily={"Poppins_600SemiBold"}
-                text={"₹" + data.amount}
+                text={"₹" + data.paymentAmount}
+                fontSize={12}
               />
             </View>
             <AppText
-              text={calTime(data.createdAt)}
+              text={calTime(data.timeStamps)}
               color={colors.black30}
-              fontSize={13}
+              fontSize={10}
             />
           </View>
         </View>

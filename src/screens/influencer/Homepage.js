@@ -8,10 +8,12 @@ import {
 } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import {
+  AppText,
   CampaignBox,
   CreatorBox,
   DiscoverBox,
   HomeHeader,
+  HomepageLoader,
   Hr,
   Layout,
   StoryBox,
@@ -40,6 +42,7 @@ const IHomepage = () => {
   const [campaign, setCampaign] = useState([]);
   const [appliedCampaign, setAppliedCampaign] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [joinedCampaign, setJoinedCampaign] = useState([]);
   const [editorChoiceCampaigns, setEditorChoiceCampaigns] = useState([]);
   const [storyData, setStoryData] = useState([]);
@@ -102,6 +105,7 @@ const IHomepage = () => {
     getStoryAPI(user?.token)
       .then((res) => {
         // console.log("STORY DATA SUCCESS==>", res.data);
+
         setStoryData(res.data?.stories);
         setRefreshing(false);
       })
@@ -117,6 +121,7 @@ const IHomepage = () => {
         // console.log("CAMPAIGN INFLUENCER==>", res.data);
         setCampaign(res.data.campaigns);
         setRefreshing(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("ERROR IN FETCHING CAMPAIGN==>", err.response.data);
@@ -153,32 +158,39 @@ const IHomepage = () => {
     getAllStories();
   }, []);
 
-  return (
-    <Layout>
-      <HomeHeader />
-      <StatusBar barStyle={"dark-content"} backgroundColor={colors.white} />
-      <ScrollView
-        style={{ backgroundColor: colors.white }}
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        {/* <Text>{JSON.stringify(storyData)} </Text> */}
-        <Pressable>
-          <StoryBox data={storyData} />
-          <Hr alignSelf="center" width={"90%"} borderWidth={1.6} />
-          <DiscoverBox data={editorChoiceCampaigns} squareCardData={campaign} />
-          <CreatorBox data={TopCreator} />
-          <Hr alignSelf="center" width={"90%"} borderWidth={0.8} />
-          <CampaignBox
-            data={joinedCampaign.concat(appliedCampaign)}
-            mv={h(0.015)}
-          />
-        </Pressable>
-      </ScrollView>
-    </Layout>
-  );
+  if (loading) {
+    return <HomepageLoader />;
+  } else {
+    return (
+      <Layout>
+        <HomeHeader />
+        <StatusBar barStyle={"dark-content"} backgroundColor={colors.white} />
+        <ScrollView
+          style={{ backgroundColor: colors.white }}
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
+          {/* <Text>{JSON.stringify(storyData)} </Text> */}
+          <Pressable>
+            <StoryBox data={storyData} />
+            <Hr alignSelf="center" width={"90%"} borderWidth={1.6} />
+            <DiscoverBox
+              data={editorChoiceCampaigns}
+              squareCardData={campaign}
+            />
+            <CreatorBox data={TopCreator} />
+            <Hr alignSelf="center" width={"90%"} borderWidth={1.6} />
+            <CampaignBox
+              data={joinedCampaign.concat(appliedCampaign)}
+              mv={h(0.025)}
+            />
+          </Pressable>
+        </ScrollView>
+      </Layout>
+    );
+  }
 };
 
 export default IHomepage;

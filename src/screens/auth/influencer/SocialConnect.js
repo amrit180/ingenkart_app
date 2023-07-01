@@ -34,12 +34,12 @@ const SocialConnect = () => {
         <AuthHeader index={routesLength} progress={0.7} />
         <AppText
           fontFamily={"Poppins_600SemiBold"}
-          fontSize={26}
+          fontSize={24}
           text="Connect Socials"
           mt={h(0.025)}
         />
         <AppText
-          fontSize={13}
+          fontSize={11}
           text="By authenticating your social accounts, you'll get more your chance of being invited by brands to participate in Multiple Campaigns"
           color={colors.black50}
           mt={h(0.01)}
@@ -64,7 +64,7 @@ const SocialConnect = () => {
           >
             <View style={[global.start]}>
               <Icon name={instagram} size={w(0.1)} />
-              <AppText text={"Instagram"} fontSize={15} ml={w(0.02)} />
+              <AppText text={"Instagram"} fontSize={13} ml={w(0.02)} />
             </View>
             <Icon name={rightarrow} size={w(0.07)} />
           </View>
@@ -94,7 +94,7 @@ const SocialConnect = () => {
           >
             <View style={[global.start]}>
               <Icon name={youtube} size={w(0.1)} />
-              <AppText text={"YouTube"} fontSize={15} ml={w(0.02)} />
+              <AppText text={"YouTube"} fontSize={13} ml={w(0.02)} />
             </View>
             <Icon name={rightarrow} size={w(0.07)} />
           </View>

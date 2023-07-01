@@ -106,12 +106,12 @@ const PersonalInfo = ({ navigation }) => {
         <AuthHeader index={2} progress={0.4} />
         <AppText
           fontFamily={"Poppins_600SemiBold"}
-          fontSize={26}
+          fontSize={24}
           text="Personal info"
           mt={h(0.025)}
         />
         <AppText
-          fontSize={13}
+          fontSize={11}
           text="By providing this information, you enable us to tailor your influencer journey."
           color={colors.black50}
           mt={h(0.01)}
@@ -162,7 +162,7 @@ const PersonalInfo = ({ navigation }) => {
               <AppText
                 text={"Barter: " + `${auth?.barterAvailability ? "Yes" : "No"}`}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={15}
+                fontSize={13}
               />
               <Switch
                 trackColor={{
@@ -229,7 +229,7 @@ const PersonalInfo = ({ navigation }) => {
                     textAlign={"center"}
                     text="DOB"
                     fontFamily={"Montserrat_500Medium"}
-                    fontSize={12}
+                    fontSize={10}
                     color={colors.black}
                   />
                 </View>
@@ -237,7 +237,7 @@ const PersonalInfo = ({ navigation }) => {
               <AppText
                 text={`${auth?.DOB === "" ? "DOB" : showDate}`}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={15}
+                fontSize={13}
               />
 
               <Icon name={calender} size={w(0.05)} />
@@ -280,7 +280,7 @@ const PersonalInfo = ({ navigation }) => {
                     textAlign={"center"}
                     text="Location"
                     fontFamily={"Montserrat_500Medium"}
-                    fontSize={12}
+                    fontSize={10}
                     color={colors.black}
                   />
                 </View>
@@ -292,7 +292,7 @@ const PersonalInfo = ({ navigation }) => {
                     : auth?.state + ", " + auth?.city
                 }`}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={15}
+                fontSize={13}
               />
 
               <Icon name={locationblack} size={w(0.05)} />

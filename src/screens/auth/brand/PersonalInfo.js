@@ -91,12 +91,12 @@ const PersonalInfo = ({ navigation }) => {
             <AuthHeader index={2} progress={0.4} />
             <AppText
               fontFamily={"Poppins_600SemiBold"}
-              fontSize={26}
+              fontSize={24}
               text="Personal info"
               mt={h(0.025)}
             />
             <AppText
-              fontSize={13}
+              fontSize={11}
               text="By providing this information, you enable us understand your Brand Identity"
               color={colors.black50}
               mt={h(0.01)}
@@ -125,7 +125,7 @@ const PersonalInfo = ({ navigation }) => {
                 }
                 width={0.85}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={16}
+                fontSize={15}
                 maxLength={100}
                 textAlign="left"
                 error={auth?.error && !auth?.website?.match(urlFormat)}
@@ -147,7 +147,7 @@ const PersonalInfo = ({ navigation }) => {
                 }
                 width={0.85}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={16}
+                fontSize={14}
                 maxLength={100}
                 textAlign="left"
                 error={auth?.error && !auth?.instagramUrl?.match(urlFormat)}
@@ -169,7 +169,7 @@ const PersonalInfo = ({ navigation }) => {
                 }
                 width={0.85}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={16}
+                fontSize={14}
                 maxLength={100}
                 textAlign="left"
                 error={auth?.error && !auth?.linkedinUrl?.match(urlFormat)}
@@ -213,7 +213,7 @@ const PersonalInfo = ({ navigation }) => {
                         textAlign={"center"}
                         text="Location"
                         fontFamily={"Montserrat_500Medium"}
-                        fontSize={12}
+                        fontSize={10}
                         color={colors.black}
                       />
                     </View>
@@ -225,7 +225,7 @@ const PersonalInfo = ({ navigation }) => {
                         : auth?.state + ", " + auth?.city
                     }`}
                     fontFamily={"Montserrat_500Medium"}
-                    fontSize={15}
+                    fontSize={13}
                   />
 
                   <Icon name={locationblack} size={w(0.05)} />

@@ -25,49 +25,6 @@ import { searchInfluencerAPI } from "../../functions/brand";
 import { useSelector } from "react-redux";
 import { empty } from "../../container/images";
 
-const exploreData = [
-  {
-    id: 1,
-    name: "Jennifer Lawrence",
-    image_url:
-      "https://assets.vogue.com/photos/630f657b8e0c1404123ba66d/master/pass/VO1022_Cover_Logo.jpg",
-    location: "Mumbai",
-    barter: "",
-    followers: "",
-    socialMedia: ["youtube", "instagram", "facebook"],
-  },
-  {
-    id: 2,
-    name: "Emma Stone",
-    location: "Mumbai",
-    barter: "",
-    followers: "",
-    socialMedia: ["instagram", "facebook"],
-    image_url:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Emma_Stone_at_the_39th_Mill_Valley_Film_Festival_%28cropped%29.jpg/220px-Emma_Stone_at_the_39th_Mill_Valley_Film_Festival_%28cropped%29.jpg",
-  },
-  {
-    id: 3,
-    name: "Gal Gadot",
-    location: "Kolkata",
-    barter: "",
-    followers: "",
-    socialMedia: ["youtube", "facebook"],
-    image_url:
-      "https://m.media-amazon.com/images/M/MV5BNzgxYTA2OTUtYmE0ZC00ZTc0LWJjY2QtOTIzMTJhNGUyZjBlXkEyXkFqcGdeQXVyMTg4NDI0NDM@._V1_.jpg",
-  },
-  {
-    id: 4,
-    name: "Scarlett Johansson",
-    location: "Delhi",
-    barter: "",
-    followers: "",
-    socialMedia: ["instagram"],
-    image_url:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg/220px-Scarlett_Johansson_by_Gage_Skidmore_2_%28cropped%29.jpg",
-  },
-];
-
 const Discover = ({ route }) => {
   const item = route.params;
   const childref = useRef(null);
@@ -154,7 +111,7 @@ const Discover = ({ route }) => {
       <View
         style={{ height: "100%", width: "100%", backgroundColor: colors.appbg }}
       >
-        <StackHomeHeader noback={true} name="Discover" />
+        <StackHomeHeader noback={true} name="Discover" user={user} />
         <ScrollView>
           <View
             style={{

@@ -13,7 +13,7 @@ const Tags = ({ variant, ml, text }) => {
             backgroundColor: "rgba(255, 99, 99, .1)",
             borderRadius: 100,
             paddingHorizontal: w(0.02),
-            height: h(0.022),
+            height: h(0.02),
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -21,7 +21,7 @@ const Tags = ({ variant, ml, text }) => {
           <AppText
             text={text}
             fontFamily={"Montserrat_700Bold"}
-            fontSize={11}
+            fontSize={10}
             color="rgba(255, 99, 99, 1)"
           />
         </View>

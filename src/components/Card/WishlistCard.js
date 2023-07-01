@@ -119,7 +119,7 @@ const WishlistCard = ({ data, mt, wishlist }) => {
               style={{
                 marginLeft: w(0.02),
                 width: "90%",
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 alignItems: "flex-start",
               }}
             >
@@ -129,6 +129,7 @@ const WishlistCard = ({ data, mt, wishlist }) => {
                   flexWrap: "wrap",
                   justifyContent: "flex-start",
                   alignItems: "center",
+                  marginBottom: -h(0.005),
                 }}
               >
                 <AppText
@@ -138,14 +139,14 @@ const WishlistCard = ({ data, mt, wishlist }) => {
                       ? data?.campaignName.substring(0, 16) + "..."
                       : data?.campaignName
                   }
-                  fontSize={17}
+                  fontSize={15}
                 />
                 <Tags variant="primary" text="New!" ml={w(0.01)} />
               </View>
               <AppText
                 text={calTime(data?.createdAt)}
                 color={colors.black30}
-                fontSize={13}
+                fontSize={11}
               />
             </View>
           </View>
@@ -160,7 +161,7 @@ const WishlistCard = ({ data, mt, wishlist }) => {
                 borderRightWidth: 1,
               }}
             >
-              <Icon name={users} size={w(0.05)} />
+              <Icon name={users} size={w(0.045)} />
               <AppText
                 fontFamily={"Montserrat_500Medium"}
                 text={
@@ -169,6 +170,7 @@ const WishlistCard = ({ data, mt, wishlist }) => {
                   nFormatter(data?.followersRange?.max)
                 }
                 ml={w(0.01)}
+                fontSize={13}
               />
             </View>
             <TouchableOpacity
@@ -188,11 +190,12 @@ const WishlistCard = ({ data, mt, wishlist }) => {
                 borderRightWidth: 1,
               }}
             >
-              <Icon name={apply} size={w(0.05)} />
+              <Icon name={apply} size={w(0.041)} />
               <AppText
                 fontFamily={"Montserrat_500Medium"}
                 text={data?.brand?._id === user?._id ? "View Now" : "Apply Now"}
                 ml={w(0.01)}
+                fontSize={13}
               />
             </TouchableOpacity>
           </View>

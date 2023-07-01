@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Pressable } from "react-native";
+import { View, Text, ScrollView, Pressable, Platform } from "react-native";
 import React, { useState, useEffect } from "react";
 
 import { h, w } from "../../config/utilFunction";
@@ -24,41 +24,40 @@ const CreatorBox = () => {
   const getTopCreator = () => {
     getTopCreators(user?.token, page)
       .then((res) => {
-        console.log(
-          "TOP CREATOR_CREATOR BOX==>",
-          res.data.influencers,
-          "hello"
-        );
         setData(res.data.influencers);
-        console.warn(res.data.influencers[0], "hello");
       })
       .catch((err) => {
         console.log("TOP CREATOR ERROR_CREATOR BOX==>", err.response.data);
       });
   };
   return (
-    <View
+    <Pressable
       style={{
         backgroundColor: colors.white,
         paddingVertical: h(0.03),
         paddingHorizontal: w(0.05),
       }}
     >
-      <View style={[global.between, { marginBottom: h(0.03) }]}>
+      <Pressable style={[global.between, { marginBottom: h(0.03) }]}>
         <View>
           <AppText
             fontFamily={"Poppins_600SemiBold"}
-            fontSize={26}
+            fontSize={24}
             text="Top Creators"
+            mb={Platform.OS === "ios" ? 0 : -7}
           />
           <AppText
-            fontSize={13}
+            fontSize={12}
             text="These were top creators of the week"
             color={colors.black70}
           />
         </View>
-      </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      </Pressable>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{ height: h(0.1) }}
+      >
         {data?.slice(0, 10).map((v, i) => {
           return (
             <CreatorCard
@@ -73,7 +72,7 @@ const CreatorBox = () => {
           );
         })}
       </ScrollView>
-    </View>
+    </Pressable>
   );
 };
 

@@ -130,7 +130,7 @@ const SquareCard = ({ data, wishlist, mt, onPress }) => {
                     ? data?.campaignName.substring(0, 10) + "..."
                     : data?.campaignName
                 }
-                fontSize={16}
+                fontSize={14}
                 color={colors.white}
               />
             </View>

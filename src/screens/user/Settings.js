@@ -1,4 +1,4 @@
-import { View, ScrollView, Image } from "react-native";
+import { View, ScrollView, Image, Pressable } from "react-native";
 import React from "react";
 import { Layout, SettingBox, SoloHeader } from "../../components";
 import colors from "../../assets/colors";
@@ -97,52 +97,57 @@ const Settings = () => {
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: w(0.05),
+          paddingTop: h(0.03),
         }}
         showsVerticalScrollIndicator={false}
       >
-        {user?.role === "brand" ? (
+        <Pressable>
+          {user?.role === "brand" ? (
+            <SettingBox
+              height={h(0.28)}
+              numElement={2.8}
+              user={user}
+              data={data?.filter((v) => v.name === "Edit your account")}
+            />
+          ) : (
+            <SettingBox
+              height={h(0.28)}
+              numElement={3.5}
+              user={user}
+              data={data?.filter((v) => v.category === "account")}
+            />
+          )}
           <SettingBox
             height={h(0.28)}
-            numElement={2.8}
-            user={user}
-            data={data?.filter((v) => v.name === "Edit your account")}
+            numElement={data?.filter((v) => v.category === "money")?.length}
+            data={data?.filter((v) => v.category === "money")}
           />
-        ) : (
+          {user?.role === "influencer" && (
+            <SettingBox
+              height={h(0.28)}
+              numElement={
+                data?.filter((v) => v.category === "campaign")?.length
+              }
+              data={data?.filter((v) => v.category === "campaign")}
+            />
+          )}
           <SettingBox
             height={h(0.28)}
-            numElement={4}
-            user={user}
-            data={data?.filter((v) => v.category === "account")}
+            numElement={data?.filter((v) => v.category === "user")?.length}
+            data={data?.filter((v) => v.category === "user")}
           />
-        )}
-        <SettingBox
-          height={h(0.28)}
-          numElement={data?.filter((v) => v.category === "money")?.length}
-          data={data?.filter((v) => v.category === "money")}
-        />
-        {user?.role === "influencer" && (
-          <SettingBox
-            height={h(0.28)}
-            numElement={data?.filter((v) => v.category === "campaign")?.length}
-            data={data?.filter((v) => v.category === "campaign")}
+          <Image
+            source={fulllogo}
+            style={{
+              width: 200,
+              height: 30,
+              alignSelf: "center",
+              marginBottom: h(0.06),
+              marginTop: h(0.02),
+            }}
+            resizeMode="contain"
           />
-        )}
-        <SettingBox
-          height={h(0.28)}
-          numElement={data?.filter((v) => v.category === "user")?.length}
-          data={data?.filter((v) => v.category === "user")}
-        />
-        <Image
-          source={fulllogo}
-          style={{
-            width: 200,
-            height: 30,
-            alignSelf: "center",
-            marginBottom: h(0.06),
-            marginTop: h(0.02),
-          }}
-          resizeMode="contain"
-        />
+        </Pressable>
       </ScrollView>
     </Layout>
   );

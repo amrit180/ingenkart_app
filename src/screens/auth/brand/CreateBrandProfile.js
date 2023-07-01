@@ -123,12 +123,12 @@ const CreateBrandProfile = ({ navigation }) => {
             <AuthHeader index={2} progress={0.2} />
             <AppText
               fontFamily={"Poppins_600SemiBold"}
-              fontSize={26}
+              fontSize={24}
               text="Create your profile"
               mt={h(0.025)}
             />
             <AppText
-              fontSize={13}
+              fontSize={11}
               text="Creating your profile is the first step towards unlocking a world of exciting opportunities. By completing your profile, you can showcase your unique talents and attract brands for you."
               color={colors.black50}
               mt={h(0.01)}
@@ -151,7 +151,7 @@ const CreateBrandProfile = ({ navigation }) => {
                 mb={auth?.error && auth?.companyName.length < 3 ? 0 : h(0.03)}
                 width={0.85}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={16}
+                fontSize={13}
                 maxLength={100}
                 textAlign="left"
                 error={auth?.error && auth?.companyName.length < 3}
@@ -167,7 +167,7 @@ const CreateBrandProfile = ({ navigation }) => {
                 mb={auth?.error && auth?.tagLine.length < 3 ? 0 : h(0.03)}
                 width={0.85}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={16}
+                fontSize={13}
                 maxLength={100}
                 textAlign="left"
                 error={auth?.error && auth?.tagLine.length < 3}
@@ -186,7 +186,7 @@ const CreateBrandProfile = ({ navigation }) => {
                 width={0.85}
                 height={0.2}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={16}
+                fontSize={13}
                 maxLength={100}
                 textAlign="left"
                 error={auth?.error && auth?.bio.length < 10}
@@ -203,7 +203,7 @@ const CreateBrandProfile = ({ navigation }) => {
                 mb={auth?.error && !auth?.email.match(mailformat) ? 0 : h(0.01)}
                 width={0.85}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={15}
+                fontSize={13}
                 maxLength={100}
                 textAlign="left"
                 icon={

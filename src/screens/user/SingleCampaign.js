@@ -22,6 +22,7 @@ import {
   Loader,
   ProductCard,
   SingleCampaignHeader,
+  SingleCampaignLoader,
 } from "../../components";
 import uuid from "react-native-uuid";
 import {
@@ -35,6 +36,7 @@ import {
 import { global } from "../../styles";
 import colors from "../../assets/colors";
 import {
+  facebook,
   instagram,
   instareels,
   play,
@@ -43,6 +45,7 @@ import {
   thumbup,
   wishlistoutline,
   wishlistsolid,
+  youtube,
 } from "../../container/icons";
 import ImageView from "react-native-image-viewing";
 import { connectToCampaign } from "../../functions/influencer";
@@ -74,14 +77,17 @@ const SingleCampaign = ({ route }) => {
     console.log("idparam", params.id);
     const res = await getCampaignInfo(user?.token, params.id).catch((err) => {
       console.log(err.response.data);
-      setLoading(false);
+      setError({
+        error: true,
+        message: "something went wrong",
+        type: "error",
+      });
     });
 
     if (res.data.success) {
       setItem(res.data.campaign);
 
       setLoading(false);
-      // console.log(JSON.stringify(res.data.campaign, null, 4));
     } else {
       setError({
         error: true,
@@ -165,6 +171,13 @@ const SingleCampaign = ({ route }) => {
     return item?.shortlistedInfluencer?.includes(user?._id);
   };
 
+  const platformIcon =
+    item?.campaignPlatform?.platformName === "instagram"
+      ? instagram
+      : item?.campaignPlatform?.platformName === "youtube"
+      ? youtube
+      : facebook;
+
   if (loading)
     return (
       <Layout>
@@ -172,7 +185,7 @@ const SingleCampaign = ({ route }) => {
           brandName={params.brandName}
           brandPic={params.imageUrl}
         />
-        <Loader text={"Fetching your response"} />
+        <SingleCampaignLoader />
       </Layout>
     );
   else
@@ -182,10 +195,26 @@ const SingleCampaign = ({ route }) => {
           <SingleCampaignHeader
             brandName={item?.brand?.name}
             brandPic={item?.brand?.profilePicture.url}
+            cimage={item?.campaignBanner}
+            cname={item?.campaignName}
+            cdesc={`${item?.brand?.name} requires ${
+              item?.gender?.charAt(0).toUpperCase() + item?.gender?.slice(1)
+            } influencers, ${item?.campaignPlatform?.platformName} with ${
+              nFormatter(item?.followersRange?.min) +
+              "-" +
+              nFormatter(item?.followersRange?.max)
+            } followers and age between ${
+              item?.age?.min + "-" + item?.age?.max
+            } years,that are active in this categories - ${item?.campaignCategories
+              .map((v) => v["categoryName"])
+              .toString()} `}
           />
 
           <ScrollView
-            style={{ backgroundColor: colors.white }}
+            style={{ backgroundColor: colors.white, paddingBottom: h(0.5) }}
+            contentContainerStyle={{
+              paddingBottom: h(0.2),
+            }}
             showsVerticalScrollIndicator={false}
           >
             <CarouselH data={imageList} onPress={() => setVisble(true)} />
@@ -225,7 +254,7 @@ const SingleCampaign = ({ route }) => {
                 ml={w(0.03)}
                 text={item?.campaignName}
                 fontFamily={"Montserrat_700Bold"}
-                fontSize={18}
+                fontSize={16}
                 width={"80%"}
               />
             </View>
@@ -240,18 +269,18 @@ const SingleCampaign = ({ route }) => {
               ]}
             >
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={item?.brand?.name}
                 color={colors.desciption}
                 fontFamily={"Poppins_600SemiBold"}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={" requires "}
                 color={colors.desciption}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={
                   item?.gender?.charAt(0).toUpperCase() + item?.gender?.slice(1)
                 }
@@ -259,23 +288,23 @@ const SingleCampaign = ({ route }) => {
                 fontFamily={"Poppins_600SemiBold"}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={" influencers, "}
                 color={colors.desciption}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={item?.campaignPlatform?.platformName}
                 color={colors.desciption}
                 fontFamily={"Poppins_600SemiBold"}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={" with "}
                 color={colors.desciption}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={
                   nFormatter(item?.followersRange?.min) +
                   "-" +
@@ -285,29 +314,29 @@ const SingleCampaign = ({ route }) => {
                 fontFamily={"Poppins_600SemiBold"}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={" followers and age between "}
                 color={colors.desciption}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={item?.age?.min + "-" + item?.age?.max}
                 color={colors.desciption}
                 fontFamily={"Poppins_600SemiBold"}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={" years, that are"}
                 color={colors.desciption}
               />
               <AppText
-                fontSize={13}
+                fontSize={12}
                 text={" active in the categories - "}
                 color={colors.desciption}
               />
               {item?.campaignCategories?.map((v, i) => (
                 <AppText
-                  fontSize={13}
+                  fontSize={12}
                   text={`${v.categoryName}${
                     i === item?.campaignCategories?.length - 1 ? "." : ", "
                   }`}
@@ -355,6 +384,7 @@ const SingleCampaign = ({ route }) => {
                           "₹" +
                           nFormatter(item?.influencerBudget?.max)
                     }`}
+                    fontSize={12}
                   />
                   <AppText
                     text="Budget"
@@ -372,7 +402,7 @@ const SingleCampaign = ({ route }) => {
                     borderRightColor: colors.black30,
                   }}
                 >
-                  <Icon name={instagram} size={w(0.05)} />
+                  <Icon name={platformIcon} size={w(0.05)} />
                   <AppText
                     text="Platform"
                     fontSize={8}
@@ -391,6 +421,7 @@ const SingleCampaign = ({ route }) => {
                 >
                   <AppText
                     fontFamily={"Montserrat_600SemiBold"}
+                    fontSize={12}
                     text={
                       nFormatter(item?.followersRange?.min) +
                       "-" +
@@ -417,6 +448,7 @@ const SingleCampaign = ({ route }) => {
                       item?.gender?.charAt(0).toUpperCase() +
                       item?.gender?.slice(1)
                     }
+                    fontSize={12}
                   />
                   <AppText
                     text="Sex"
@@ -431,11 +463,12 @@ const SingleCampaign = ({ route }) => {
                 fontFamily={"Montserrat_700Bold"}
                 fontSize={16}
                 mb={h(0.01)}
+                ml={w(0.04)}
               />
               <Hr
                 alignSelf="center"
                 width={"100%"}
-                borderWidth={0.5}
+                borderWidth={1.3}
                 mb={h(0.02)}
               />
               {item?.deliverableType?.map((v, i) => (
@@ -460,7 +493,11 @@ const SingleCampaign = ({ route }) => {
                       ml={w(0.01)}
                     />
                   </View>
-                  <AppText text={"1X"} color={colors.desciption} />
+                  <AppText
+                    text={"1X"}
+                    color={colors.desciption}
+                    fontSize={12}
+                  />
                 </View>
               ))}
             </View>
@@ -471,16 +508,17 @@ const SingleCampaign = ({ route }) => {
                 fontFamily={"Montserrat_700Bold"}
                 fontSize={16}
                 mb={h(0.01)}
+                ml={w(0.04)}
               />
               <Hr
                 alignSelf="center"
                 width={"100%"}
-                borderWidth={0.5}
+                borderWidth={1.6}
                 mb={h(0.02)}
               />
               <AppText
                 text="These products are listed by company and is to be used for ceating content"
-                fontSize={13}
+                fontSize={12}
                 color={colors.black50}
                 mb={h(0.01)}
               />
@@ -501,16 +539,17 @@ const SingleCampaign = ({ route }) => {
                 fontFamily={"Montserrat_700Bold"}
                 fontSize={16}
                 mb={h(0.01)}
+                ml={w(0.04)}
               />
               <Hr
                 alignSelf="center"
                 width={"100%"}
-                borderWidth={0.5}
+                borderWidth={1.6}
                 mb={h(0.02)}
               />
               <AppText
                 text="Reference Images are a guide to how exactly the content should look if it is in the form of post or story"
-                fontSize={13}
+                fontSize={12}
                 color={colors.black50}
                 mb={h(0.01)}
               />
@@ -616,11 +655,12 @@ const SingleCampaign = ({ route }) => {
                   fontFamily={"Montserrat_700Bold"}
                   fontSize={16}
                   mb={h(0.01)}
+                  ml={w(0.04)}
                 />
                 <Hr
                   alignSelf="center"
                   width={"100%"}
-                  borderWidth={0.5}
+                  borderWidth={1.6}
                   mb={h(0.02)}
                 />
                 {item?.dos?.map((v, i) => (
@@ -631,11 +671,11 @@ const SingleCampaign = ({ route }) => {
                       { marginBottom: h(0.02), alignItems: "flex-start" },
                     ]}
                   >
-                    <Icon name={thumbup} size={w(0.06)} />
+                    <Icon name={thumbup} size={w(0.055)} />
                     <AppText
                       text={`${v}`}
                       color={colors.desciption}
-                      fontSize={15}
+                      fontSize={13}
                       ml={w(0.01)}
                       width={"93%"}
                     />
@@ -649,11 +689,12 @@ const SingleCampaign = ({ route }) => {
                   fontFamily={"Montserrat_700Bold"}
                   fontSize={16}
                   mb={h(0.01)}
+                  ml={w(0.04)}
                 />
                 <Hr
                   alignSelf="center"
                   width={"100%"}
-                  borderWidth={0.5}
+                  borderWidth={1.6}
                   mb={h(0.02)}
                 />
                 {item?.donts?.map((v, i) => (
@@ -664,11 +705,11 @@ const SingleCampaign = ({ route }) => {
                       { marginBottom: h(0.02), alignItems: "flex-start" },
                     ]}
                   >
-                    <Icon name={thumbdown} size={w(0.06)} />
+                    <Icon name={thumbdown} size={w(0.055)} />
                     <AppText
                       text={`${v}`}
                       color={colors.desciption}
-                      fontSize={15}
+                      fontSize={13}
                       ml={w(0.01)}
                       width={"93%"}
                     />
@@ -688,6 +729,16 @@ const SingleCampaign = ({ route }) => {
                 width: w(1),
                 position: "absolute",
                 bottom: 0,
+                elevation: 2,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.03,
+                shadowRadius: 1.41,
+                borderTopColor: "rgba(0,0,0,0.07)",
+                borderTopWidth: 0.5,
                 backgroundColor: colors.white,
               },
             ]}

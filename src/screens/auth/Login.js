@@ -115,13 +115,13 @@ const Login = () => {
         >
           <AuthHeader index={routesLength} progress={0.8} />
           <AppText
-            fontSize={26}
+            fontSize={24}
             fontFamily={"Poppins_600SemiBold"}
             text={routesLength > 1 ? "Enter phone number" : "Login"}
             mt={h(0.025)}
           />
           <AppText
-            fontSize={13}
+            fontSize={11}
             text={
               routesLength > 1
                 ? "To get started, please enter your phone number below. We take privacy and security seriously, and your phone number will be used solely for authentication purposes."
@@ -143,7 +143,7 @@ const Login = () => {
             >
               <AppText
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={15}
+                fontSize={13}
                 color={colors.white}
                 text="+91"
               />
@@ -162,7 +162,7 @@ const Login = () => {
               width={0.68}
               placeholder="000 000 0000"
               fontFamily={"Montserrat_500Medium"}
-              fontSize={17}
+              fontSize={15}
               textAlign="auto"
               pH={w(0.03)}
               icon={
@@ -202,7 +202,7 @@ const Login = () => {
             <AppText
               text="By proceeding, I agree to all "
               fontFamily={"Montserrat_400Regular"}
-              fontSize={12}
+              fontSize={10}
               mt={h(0.02)}
               color={colors.tnc}
               textAlign="center"
@@ -210,7 +210,7 @@ const Login = () => {
             <AppText
               text="T&C "
               fontFamily={"Montserrat_400Regular"}
-              fontSize={12}
+              fontSize={10}
               mt={h(0.02)}
               textAlign="center"
               textDecorationLine="underline"
@@ -219,7 +219,7 @@ const Login = () => {
             <AppText
               text="and "
               fontFamily={"Montserrat_400Regular"}
-              fontSize={12}
+              fontSize={10}
               mt={h(0.02)}
               textAlign="center"
               color={colors.tnc}
@@ -227,7 +227,7 @@ const Login = () => {
             <AppText
               text="Privacy Policy "
               fontFamily={"Montserrat_400Regular"}
-              fontSize={12}
+              fontSize={10}
               mt={h(0.02)}
               textAlign="center"
               textDecorationLine="underline"
@@ -245,7 +245,7 @@ const Login = () => {
           </TouchableOpacity>
           {routesLength == 1 && (
             <View style={[global.center, { marginTop: h(0.05) }]}>
-              <AppText fontSize={13} text="New User?" textAlign="center" />
+              <AppText fontSize={10} text="New User?" textAlign="center" />
               <Pressable
                 onPress={() => {
                   dispatch(setError({ error: false }));
@@ -253,7 +253,7 @@ const Login = () => {
                 }}
               >
                 <AppText
-                  fontSize={13}
+                  fontSize={10}
                   text=" Sign Up here"
                   textAlign="center"
                   color={colors.chatBlue}

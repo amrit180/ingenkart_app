@@ -4,6 +4,7 @@ import {
   ScrollView,
   Pressable,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import React from "react";
 import CreatorCard from "../Card/CreatorCard";
@@ -31,16 +32,20 @@ const CampaignBox = ({ data, mv }) => {
         <View>
           <AppText
             fontFamily={"Poppins_600SemiBold"}
-            fontSize={26}
+            fontSize={24}
             text="Applied Campaigns"
+            mb={Platform.OS === "ios" ? 0 : -7}
           />
           <AppText
-            fontSize={13}
+            fontSize={12}
             text="Your recent applied campaigns"
             color={colors.black70}
           />
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("TopTabs")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("TopTabs")}
+          style={{ marginTop: -h(0.01) }}
+        >
           <Icon name={nextArrow} size={w(0.07)} />
         </TouchableOpacity>
       </View>

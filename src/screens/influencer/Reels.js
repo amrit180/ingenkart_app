@@ -32,7 +32,7 @@ const Reels = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [reelLike, setReelLike] = useState([]);
   const videoRef = useRef(null);
-  let limit = 10;
+  const limit = 5;
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const isFocused = useIsFocused();
@@ -152,7 +152,7 @@ const Reels = () => {
             }}
             ref={ref}
             onEndReached={loadMore}
-            onEndReachedThreshold={2}
+            onEndReachedThreshold={0.5}
             refreshControl={
               <RefreshControl refreshing={false} onRefresh={onRefresh} />
             }
@@ -166,7 +166,8 @@ const Reels = () => {
                     }}
                     shouldPlay={videoId.current == item?._id && isFocused}
                     isMuted={mute}
-                    posterSource={item?.coverImageUrl}
+                    posterSource={{ uri: item?.coverImageUrl }}
+                    posterStyle={{ resizeMode: "cover" }}
                     usePoster={true}
                     resizeMode="cover"
                     isLooping

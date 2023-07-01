@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { w } from "../config/utilFunction";
+import { h, w } from "../config/utilFunction";
 import colors from "../assets/colors";
 import Icon from "./Icon";
 import { yellowPlus } from "../container/icons";
@@ -151,7 +151,13 @@ const Avatar = ({ variant, avatar, onPress, mr, ml, size, isize, icon }) => {
               }}
             />
             {icon && (
-              <View style={{ position: "absolute", bottom: 3, right: 3 }}>
+              <View
+                style={{
+                  position: "absolute",
+                  bottom: -h(0.005),
+                  right: -w(0.005),
+                }}
+              >
                 <Icon name={icon} size={w(isize)} />
               </View>
             )}

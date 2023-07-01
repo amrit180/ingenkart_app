@@ -132,6 +132,9 @@ const userSlice = createSlice({
     setTestUsername: (state, { payload }) => {
       state.testUsername = payload.testUsername;
     },
+    setisInstaVerified: (state, { payload }) => {
+      state.userProfile.isInstaVerified = payload.isInstaVerified;
+    },
     setGender: (state, { payload }) => {
       state.gender = payload.gender;
     },
@@ -310,6 +313,7 @@ export const {
   setNotifications,
   setCity,
   setState,
+  setisInstaVerified,
 } = userSlice.actions;
 
 export default userSlice.reducer;

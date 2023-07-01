@@ -1,6 +1,7 @@
 import {
   Image,
   Linking,
+  Platform,
   Pressable,
   TouchableOpacity,
   View,
@@ -75,7 +76,7 @@ const SettingBox = ({ user, numElement = 1, data }) => {
         >
           <View style={[global.between, { justifyContent: "flex-start" }]}>
             <Icon name={item.icon} size={h(0.05)} />
-            <AppText text={item.name} fontSize={15} ml={w(0.03)} />
+            <AppText text={item.name} fontSize={12} ml={w(0.03)} />
           </View>
 
           <Pressable>
@@ -85,8 +86,8 @@ const SettingBox = ({ user, numElement = 1, data }) => {
         {!last && (
           <Hr
             height={0}
-            width={300}
-            borderWidth={0.5}
+            width={"80%"}
+            borderWidth={1}
             alignSelf="flex-end"
             mt={h(0.01)}
             mb={h(0.01)}
@@ -119,7 +120,12 @@ const SettingBox = ({ user, numElement = 1, data }) => {
         }}
       >
         {user && (
-          <View
+          <Pressable
+            onPress={() =>
+              navigation.navigate("UserProfile", {
+                id: user?._id,
+              })
+            }
             style={[
               global.between,
               {
@@ -127,6 +133,7 @@ const SettingBox = ({ user, numElement = 1, data }) => {
                 paddingHorizontal: w(0.03),
                 paddingVertical: w(0.03),
                 overflow: "hidden",
+                alignItems: "flex-start",
               },
             ]}
           >
@@ -139,20 +146,38 @@ const SettingBox = ({ user, numElement = 1, data }) => {
                 marginRight: w(0.03),
               }}
             />
-            <View style={{ width: "70%" }}>
-              <View style={global.between}>
+            <View style={{ width: "67%" }}>
+              <View>
                 <AppText
                   text={user?.name}
                   fontFamily={"Poppins_500Medium"}
-                  fontSize={18}
+                  fontSize={16}
+                />
+                <Hr
+                  height={0}
+                  width={"100%"}
+                  borderWidth={1}
+                  alignSelf="flex-end"
+                  mb={h(0.01)}
+                  mt={Platform.OS == "ios" && 5}
                 />
               </View>
               <AppText
                 text={user?.bio.substr(0, 60) + "..."}
                 color={colors.black60}
+                fontSize={12}
               />
             </View>
-          </View>
+            <Pressable
+              onPress={() =>
+                navigation.navigate("UserProfile", {
+                  id: user?._id,
+                })
+              }
+            >
+              <Icon name={next} size={w(0.05)} />
+            </Pressable>
+          </Pressable>
         )}
 
         {data?.map((item, i) => {

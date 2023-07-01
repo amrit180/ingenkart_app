@@ -54,11 +54,11 @@ const Choose = () => {
         <AppText
           text="Welcome!"
           fontFamily={"Poppins_600SemiBold"}
-          fontSize={26}
+          fontSize={24}
         />
         <AppText
           text="Tell us who you are, select your identity."
-          fontSize={13}
+          fontSize={11}
           color={colors.black70}
         />
         <Pressable
@@ -146,13 +146,13 @@ const Choose = () => {
         </TouchableOpacity>
         <View style={[global.center, { marginTop: h(0.02) }]}>
           <AppText
-            fontSize={13}
+            fontSize={11}
             text="Already registered?"
             textAlign="center"
           />
           <Pressable onPress={() => navigation.replace("Login")}>
             <AppText
-              fontSize={13}
+              fontSize={11}
               text=" Login here"
               textAlign="center"
               color={colors.chatBlue}

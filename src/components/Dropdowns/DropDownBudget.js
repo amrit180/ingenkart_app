@@ -80,7 +80,7 @@ const DropDownBudget = ({
                     : selected.name
                   : "Budget: Select"
               }`}
-              fontSize={15}
+              fontSize={13}
               fontFamily={"Montserrat_500Medium"}
               ml={w(0.02)}
             />
@@ -129,7 +129,7 @@ const DropDownBudget = ({
                 name={selected?.name === v.name ? verified : radio}
                 size={w(0.05)}
               />
-              <AppText text={v.name} ml={w(0.02)} fontSize={15} />
+              <AppText text={v.name} ml={w(0.02)} fontSize={13} />
             </View>
             {data?.length - 1 !== i && (
               <Hr

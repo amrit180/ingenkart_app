@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, Button } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   Layout,
   SquareCard,
@@ -17,17 +17,13 @@ import { useSelector } from "react-redux";
 const Wishlist = () => {
   const { user } = useSelector((state) => ({ ...state }));
   const { getbookmark, removeAllBookmarks } = useBookmark();
-  useEffect(() => {
+  useLayoutEffect(() => {
     getbookmark();
   }, []);
 
-  // const getAllCampaigns = async () => {
-  //   const data = await getbookmark();
-  //   setCampaign(data);
-  // };
   return (
     <Layout>
-      <StackHomeHeader name="Wishlist" />
+      <StackHomeHeader name="Wishlist" user={user} />
 
       <ScrollView>
         <View style={{ paddingHorizontal: w(0.05), paddingTop: h(0.01) }}>

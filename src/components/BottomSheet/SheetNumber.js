@@ -240,14 +240,14 @@ const SheetNumber = ({ childref, number, routesLength }) => {
             />
             <AppText
               fontFamily={"Poppins_600SemiBold"}
-              fontSize={26}
+              fontSize={24}
               text="Verify your Number"
               mt={h(0.01)}
             />
             <AppText
               mt={h(0.01)}
               color={colors.black50}
-              fontSize={13}
+              fontSize={11}
               text={`An OTP was send to ${number} please enter \n correct otp to continue.`}
             />
 
@@ -360,6 +360,7 @@ const SheetNumber = ({ childref, number, routesLength }) => {
               text="Didn't receive the code?"
               textAlign="center"
               mt={h(0.05)}
+              fontSize={10}
             />
             {time == 0 ? (
               <Button
@@ -369,6 +370,7 @@ const SheetNumber = ({ childref, number, routesLength }) => {
                 name="Resend"
                 variant="resend"
                 mt={h(0.03)}
+                fontSize={12}
                 alignSelf="center"
               />
             ) : (
@@ -379,6 +381,7 @@ const SheetNumber = ({ childref, number, routesLength }) => {
                 variant="info"
                 mt={h(0.03)}
                 alignSelf="center"
+                fontSize={12}
               />
             )}
             <Button

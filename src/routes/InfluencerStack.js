@@ -45,9 +45,23 @@ const InfluencerStack = () => {
       <Stack.Screen name="Subscription" component={Subscription} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Story" component={Story} />
-      <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen
+        name="Notification"
+        component={Notification}
+        options={{
+          // animationEnabled: false,
+          gestureEnabled: false,
+        }}
+      />
       <Stack.Screen name="InstagramCheck" component={InstaVerified} />
-      <Stack.Screen name="Wishlist" component={Wishlist} />
+      <Stack.Screen
+        name="Wishlist"
+        component={Wishlist}
+        options={{
+          // animationEnabled: false,
+          gestureEnabled: false,
+        }}
+      />
       <Stack.Screen name="UserProfile" component={PublicProfile} />
       <Stack.Screen name="Kycform" component={Kycform} />
       <Stack.Screen name="EditProfile" component={EditProfile} />

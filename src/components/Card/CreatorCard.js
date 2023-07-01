@@ -10,7 +10,7 @@ import { w } from "../../config/utilFunction";
 const CreatorCard = ({ data, index, ml, onPress }) => {
   return (
     <Pressable
-      style={[global.start, { marginLeft: ml || 0 }]}
+      style={[global.start, { paddingLeft: ml || 0 }]}
       onPress={onPress}
     >
       <AppText
@@ -23,8 +23,8 @@ const CreatorCard = ({ data, index, ml, onPress }) => {
         variant="verifiedUser"
         avatar={data?.influencerId?.profilePicture?.url}
         icon={checkIcon}
-        isize={0.04}
-        size={0.12}
+        isize={0.055}
+        size={0.11}
       />
       <AppText
         text={data?.influencerId?.name}

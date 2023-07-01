@@ -187,14 +187,14 @@ const SheetEmail = ({ childref }) => {
             />
             <AppText
               fontFamily={"Poppins_600SemiBold"}
-              fontSize={26}
+              fontSize={24}
               text="Verify your Email"
               mt={h(0.01)}
             />
             <AppText
               mt={h(0.01)}
               color={colors.black50}
-              fontSize={13}
+              fontSize={11}
               text={`An OTP was send to ${auth?.email} please enter correct otp to continue.`}
             />
 

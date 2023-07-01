@@ -1,7 +1,7 @@
-import { View, Pressable, Image, TouchableOpacity } from "react-native";
+import { View, Pressable, Image, TouchableOpacity, Share } from "react-native";
 import React from "react";
 import { backArrow, greyshare, report } from "../../container/icons";
-import { h, w } from "../../config/utilFunction";
+import { h, shareDeepLink, w } from "../../config/utilFunction";
 import colors from "../../assets/colors";
 import { useSelector } from "react-redux";
 import Icon from "../Icon";
@@ -9,8 +9,16 @@ import { global } from "../../styles";
 import AppText from "../AppText";
 import { useNavigation } from "@react-navigation/native";
 import Hr from "../Hr";
+import * as Sharing from "expo-sharing";
 
-const SingleCampaignHeader = ({ brandName, brandPic, right = true }) => {
+const SingleCampaignHeader = ({
+  brandName,
+  brandPic,
+  right = true,
+  cimage,
+  cname,
+  cdesc,
+}) => {
   const user = useSelector((state) => state.user);
   const navigation = useNavigation();
   return (
@@ -23,6 +31,16 @@ const SingleCampaignHeader = ({ brandName, brandPic, right = true }) => {
             backgroundColor: colors.white,
             paddingHorizontal: w(0.05),
             zIndex: 1000,
+            elevation: 2,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.03,
+            shadowRadius: 1.41,
+            borderBottomColor: "rgba(0,0,0,0.07)",
+            borderBottomWidth: 0.5,
           },
         ]}
       >
@@ -54,8 +72,15 @@ const SingleCampaignHeader = ({ brandName, brandPic, right = true }) => {
           />
         </View>
         {right ? (
-          <Pressable style={{ width: w(0.09) }}>
-            {/* <Icon name={greyshare} size={w(0.09)} /> */}
+          <Pressable
+            style={{ width: w(0.09) }}
+            onPress={async () => {
+              await Share.share({
+                message: `${await shareDeepLink(cname, cdesc)}`,
+              });
+            }}
+          >
+            <Icon name={greyshare} size={w(0.09)} />
           </Pressable>
         ) : (
           <Pressable>

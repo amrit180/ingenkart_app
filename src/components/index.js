@@ -67,6 +67,10 @@ import EditorChoiceCard from "./Card/EditorChoiceCard";
 import CampaignSegment from "./Segment/CampaignSegment";
 import DropDownInfo from "./Dropdowns/DropDownInfo";
 import HomepageLoader from "./Loader/HomepageLoader";
+import SplashLoading from "./Loader/SplashLoading";
+import ReelsLoader from "./Loader/ReelsLoader";
+import PublicProfileLoader from "./Loader/PublicProfileLoader";
+import SingleCampaignLoader from "./Loader/SingleCampaignLoader";
 
 export {
   AnimatedBoxShadow,
@@ -138,4 +142,8 @@ export {
   CampaignSegment,
   DropDownInfo,
   HomepageLoader,
+  SplashLoading,
+  ReelsLoader,
+  PublicProfileLoader,
+  SingleCampaignLoader,
 };

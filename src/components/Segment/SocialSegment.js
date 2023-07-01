@@ -34,7 +34,7 @@ const SocialSegment = ({ state, setState }) => {
           backgroundColor: colors.white,
           width: w(0.28),
           height: h(0.05),
-          borderRadius: 10,
+          borderRadius: 5,
           elevation: 3,
           position: "absolute",
 
@@ -59,7 +59,11 @@ const SocialSegment = ({ state, setState }) => {
         style={[global.center, { width: w(0.28) }]}
       >
         <Icon name={instagram} size={w(0.07)} />
-        <AppText text="Instagram" fontFamily={"Poppins_500Medium"} />
+        <AppText
+          text="Instagram"
+          fontFamily={"Poppins_500Medium"}
+          fontSize={12}
+        />
       </TouchableOpacity>
       <TouchableOpacity
         onLayout={(e) => {
@@ -75,7 +79,11 @@ const SocialSegment = ({ state, setState }) => {
         style={[global.center, { width: w(0.28) }]}
       >
         <Icon name={youtube} size={w(0.07)} />
-        <AppText text="Youtube" fontFamily={"Poppins_500Medium"} />
+        <AppText
+          text="Youtube"
+          fontFamily={"Poppins_500Medium"}
+          fontSize={12}
+        />
       </TouchableOpacity>
       <TouchableOpacity
         onLayout={(e) => {
@@ -91,7 +99,11 @@ const SocialSegment = ({ state, setState }) => {
         style={[global.center, { width: w(0.28) }]}
       >
         <Icon name={facebook} size={w(0.07)} />
-        <AppText text="Facebook" fontFamily={"Poppins_500Medium"} />
+        <AppText
+          text="Facebook"
+          fontFamily={"Poppins_500Medium"}
+          fontSize={12}
+        />
       </TouchableOpacity>
     </View>
   );

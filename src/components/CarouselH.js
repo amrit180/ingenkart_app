@@ -77,6 +77,7 @@ export default function CarouselH({ data, onPress }) {
           flexDirection: "row",
           paddingTop: 5,
           justifyContent: "center",
+          alignItems: "center",
         }}
       >
         {data.map((v, i) => {

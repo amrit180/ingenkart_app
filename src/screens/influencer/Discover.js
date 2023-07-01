@@ -163,7 +163,7 @@ const IDiscover = ({ route }) => {
       <View
         style={{ height: "100%", width: "100%", backgroundColor: colors.appbg }}
       >
-        <StackHomeHeader noback={true} name="Discover" />
+        <StackHomeHeader noback={true} name="Discover" user={user} />
         {/* <AppText text={category} /> */}
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -174,6 +174,7 @@ const IDiscover = ({ route }) => {
                 : [data.find((item) => item?.name === category)?.id]
             )
           }
+          contentContainerStyle={{ paddingBottom: h(0.1) }}
         >
           <View
             style={{

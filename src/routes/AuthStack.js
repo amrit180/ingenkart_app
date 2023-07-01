@@ -8,14 +8,14 @@ import InfluencerAuthStack from "./InfluencerAuthStack";
 import { useDispatch, useSelector } from "react-redux";
 import InfluencerStack from "./InfluencerStack";
 import BrandStack from "./BrandStack";
-import { HomepageLoader } from "../components";
+import { HomepageLoader, SplashLoading } from "../components";
 
 const Stack = createStackNavigator();
 const AuthStack = () => {
   const { user } = useSelector((s) => ({ ...s }));
 
   return user?.isLoading ? (
-    <HomepageLoader />
+    <SplashLoading />
   ) : (
     <Stack.Navigator
       screenOptions={{

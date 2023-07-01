@@ -6,7 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AuthStack, OnboardStack } from "./src/routes";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
-import { CustomStatusBar, Error } from "./src/components";
+import { CustomStatusBar, Error, ReelsLoader } from "./src/components";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./src/redux/store";
 import { onAuthStateChanged } from "firebase/auth";
@@ -35,18 +35,71 @@ import {
   query,
   where,
 } from "firebase/firestore";
+
 import { mode } from "./src/config/Values";
-import CampaignLoader from "./src/components/Loader/CampaignLoader";
+import * as Linking from "expo-linking";
+import dynamicLinks from "@react-native-firebase/dynamic-links";
+
+const linking = {
+  prefixes: ["https://ingenkart.web.app"],
+  config: {
+    screens: {
+      SingleCampaign: {
+        path: "campaign/:id",
+        parse: {
+          id: (id) => Number(id),
+        },
+      },
+    },
+  },
+};
 
 const App = () => {
   const MyApp = () => {
     const { isFirstLaunch, isLoading } = useGetOnboardingStatus();
     const { err } = useSelector((s) => ({ ...s }));
-    const { isAuthLoading } = useGetAuthStatus();
+
     const { getbookmark } = useBookmark();
     const { ILoaded, MLoaded, PLoaded } = useCustomFonts();
     const dispatch = useDispatch();
-    const { user } = useSelector((s) => ({ ...s }));
+    const [externalLink, setExternalLink] = useState("");
+
+    // useEffect(() => {
+    //   getDynamicLink();
+    //   const unsubscribe = dynamicLinks().onLink(handleDynamicLink);
+    //   return () => unsubscribe();
+    // }, []);
+
+    // const handleDynamicLink = (link) => {
+    //   // Handle dynamic link inside your own application
+    //   if (link) {
+    //     // ...set initial route as offers screen
+    //     const slug = link.url.split("campaign/")[1];
+    //     // console.log("ACCEPTED_LINK_DYNAMIC===>>", link);
+    //     setExternalLink(slug);
+    //   }
+    // };
+
+    // const getDynamicLink = () => {
+    //   dynamicLinks()
+    //     .getInitialLink()
+    //     .then((link) => {
+    //       if (link) {
+    //         // ...set initial route as offers screen
+    //         const slug = link.url.split("post/")[1];
+    //         // console.log("ACCEPTED_LINK_DYNAMIC===>>", link);
+    //         setExternalLink(slug);
+
+    //         // console.log("SCROLL_INDEX_NUMBER==>>", scrollIndex);
+    //       } else {
+    //         setExternalLink("");
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       setExternalLink("");
+    //     });
+    // };
 
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(firebaseAuth, async (user) => {
@@ -73,12 +126,12 @@ const App = () => {
       return null;
     }
     return (
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         {isFirstLaunch ? <OnboardStack /> : <AuthStack />}
         {err.error && <Error text={err.message} />}
         <StatusBar backgroundColor="white" style={"dark"} translucent={false} />
       </NavigationContainer>
-      // <CampaignLoader />
+      // <ReelsLoader />
     );
   };
 

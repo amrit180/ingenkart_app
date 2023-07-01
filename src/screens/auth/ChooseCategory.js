@@ -143,12 +143,12 @@ const ChooseCategory = ({ navigation }) => {
         <AuthHeader index={routesLength} progress={0.6} />
         <AppText
           fontFamily={"Poppins_600SemiBold"}
-          fontSize={26}
+          fontSize={24}
           text="Choose category"
           mt={h(0.025)}
         />
         <AppText
-          fontSize={13}
+          fontSize={11}
           text="To better understand your expertise please choose the category that best represents you."
           color={colors.black50}
           mt={h(0.01)}

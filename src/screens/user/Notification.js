@@ -29,35 +29,53 @@ const Notification = () => {
   useEffect(() => {
     dispatch(setNewNotification({ newNotification: false }));
   }, []);
+  let isNewShown = false;
+  let isWeekShown = false;
+  let isMonthShown = false;
+  let isAllShown = false;
   const renderItem = ({ item, index }) => {
-    let displayHr =
-      index > 0 &&
-      getDays(user?.notification[index - 1].timeStamps) ==
-        getDays(item.timeStamps);
+    let label = "";
+    let display = false;
+    let displayNew = getDays(item.timeStamps) == 0;
+    let displayWeek =
+      getDays(item.timeStamps) > 0 && getDays(item.timeStamps) <= 7;
+    let displayMonth =
+      getDays(item.timeStamps) > 7 && getDays(item.timeStamps) <= 30;
+    let displayAll = getDays(item.timeStamps) > 30;
+
+    if (displayNew && !isNewShown) {
+      label = "New";
+      isNewShown = true;
+      display = true;
+    } else if (displayWeek && !isWeekShown) {
+      label = "Week";
+      isWeekShown = true;
+      display = true;
+    } else if (displayMonth && !isMonthShown) {
+      label = "Month";
+      isMonthShown = true;
+      display = true;
+    } else if (displayAll && !isAllShown) {
+      label = "All";
+      isAllShown = true;
+      display = true;
+    }
 
     return (
       <View style={{ backgroundColor: colors.white }}>
-        {!displayHr && (
-          <View style={{ paddingHorizontal: w(0.05) }}>
-            {getDays(item.timeStamps) !== 0 && (
-              <Hr alignSelf="center" width={"100%"} borderWidth={0.5} />
-            )}
-            <AppText
-              mt={h(0.01)}
-              color={colors.black30}
-              fontSize={13}
-              text={
-                getDays(item.timeStamps) == 0
-                  ? "New"
-                  : getDays(item.timeStamps) < 7
-                  ? "This Week"
-                  : getDays(item.timeStamps) < 30
-                  ? "This Month"
-                  : "All"
-              }
-            />
-          </View>
-        )}
+        {/* {displayAll && ( */}
+        <View style={{ paddingHorizontal: w(0.05) }}>
+          {index > 0 && display && (
+            <Hr alignSelf="center" width={"100%"} borderWidth={1.6} />
+          )}
+          <AppText
+            mt={display && h(0.01)}
+            color={colors.black30}
+            fontSize={10}
+            text={label}
+          />
+        </View>
+        {/* )} */}
         <NotiComp variant={item.type.toLowerCase()} data={item} />
       </View>
     );
@@ -65,7 +83,7 @@ const Notification = () => {
 
   return (
     <Layout>
-      <StackHomeHeader name="Activity" />
+      <StackHomeHeader name="Activity" user={user} />
       <View style={{ height: "100%", backgroundColor: colors.white }}>
         {user?.notification?.length > 0 ? (
           <FlatList

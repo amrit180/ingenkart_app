@@ -156,12 +156,12 @@ const LogoUpload = ({ navigation }) => {
         <AuthHeader index={routesLength} progress={0.6} />
         <AppText
           fontFamily={"Poppins_600SemiBold"}
-          fontSize={26}
+          fontSize={24}
           text={auth?.role === "brand" ? "Upload Logo" : "Choose a Picture"}
           mt={h(0.025)}
         />
         <AppText
-          fontSize={13}
+          fontSize={11}
           text="To personalise your profile and make a lasting impression  we kindly request you to upload a picture"
           color={colors.black50}
           mt={h(0.01)}
@@ -202,14 +202,14 @@ const LogoUpload = ({ navigation }) => {
           textAlign="center"
           mt={h(0.05)}
           fontFamily={"Inter_600SemiBold"}
-          fontSize={15}
+          fontSize={13}
         />
         <AppText
           text="We need your photograph to ensure your identity."
           textAlign="center"
           mt={h(0.025)}
           fontFamily={"Inter_500Medium"}
-          fontSize={11}
+          fontSize={9}
           color={colors.graytxt}
         />
         {auth?.error && auth?.profilePicture?.url == "" && (

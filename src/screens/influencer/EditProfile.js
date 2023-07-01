@@ -4,6 +4,7 @@ import {
   Image,
   TouchableOpacity,
   Switch,
+  Pressable,
 } from "react-native";
 import React, { useEffect } from "react";
 import {
@@ -221,321 +222,325 @@ const EditProfile = () => {
           paddingHorizontal: w(0.05),
         }}
       >
-        {loading ? (
-          <View
-            style={{
-              height: w(0.35),
-              width: w(0.35),
-              alignSelf: "center",
-              marginTop: h(0.05),
-              borderRadius: 500,
-              justifyContent: "center",
-              alignItems: "center",
-              borderColor: colors.black30,
-              borderWidth: 0.5,
-            }}
-          >
-            <ActivityIndicator size={w(0.08)} color={colors.black} />
-          </View>
-        ) : (
-          <Image
-            source={{ uri: user?.profilePicture?.url }}
-            style={{
-              height: w(0.35),
-              width: w(0.35),
-              alignSelf: "center",
-              marginTop: h(0.05),
-              borderRadius: 500,
-            }}
-          />
-        )}
-        <TouchableOpacity onPress={openGallery}>
-          <AppText
-            text={"Edit"}
-            textDecorationLine="underline"
-            color={colors.chatBlue}
-            textAlign="center"
-            mt={h(0.01)}
-            fontFamily={"Poppins_500Medium"}
-            fontSize={12}
-          />
-        </TouchableOpacity>
-
-        <Input
-          fontSize={14}
-          variant={"text"}
-          type="outline"
-          width={0.9}
-          mt={h(0.03)}
-          textAlign="left"
-          value={user?.firstName}
-          placeholder="First Name"
-          onChangeText={(t) => dispatch(setFirstName({ firstName: t }))}
-        />
-        <Input
-          fontSize={14}
-          variant={"text"}
-          type="outline"
-          width={0.9}
-          mt={h(0.03)}
-          mb={h(0.03)}
-          textAlign="left"
-          value={user?.lastName}
-          placeholder="Last Name"
-          onChangeText={(t) => dispatch(setLastName({ lastName: t }))}
-        />
-        <DropDownGenderAuth
-          type="inline"
-          data={gender}
-          selected={gender.filter((v) => v.name == user?.gender)[0]}
-          setSelected={(t) => dispatch(setGender({ gender: t.name }))}
-        />
-        <DropDownBudget
-          mt={h(0.03)}
-          type="inline"
-          data={budget}
-          selected={selectedBudget}
-          setSelected={setSelectedBudget}
-          user={true}
-        />
-
-        <View style={{ marginTop: h(0.03) }}>
-          <View
-            style={[
-              global.between,
-              {
-                minHeight: h(0.07),
-                width: "100%",
-                borderRadius: 15,
-                position: "relative",
-                borderColor: colors.black30,
-                borderWidth: 1,
-                paddingHorizontal: w(0.07),
-                backgroundColor: colors.white,
-              },
-            ]}
-          >
-            <AppText
-              text={"Barter: " + `${user?.barter ? "Yes" : "No"}`}
-              fontFamily={"Montserrat_500Medium"}
-              fontSize={15}
-            />
-            <Switch
-              trackColor={{
-                false: "rgba(216, 216, 216, 1)",
-                true: colors.green,
-              }}
-              thumbColor={colors.white}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={user?.barter}
-            />
-          </View>
-          <BoxShadow
-            height={h(0.07)}
-            width={"100%"}
-            radius={13}
-            top={h(0.004)}
-          />
-        </View>
-        {open && (
-          <DateTimePicker
-            display={Platform.OS === "ios" ? "spinner" : "default"}
-            value={date}
-            maximumDate={new Date(moment().subtract(14, "years").format())}
-            onChange={(e, tdate) => {
-              setOpen(false);
-              setDate(e.nativeEvent.timestamp);
-              dispatch(
-                setDOB({ DOB: moment(e.nativeEvent.timestamp).format() })
-              );
-              setShowDate(moment(e.nativeEvent.timestamp).format("DD/MM/YYYY"));
-            }}
-          />
-        )}
-        <View style={{ marginTop: h(0.03) }}>
-          <TouchableOpacity
-            onPress={() => setOpen(true)}
-            style={[
-              global.between,
-              {
-                minHeight: h(0.07),
-                width: "100%",
-                borderRadius: 15,
-                position: "relative",
-                borderColor: colors.black30,
-                borderWidth: 1,
-                paddingHorizontal: w(0.07),
-                backgroundColor: colors.white,
-              },
-            ]}
-          >
-            {user?.DOB !== "" && (
-              <View
-                style={{
-                  backgroundColor: colors.white,
-                  position: "absolute",
-                  top: -h(0.01),
-                  left: w(0.03),
-                  paddingHorizontal: w(0.01),
-                }}
-              >
-                <AppText
-                  textAlign={"center"}
-                  text="DOB"
-                  fontFamily={"Montserrat_500Medium"}
-                  fontSize={12}
-                  color={colors.black}
-                />
-              </View>
-            )}
-            <AppText
-              text={`${user?.DOB === "" ? "DOB" : showDate}`}
-              fontFamily={"Montserrat_500Medium"}
-              fontSize={15}
-            />
-
-            <Icon name={calender} size={w(0.05)} />
-          </TouchableOpacity>
-          <BoxShadow
-            height={h(0.07)}
-            width={"100%"}
-            radius={13}
-            top={h(0.004)}
-          />
-        </View>
-
-        <Input
-          fontSize={14}
-          variant={"text"}
-          multiline={true}
-          type="outline"
-          width={0.9}
-          mt={h(0.03)}
-          placeholder="Bio"
-          height={0.2}
-          value={user?.bio}
-          textAlign="left"
-          onChangeText={(t) => dispatch(setBio({ bio: t }))}
-        />
-        <View style={{ position: "relative", marginTop: h(0.04) }}>
-          <BoxShadow
-            height={h(0.07)}
-            width={"100%"}
-            radius={13}
-            top={h(0.005)}
-          />
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Location")}
-            style={[
-              global.between,
-              {
-                minHeight: h(0.07),
-                width: "100%",
-                borderRadius: 15,
-                backgroundColor: colors.white,
-                position: "relative",
-                borderColor: colors.black30,
-                borderWidth: 1,
-                paddingHorizontal: w(0.07),
-              },
-            ]}
-          >
-            {user?.state !== "" && user?.city !== "" && (
-              <View
-                style={{
-                  backgroundColor: colors.white,
-                  position: "absolute",
-                  top: -h(0.01),
-                  left: w(0.03),
-                  paddingHorizontal: w(0.01),
-                }}
-              >
-                <AppText
-                  textAlign={"center"}
-                  text="Location"
-                  fontFamily={"Montserrat_500Medium"}
-                  fontSize={12}
-                  color={colors.black}
-                />
-              </View>
-            )}
-            <AppText
-              text={`${
-                user?.state === "" && user?.city === ""
-                  ? "Location"
-                  : user?.state + ", " + user?.city
-              }`}
-              fontFamily={"Montserrat_500Medium"}
-              fontSize={15}
-            />
-
-            <Icon name={locationblack} size={w(0.05)} />
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("EditCategory")}
-          style={[
-            global.between,
-            {
-              marginTop: h(0.02),
-              minHeight: h(0.07),
-              width: "100%",
-              borderRadius: 15,
-              position: "relative",
-              borderColor: colors.black30,
-              borderWidth: 1,
-              paddingHorizontal: w(0.04),
-              marginBottom: h(0.1),
-            },
-          ]}
-        >
-          {user?.categories !== "" && (
+        <Pressable>
+          {loading ? (
             <View
               style={{
-                backgroundColor: colors.white,
-                position: "absolute",
-                top: -h(0.01),
-                left: w(0.03),
-                paddingHorizontal: w(0.01),
+                height: w(0.35),
+                width: w(0.35),
+                alignSelf: "center",
+                marginTop: h(0.05),
+                borderRadius: 500,
+                justifyContent: "center",
+                alignItems: "center",
+                borderColor: colors.black30,
+                borderWidth: 0.5,
               }}
             >
+              <ActivityIndicator size={w(0.08)} color={colors.black} />
+            </View>
+          ) : (
+            <Image
+              source={{ uri: user?.profilePicture?.url }}
+              style={{
+                height: w(0.35),
+                width: w(0.35),
+                alignSelf: "center",
+                marginTop: h(0.05),
+                borderRadius: 500,
+              }}
+            />
+          )}
+          <TouchableOpacity onPress={openGallery}>
+            <AppText
+              text={"Edit"}
+              textDecorationLine="underline"
+              color={colors.chatBlue}
+              textAlign="center"
+              mt={h(0.01)}
+              fontFamily={"Poppins_500Medium"}
+              fontSize={10}
+            />
+          </TouchableOpacity>
+
+          <Input
+            fontSize={12}
+            variant={"text"}
+            type="outline"
+            width={0.9}
+            mt={h(0.03)}
+            textAlign="left"
+            value={user?.firstName}
+            placeholder="First Name"
+            onChangeText={(t) => dispatch(setFirstName({ firstName: t }))}
+          />
+          <Input
+            fontSize={12}
+            variant={"text"}
+            type="outline"
+            width={0.9}
+            mt={h(0.03)}
+            mb={h(0.03)}
+            textAlign="left"
+            value={user?.lastName}
+            placeholder="Last Name"
+            onChangeText={(t) => dispatch(setLastName({ lastName: t }))}
+          />
+          <DropDownGenderAuth
+            type="inline"
+            data={gender}
+            selected={gender.filter((v) => v.name == user?.gender)[0]}
+            setSelected={(t) => dispatch(setGender({ gender: t.name }))}
+          />
+          <DropDownBudget
+            mt={h(0.03)}
+            type="inline"
+            data={budget}
+            selected={selectedBudget}
+            setSelected={setSelectedBudget}
+            user={true}
+          />
+
+          <View style={{ marginTop: h(0.03) }}>
+            <View
+              style={[
+                global.between,
+                {
+                  minHeight: h(0.07),
+                  width: "100%",
+                  borderRadius: 15,
+                  position: "relative",
+                  borderColor: colors.black30,
+                  borderWidth: 1,
+                  paddingHorizontal: w(0.07),
+                  backgroundColor: colors.white,
+                },
+              ]}
+            >
               <AppText
-                textAlign={"center"}
-                text="Categories"
+                text={"Barter: " + `${user?.barter ? "Yes" : "No"}`}
                 fontFamily={"Montserrat_500Medium"}
-                fontSize={12}
-                color={colors.black}
+                fontSize={13}
+              />
+              <Switch
+                trackColor={{
+                  false: "rgba(216, 216, 216, 1)",
+                  true: colors.green,
+                }}
+                thumbColor={colors.white}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={user?.barter}
               />
             </View>
+            <BoxShadow
+              height={h(0.07)}
+              width={"100%"}
+              radius={13}
+              top={h(0.004)}
+            />
+          </View>
+          {open && (
+            <DateTimePicker
+              display={Platform.OS === "ios" ? "spinner" : "default"}
+              value={date}
+              maximumDate={new Date(moment().subtract(14, "years").format())}
+              onChange={(e, tdate) => {
+                setOpen(false);
+                setDate(e.nativeEvent.timestamp);
+                dispatch(
+                  setDOB({ DOB: moment(e.nativeEvent.timestamp).format() })
+                );
+                setShowDate(
+                  moment(e.nativeEvent.timestamp).format("DD/MM/YYYY")
+                );
+              }}
+            />
           )}
-          <View style={global.start}>
-            <Icon name={category} size={w(0.05)} />
-            <AppText
-              text={`${
-                user?.categories === ""
-                  ? "Categories"
-                  : user?.categories
-                      .map((v) => data.filter((k) => k.id === v)[0].name)
-                      .join(", ")
-                      .substr(0, 30) + "..."
-              }`}
-              fontFamily={"Montserrat_500Medium"}
-              fontSize={15}
-              ml={w(0.01)}
+          <View style={{ marginTop: h(0.03) }}>
+            <TouchableOpacity
+              onPress={() => setOpen(true)}
+              style={[
+                global.between,
+                {
+                  minHeight: h(0.07),
+                  width: "100%",
+                  borderRadius: 15,
+                  position: "relative",
+                  borderColor: colors.black30,
+                  borderWidth: 1,
+                  paddingHorizontal: w(0.07),
+                  backgroundColor: colors.white,
+                },
+              ]}
+            >
+              {user?.DOB !== "" && (
+                <View
+                  style={{
+                    backgroundColor: colors.white,
+                    position: "absolute",
+                    top: -h(0.01),
+                    left: w(0.03),
+                    paddingHorizontal: w(0.01),
+                  }}
+                >
+                  <AppText
+                    textAlign={"center"}
+                    text="DOB"
+                    fontFamily={"Montserrat_500Medium"}
+                    fontSize={10}
+                    color={colors.black}
+                  />
+                </View>
+              )}
+              <AppText
+                text={`${user?.DOB === "" ? "DOB" : showDate}`}
+                fontFamily={"Montserrat_500Medium"}
+                fontSize={13}
+              />
+
+              <Icon name={calender} size={w(0.05)} />
+            </TouchableOpacity>
+            <BoxShadow
+              height={h(0.07)}
+              width={"100%"}
+              radius={13}
+              top={h(0.004)}
             />
           </View>
 
-          <AppText
-            text={"Edit"}
-            textDecorationLine="underline"
-            color={colors.chatBlue}
-            textAlign="center"
-            mt={h(0.01)}
-            fontFamily={"Poppins_500Medium"}
-            fontSize={12}
+          <Input
+            fontSize={14}
+            variant={"text"}
+            multiline={true}
+            type="outline"
+            width={0.9}
+            mt={h(0.03)}
+            placeholder="Bio"
+            height={0.2}
+            value={user?.bio}
+            textAlign="left"
+            onChangeText={(t) => dispatch(setBio({ bio: t }))}
           />
-        </TouchableOpacity>
+          <View style={{ position: "relative", marginTop: h(0.04) }}>
+            <BoxShadow
+              height={h(0.07)}
+              width={"100%"}
+              radius={13}
+              top={h(0.005)}
+            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Location")}
+              style={[
+                global.between,
+                {
+                  minHeight: h(0.07),
+                  width: "100%",
+                  borderRadius: 15,
+                  backgroundColor: colors.white,
+                  position: "relative",
+                  borderColor: colors.black30,
+                  borderWidth: 1,
+                  paddingHorizontal: w(0.07),
+                },
+              ]}
+            >
+              {user?.state !== "" && user?.city !== "" && (
+                <View
+                  style={{
+                    backgroundColor: colors.white,
+                    position: "absolute",
+                    top: -h(0.01),
+                    left: w(0.03),
+                    paddingHorizontal: w(0.01),
+                  }}
+                >
+                  <AppText
+                    textAlign={"center"}
+                    text="Location"
+                    fontFamily={"Montserrat_500Medium"}
+                    fontSize={10}
+                    color={colors.black}
+                  />
+                </View>
+              )}
+              <AppText
+                text={`${
+                  user?.state === "" && user?.city === ""
+                    ? "Location"
+                    : user?.state + ", " + user?.city
+                }`}
+                fontFamily={"Montserrat_500Medium"}
+                fontSize={15}
+              />
+
+              <Icon name={locationblack} size={w(0.05)} />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("EditCategory")}
+            style={[
+              global.between,
+              {
+                marginTop: h(0.02),
+                minHeight: h(0.07),
+                width: "100%",
+                borderRadius: 15,
+                position: "relative",
+                borderColor: colors.black30,
+                borderWidth: 1,
+                paddingHorizontal: w(0.04),
+                marginBottom: h(0.1),
+              },
+            ]}
+          >
+            {user?.categories !== "" && (
+              <View
+                style={{
+                  backgroundColor: colors.white,
+                  position: "absolute",
+                  top: -h(0.01),
+                  left: w(0.03),
+                  paddingHorizontal: w(0.01),
+                }}
+              >
+                <AppText
+                  textAlign={"center"}
+                  text="Categories"
+                  fontFamily={"Montserrat_500Medium"}
+                  fontSize={12}
+                  color={colors.black}
+                />
+              </View>
+            )}
+            <View style={global.start}>
+              <Icon name={category} size={w(0.05)} />
+              <AppText
+                text={`${
+                  user?.categories === ""
+                    ? "Categories"
+                    : user?.categories
+                        .map((v) => data.filter((k) => k.id === v)[0].name)
+                        .join(", ")
+                        .substr(0, 30) + "..."
+                }`}
+                fontFamily={"Montserrat_500Medium"}
+                fontSize={15}
+                ml={w(0.01)}
+              />
+            </View>
+
+            <AppText
+              text={"Edit"}
+              textDecorationLine="underline"
+              color={colors.chatBlue}
+              textAlign="center"
+              mt={h(0.01)}
+              fontFamily={"Poppins_500Medium"}
+              fontSize={12}
+            />
+          </TouchableOpacity>
+        </Pressable>
       </ScrollView>
     </Layout>
   );

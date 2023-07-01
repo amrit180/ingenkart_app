@@ -1,16 +1,16 @@
 import { View, Text, Animated } from "react-native";
 import React from "react";
 
-const LoaderItem = ({ translateX, width, height, radius }) => {
+const LoaderItem = ({ translateX, width, height, radius, bg, mr }) => {
   return (
     <View
       style={{
         width: width || 0,
         height: height || 0,
         borderRadius: radius || 0,
-        backgroundColor: "#ECEFF1",
+        backgroundColor: bg || "#ECEFF1",
         overflow: "hidden",
-        //   marginRight: 16,
+        marginRight: mr || 0,
       }}
     >
       <Animated.View

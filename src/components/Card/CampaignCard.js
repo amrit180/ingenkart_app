@@ -35,8 +35,8 @@ const CampaignCard = ({ data, index, ml, mv }) => {
           variant="verifiedUser"
           avatar={data.campaignBanner}
           icon={checkIcon}
-          isize={0.04}
-          size={0.12}
+          isize={0.055}
+          size={0.11}
         />
         <AppText
           text={`${
@@ -45,7 +45,7 @@ const CampaignCard = ({ data, index, ml, mv }) => {
               : data.campaignName
           }`}
           fontFamily={"Poppins_500Medium"}
-          fontSize={16}
+          fontSize={15}
           ml={w(0.03)}
         />
       </View>

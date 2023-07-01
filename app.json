@@ -1,8 +1,9 @@
 {
   "expo": {
     "name": "Ingenkart",
+    "scheme": "myapp",
     "slug": "ingenkart",
-    "version": "1.0.10",
+    "version": "1.1.13",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,13 +20,29 @@
     },
     "android": {
       "package": "com.ingenkart",
-      "versionCode": 10,
+      "versionCode": 13,
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
         "userInterfaceStyle": "light"
       },
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "permissions": ["android.permission.RECORD_AUDIO"],
+
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "https",
+              "host": "ingenkart.in",
+              "pathPrefix": "/"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"],
+          "autoVerify": true
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -42,7 +59,9 @@
         {
           "username": "BiliDev"
         }
-      ]
+      ],
+      "@react-native-firebase/app",
+      "@react-native-firebase/dynamic-links"
     ],
     "extra": {
       "eas": {

@@ -28,16 +28,19 @@ const DiscoverBox = ({ data, squareCardData }) => {
         <View>
           <AppText
             fontFamily={"Poppins_600SemiBold"}
-            fontSize={26}
+            fontSize={24}
             text="Discover"
           />
           <AppText
-            fontSize={13}
+            fontSize={12}
             text="Discover the latest campaigns you can apply"
             color={colors.black70}
           />
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("Discover")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Discover")}
+          style={{ marginTop: -h(0.01) }}
+        >
           <Icon name={nextArrow} size={w(0.07)} />
         </TouchableOpacity>
       </View>
