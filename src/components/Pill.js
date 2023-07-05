@@ -42,8 +42,8 @@ const Pill = ({
             text={text}
             color={colors.white}
             fontFamily={"Poppins_500Medium"}
-            mt={1}
-            fontSize={16}
+            mt={2}
+            fontSize={13}
           />
         </TouchableOpacity>
       );
@@ -58,9 +58,9 @@ const Pill = ({
             height,
             width,
             borderRadius: 5000,
-            borderColor: colors.photobg,
+            borderColor: "rgba(226, 226, 226, 1)",
             borderWidth: 1,
-            backgroundColor: bg || colors.white,
+            backgroundColor: bg || "rgba(242, 242, 242, 1)",
             marginVertical: mv || 0,
             marginHorizontal: mh || 0,
             marginRight: mr || 0,
@@ -70,7 +70,8 @@ const Pill = ({
           <AppText
             text={text}
             color={txtcolor || colors.txtgray}
-            fontSize={16}
+            fontSize={13}
+            mt={2}
             textAlign={txtalign || "left"}
           />
         </TouchableOpacity>

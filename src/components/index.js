@@ -71,6 +71,7 @@ import SplashLoading from "./Loader/SplashLoading";
 import ReelsLoader from "./Loader/ReelsLoader";
 import PublicProfileLoader from "./Loader/PublicProfileLoader";
 import SingleCampaignLoader from "./Loader/SingleCampaignLoader";
+import CampaignLoader from "./Loader/CampaignLoader";
 
 export {
   AnimatedBoxShadow,
@@ -146,4 +147,5 @@ export {
   ReelsLoader,
   PublicProfileLoader,
   SingleCampaignLoader,
+  CampaignLoader,
 };

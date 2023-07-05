@@ -8,13 +8,19 @@ import {
   Image,
   RefreshControl,
 } from "react-native";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 
 import { Video } from "expo-av";
 import { h, w } from "../../config/utilFunction";
-import { AppText, CommentSheet, Loader, ReelsButton } from "../../components";
+import {
+  AppText,
+  CommentSheet,
+  Loader,
+  ReelsButton,
+  ReelsLoader,
+} from "../../components";
 import colors from "../../assets/colors";
-import { useLayoutEffect } from "react";
+
 import { getAllReels, likeOrUnlikeReels } from "../../functions/influencer";
 import { useSelector } from "react-redux";
 import { unmuteicon, muteicon } from "../../container/icons";
@@ -32,7 +38,7 @@ const Reels = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [reelLike, setReelLike] = useState([]);
   const videoRef = useRef(null);
-  const limit = 5;
+  const limit = 2;
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const isFocused = useIsFocused();
@@ -126,11 +132,34 @@ const Reels = () => {
     setCurrentIndex(viewableItems[0].index);
   }, []);
 
+  const renderItem = useCallback(
+    ({ item, index }) => {
+      return (
+        <Pressable onPress={muteVideo}>
+          <Video
+            source={{
+              uri: item.videoUrl,
+            }}
+            shouldPlay={isFocused ? videoId.current == item?._id : false}
+            isMuted={mute}
+            posterSource={{ uri: item?.coverImageUrl }}
+            posterStyle={{ resizeMode: "cover" }}
+            usePoster={true}
+            resizeMode="cover"
+            isLooping
+            style={{ height: h(1), width: "100%" }}
+            ref={videoRef}
+          />
+        </Pressable>
+      );
+    },
+    [videoId, mute, videoRef]
+  );
   if (loading)
     return (
       <>
         <StatusBar barStyle={"light-content"} backgroundColor={colors.black} />
-        <Loader text={"Loading"} height={"100%"} />
+        <ReelsLoader />
       </>
     );
   else
@@ -157,26 +186,7 @@ const Reels = () => {
               <RefreshControl refreshing={false} onRefresh={onRefresh} />
             }
             onViewableItemsChanged={onViewableItemsChanged}
-            renderItem={({ item }) => {
-              return (
-                <Pressable onPress={muteVideo}>
-                  <Video
-                    source={{
-                      uri: item.videoUrl,
-                    }}
-                    shouldPlay={videoId.current == item?._id && isFocused}
-                    isMuted={mute}
-                    posterSource={{ uri: item?.coverImageUrl }}
-                    posterStyle={{ resizeMode: "cover" }}
-                    usePoster={true}
-                    resizeMode="cover"
-                    isLooping
-                    style={{ height: h(1), width: "100%" }}
-                    ref={videoRef}
-                  />
-                </Pressable>
-              );
-            }}
+            renderItem={renderItem}
           />
           <View style={{ position: "absolute", bottom: h(0.1), left: w(0.05) }}>
             <View
@@ -245,4 +255,4 @@ const Reels = () => {
     );
 };
 
-export default Reels;
+export default memo(Reels);

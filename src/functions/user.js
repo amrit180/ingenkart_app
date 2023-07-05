@@ -10,7 +10,6 @@ export const editProfile = async (value, authtoken) => {
 };
 
 export const searchCampaign = async (authtoken, page, limit, campaignName) => {
-  console.log("========HITTING SEARCH ROUTE========", campaignName);
   return await axios.get(
     `${API}/user/search-campaign?page=${page}&limit=${limit}&campaignName=${campaignName} `,
     {

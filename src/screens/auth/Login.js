@@ -33,7 +33,7 @@ const Login = () => {
 
   const buttonRef = useRef(new Animated.Value(0)).current;
   let dispatch = useDispatch();
-  const { auth } = useSelector((s) => ({ ...s }));
+  const auth = useSelector((s) => s.auth);
   const handleSubmit = async () => {
     const res = await checkPhoneNumber(auth?.phone);
     if (routesLength == 1) {

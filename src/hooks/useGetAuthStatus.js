@@ -20,7 +20,6 @@ const useGetAuthStatus = () => {
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const setLaunchPad = async () => {
     const userAuth = await checkIfAuth();
-    console.log(userAuth);
 
     if (userAuth) {
       dispatch(createUserData(JSON.parse(userAuth)));

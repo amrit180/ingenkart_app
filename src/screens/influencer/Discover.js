@@ -1,6 +1,15 @@
-import { View, ScrollView, Text } from "react-native";
+import {
+  View,
+  ScrollView,
+  Text,
+  FlatList,
+  Image,
+  Pressable,
+} from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
+  AppText,
+  CampaignLoader,
   Icon,
   Layout,
   Pill,
@@ -24,246 +33,276 @@ const IDiscover = ({ route }) => {
   const item = route.params;
   // hooks
   const childref = useRef(null);
-  const { user } = useSelector((s) => ({ ...s }));
+  const user = useSelector((s) => s.user);
+
   const isFocused = useIsFocused();
   const [filter, setFilter] = useState(null);
   // state
-  const [campaign, setCampaigns] = useState([]);
+
   const [campaignName, setCampaignName] = useState("");
   const [page, setPage] = useState(1);
-  const [category, setCategory] = useState("all");
+  const [selectedCategories, setSelectedCategories] = useState(categoryIds); // Array of selected category IDs
   const [loadingCampaign, setLoadingCampaign] = useState(false);
+  const [campaigns, setCampaigns] = useState([]);
+
   const [totalDocuments, setTotalDocuments] = useState(0);
   // variable
-  const limit = 5;
+  const limit = 3;
   // lifecycle methods
   const SwipeSheet = useCallback((value) => {
     childref.current.scrollTo(value);
+    setCampaignName("");
+    setSelectedCategories([]);
+    setPage(1);
   }, []);
-  console.log(filter);
-  // useEffect(() => {
-  //   setCategory("all");
-  // }, []);
-  // categoryIds : this is the array which stores the IDs of the categories, which is used for fetching all campaigns
-  //  data : it is also an array of categorie but it not only stores IDs but also stores it's name and image
-  useEffect(() => {
-    if (category === "all") {
-      getCategoriesCampaign(categoryIds);
-    } else {
-      const categoryId = [data?.find((item) => item?.name === category)?.id];
 
-      getCategoriesCampaign(categoryId);
-    }
-  }, [category, isFocused]);
   useEffect(() => {
-    if (category === "all") {
-      getCategoriesCampaignByPage(categoryIds);
-    } else {
-      const categoryId = [data?.find((item) => item?.name === category)?.id];
+    setLoadingCampaign(true);
+    setPage(1);
+  }, [selectedCategories]);
 
-      getCategoriesCampaignByPage(categoryId);
-    }
+  useEffect(() => {
+    getCampaigns();
   }, [page]);
 
-  useEffect(() => {
-    if (campaignName.replace(/\s/g, "")?.length > 0) {
-      getSearch();
-    }
-  }, [campaignName]);
-  useEffect(() => {
-    if (filter) {
-      getCampaignbyfilter();
-    }
-  }, [filter]);
-
-  // functions
-  const getCampaignbyfilter = () => {
-    getFilterAPI(
-      user?.token,
-      page,
-      limit,
-      filter?.active,
-      filter?.filterType,
-      filter?.isEnabled
-    )
-      .then((res) => {
-        setCampaigns(res.data.campaigns);
-      })
-      .catch((err) => console.log(err.response.data));
-  };
-
-  // campaign will be fetched based on the categoryList which is an array od category IDs
-  const getCategoriesCampaignByPage = (categorylist) => {
+  const getCampaigns = async () => {
+    console.log("campaignName called");
     setLoadingCampaign(true);
-    getCampaign(user?.token, page, limit, user?.role, user?._id, categorylist)
-      .then((res) => {
+    try {
+      if (campaignName === "") {
+        const res = await getCampaign(
+          user?.token,
+          page,
+          limit,
+          user?.role,
+          user?._id,
+          selectedCategories
+        );
+
         if (res.data.success) {
-          const array = [...campaign, ...res?.data?.campaigns];
-          const uniqueArray = [...new Set(array)];
-          setCampaigns(uniqueArray);
-          setLoadingCampaign(false);
-          setTotalDocuments(res.data?.totalDocuments);
-          console.log(
-            "FETCHING CAMPAIGN BASED ON CATEGORIES===================>",
-            res.data
-          );
+          if (page === 1) {
+            setCampaigns(res?.data?.campaigns);
+          } else {
+            setCampaigns((prevCampaigns) => [
+              ...prevCampaigns,
+              ...res?.data?.campaigns,
+            ]);
+          }
+          setTotalDocuments(res.data?.totalCount);
         }
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-        setLoadingCampaign(false);
-      });
-  };
-  const getCategoriesCampaign = (categorylist) => {
-    setLoadingCampaign(true);
-    getCampaign(user?.token, page, limit, user?.role, user?._id, categorylist)
-      .then((res) => {
+      }
+      if (filter) {
+        console.log("filtr", filter);
+        const res = await getFilterAPI(
+          user?.token,
+          page,
+          limit,
+          filter.active,
+          filter.filterType,
+          filter.isEnabled
+        );
+
         if (res.data.success) {
-          setCampaigns(res?.data?.campaigns);
-          setLoadingCampaign(false);
-          setTotalDocuments(res.data?.totalDocuments);
-          console.log(
-            "FETCHING CAMPAIGN BASED ON CATEGORIES===================>",
-            res.data
-          );
+          if (page == 1) {
+            setCampaigns(res?.data?.campaigns);
+          } else {
+            setCampaigns((prevCampaigns) => [
+              ...prevCampaigns,
+              ...res?.data?.campaigns,
+            ]);
+          }
+          setTotalDocuments(res.data?.totalCount);
         }
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-        setLoadingCampaign(false);
-      });
+        console.log(res.data);
+      }
+      if (campaignName?.length > 0) {
+        // search campaign by name
+        const res = await searchCampaign(
+          user?.token,
+          page,
+          limit,
+          campaignName
+        );
+        if (res.data.success) {
+          if (page === 1) {
+            setCampaigns(res?.data?.campaigns);
+          } else {
+            setCampaigns((prevCampaigns) => [
+              ...prevCampaigns,
+              ...res?.data?.campaigns,
+            ]);
+          }
+          setTotalDocuments(res.data?.totalCount);
+        }
+      }
+    } catch (err) {
+      console.log(err.response.data);
+    } finally {
+      setLoadingCampaign(false);
+    }
   };
+
+  const handleCategoryToggle = (categoryId) => {
+    setCampaignName("");
+    setFilter(null);
+    setSelectedCategories(categoryId);
+  };
+
   // every time user reaches to the end of the page
   // another set of campaign will be loaded
   // number of campaign loaded will depend on limit variable, assigned above
-  const loadMore = () => {
-    if (totalDocuments > campaign?.length) {
-      setPage((prev) => prev + 1);
-    }
+
+  // Call the loadMoreCampaigns function when the "Load More" button is clicked
+  const loadMoreCampaigns = () => {
+    console.log(page);
+    setPage((prevPage) => prevPage + 1);
   };
 
-  const getSearch = () => {
-    setLoadingCampaign(true);
+  // Call the loadMoreCampaigns function when the "Load More" button is pressed
+  const handleLoadMore = () => {
+    loadMoreCampaigns();
+  };
 
-    searchCampaign(user?.token, page, limit, campaignName)
-      .then((res) => {
-        if (res.data.success) {
-          setCampaigns(res.data.campaigns);
-          console.log("SEARCH DATA BY CAMPAIGN NAME==>", res.data);
-          setLoadingCampaign(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-        setLoadingCampaign(false);
-      });
+  const renderItem = ({ item }) => {
+    return (
+      <Pressable>
+        <WishlistCard
+          data={item}
+          wishlist={user?.wishlist.filter((v) => v?._id === item?._id)}
+        />
+      </Pressable>
+    );
+  };
+  const renderEmpty = () => {
+    return loadingCampaign ? (
+      <CampaignLoader />
+    ) : (
+      <Image
+        source={empty}
+        style={{
+          height: 200,
+          width: "100%",
+          resizeMode: "contain",
+          marginTop: h(0.15),
+        }}
+        resizeMode="contain"
+      />
+    );
+  };
+  const RenderHeader = () => {
+    return (
+      <View
+        style={{
+          width: "100%",
+          marginBottom: h(0.025),
+        }}
+      >
+        <View
+          style={[
+            global.start,
+            {
+              flexWrap: "wrap",
+              marginTop: h(0.01),
+            },
+          ]}
+        >
+          <Pill
+            ph={w(0.025)}
+            pv={h(0.0035)}
+            variant={selectedCategories.length > 1 ? "active" : "inactive"}
+            text="All"
+            onPress={() => {
+              handleCategoryToggle(categoryIds);
+            }}
+            mr={w(0.02)}
+          />
+          {data?.map((item, i) => (
+            <Pill
+              ph={w(0.025)}
+              pv={h(0.0035)}
+              variant={
+                selectedCategories?.length == 1 &&
+                selectedCategories[0] === item?.id
+                  ? "active"
+                  : "inactive"
+              }
+              onPress={() => {
+                handleCategoryToggle([item.id]);
+              }}
+              mv={h(0.005)}
+              mr={w(0.02)}
+              key={i}
+              text={item?.name}
+            />
+          ))}
+        </View>
+      </View>
+    );
+  };
+  const itemSepartor = () => {
+    return <Pressable style={{ height: h(0.03), width: "100%" }} />;
+  };
+  const renderFooter = () => {
+    if (totalDocuments > campaigns?.length) {
+      return (
+        <>
+          <Pressable style={{ height: h(0.03), width: "100%" }} />
+          <CampaignLoader />
+        </>
+      );
+    } else return <View style={{ height: h(0.03), width: "100%" }} />;
   };
   return (
     <Layout>
       <View
-        style={{ height: "100%", width: "100%", backgroundColor: colors.appbg }}
+        style={{ height: "100%", width: "100%", backgroundColor: colors.white }}
       >
         <StackHomeHeader noback={true} name="Discover" user={user} />
-        {/* <AppText text={category} /> */}
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          onScrollEndDrag={() =>
-            loadMore(
-              category === "all"
-                ? categoryIds
-                : [data.find((item) => item?.name === category)?.id]
-            )
-          }
-          contentContainerStyle={{ paddingBottom: h(0.1) }}
+        <View
+          style={{
+            width: "100%",
+            paddingHorizontal: w(0.03),
+            marginTop: h(0.0082),
+          }}
         >
-          <View
-            style={{
-              width: "100%",
-              minHeight: h(0.25),
+          <Search
+            filter={true}
+            onChangeText={(t) => setCampaignName(t)}
+            value={campaignName}
+            icon={true}
+            onFocus={() => {
+              setSelectedCategories([]);
+              setPage(1);
+              setFilter(null);
             }}
-          >
-            <Search
-              filter={true}
-              onChangeText={(t) => setCampaignName(t)}
-              value={campaignName}
-              icon={true}
-              onFocus={() => {
-                setPage(1);
-                setCampaigns([]);
-              }}
-              placeholder="Search campaign by name..."
-              placeholderColor={colors.black30}
-              onPress={() => SwipeSheet(-h(1) / 1.2)}
-            />
-            <View
-              style={[
-                global.start,
-                {
-                  flexWrap: "wrap",
-                  paddingHorizontal: w(0.03),
-                  marginTop: h(0.01),
-                },
-              ]}
-            >
-              <Pill
-                ph={w(0.03)}
-                pv={h(0.005)}
-                variant={category === "all" ? "active" : "inactive"}
-                text="ALL"
-                onPress={() => setCategory("all")}
-                mr={w(0.005)}
-              />
-              {data?.map((item, i) => (
-                <Pill
-                  ph={w(0.03)}
-                  pv={h(0.005)}
-                  variant={category === item?.name ? "active" : "inactive"}
-                  onPress={() => setCategory(item?.name)}
-                  mv={h(0.005)}
-                  mr={w(0.01)}
-                  key={i}
-                  text={item?.name}
-                />
-              ))}
-            </View>
-          </View>
-          <View style={{ paddingHorizontal: w(0.05) }}>
-            {campaign?.length < 1 && (
-              <Icon name={empty} width={"100%"} height={300} />
-            )}
+            placeholder="Search campaign by name..."
+            placeholderColor={colors.black30}
+            onPress={() => SwipeSheet(-h(1) / 1.2)}
+            onSubmit={getCampaigns}
+          />
+        </View>
+        <FlatList
+          data={campaigns}
+          keyExtractor={(_, index) => String(index)}
+          renderItem={renderItem}
+          contentContainerStyle={{
+            paddingHorizontal: w(0.03),
+          }}
+          ListEmptyComponent={renderEmpty}
+          ListHeaderComponent={RenderHeader}
+          ItemSeparatorComponent={itemSepartor}
+          showsVerticalScrollIndicator={false}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0.02}
+          ListFooterComponent={renderFooter}
+        />
 
-            {campaign?.map((item, i) => (
-              <WishlistCard
-                data={item}
-                mt={h(0.01)}
-                wishlist={user?.wishlist.filter((v) => v?._id === item?._id)}
-                key={i}
-              />
-            ))}
-          </View>
-          {loadingCampaign && (
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                height: 260,
-              }}
-            >
-              <Text
-                style={{
-                  fontFamily: "Inter_500Medium",
-                  textAlign: "center",
-                  fontSize: 22,
-                }}
-              >
-                {" "}
-                Loading...{" "}
-              </Text>
-            </View>
-          )}
-        </ScrollView>
-        <SheetExplore childref={childref} setFilter={setFilter} />
+        <SheetExplore
+          childref={childref}
+          filter={filter}
+          setFilter={setFilter}
+          onPress={getCampaigns}
+        />
       </View>
     </Layout>
   );

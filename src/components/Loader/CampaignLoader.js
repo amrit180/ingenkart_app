@@ -123,9 +123,11 @@
 //   }
 // });
 
-import { View, Text, Animated } from "react-native";
+import { View, Text, Animated, Pressable } from "react-native";
 import React, { useEffect, useRef } from "react";
 import Layout from "../Layout";
+import LoaderItem from "./LoaderItem";
+import { h, w } from "../../config/utilFunction";
 
 const CampaignLoader = () => {
   const circleAnimatedValue = useRef(new Animated.Value(0)).current;
@@ -134,7 +136,8 @@ const CampaignLoader = () => {
     circleAnimatedValue.setValue(0);
     Animated.timing(circleAnimatedValue, {
       toValue: 1,
-      duration: 350,
+      duration: 345,
+
       useNativeDriver: true,
     }).start(() => {
       setTimeout(() => {
@@ -147,32 +150,25 @@ const CampaignLoader = () => {
   }, []);
 
   const translateX = circleAnimatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [-10, 100],
+    inputRange: [0, 0.5, 1],
+    outputRange: [-10, w(0.5), w(1)],
   });
   return (
-    <Layout>
-      <View
-        style={{
-          width: 100,
-          height: 100,
-          borderRadius: 60,
-          backgroundColor: "#ECEFF1",
-          overflow: "hidden",
-          //   marginRight: 16,
-        }}
-      >
-        <Animated.View
-          style={{
-            width: "30%",
-            opacity: 0.5,
-            height: "100%",
-            backgroundColor: "white",
-            transform: [{ translateX: translateX }],
-          }}
-        ></Animated.View>
-      </View>
-    </Layout>
+    <Pressable>
+      <LoaderItem
+        height={h(0.3)}
+        width={"100%"}
+        radius={20}
+        translateX={translateX}
+      />
+      {/* <LoaderItem
+        height={h(0.3)}
+        width={"100%"}
+        radius={20}
+        mt={h(0.03)}
+        translateX={translateX}
+      /> */}
+    </Pressable>
   );
 };
 

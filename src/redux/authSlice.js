@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
+import { memo } from "react";
 import uuid from "react-native-uuid";
 
 const initialState = {
@@ -49,37 +50,37 @@ const authSlice = createSlice({
       state = initialState;
     },
     createUserData: (state, { payload }) => {
-      (state.email = payload.email),
-        (state.phone = payload.phone),
-        (state.DOB = payload.DOB),
-        (state.companyName = payload.companyName),
-        (state.tagLine = payload.tagLine),
-        (state.location = payload.location),
-        (state.state = payload.state),
+      (state.email = payload?.email),
+        (state.phone = payload?.phone),
+        (state.DOB = payload?.DOB),
+        (state.companyName = payload?.companyName),
+        (state.tagLine = payload?.tagLine),
+        (state.location = payload?.location),
+        (state.state = payload?.state),
         (state.age =
           parseInt(moment().format("YYYY")) -
           parseInt(moment(state.DOB).format("YYYY"))),
-        (state.city = payload.city),
-        (state.linkedinUrl = payload.linkedinUrl),
-        (state.website = payload.website),
-        (state.instagramUrl = payload.instagramUrl),
-        (state.bio = payload.bio),
-        (state.firstName = payload.firstName),
-        (state.lastName = payload.lastName),
-        (state.name = payload.firstName + " " + payload.lastName),
-        (state.role = payload.role),
-        (state.budget = payload.budget),
-        (state.uid = payload.uuid),
-        (state.gender = payload.gender),
-        (state.categories = payload.categories),
-        (state.emailVerified = payload.emailVerified),
-        (state.phoneVerified = payload.phoneVerified),
-        (state.barterAvailability = payload.barterAvailability),
-        (state.tnc = payload.tnc),
-        (state.auth = payload.auth),
-        (state.profilePicture.url = payload.profilePicture.url),
-        (state.profilePicture.isDefault = payload.profilePicture.isDefault),
-        (state.profilePicture.reference = payload.profilePicture.reference);
+        (state.city = payload?.city),
+        (state.linkedinUrl = payload?.linkedinUrl),
+        (state.website = payload?.website),
+        (state.instagramUrl = payload?.instagramUrl),
+        (state.bio = payload?.bio),
+        (state.firstName = payload?.firstName),
+        (state.lastName = payload?.lastName),
+        (state.name = payload?.firstName + " " + payload?.lastName),
+        (state.role = payload?.role),
+        (state.budget = payload?.budget),
+        (state.uid = payload?.uuid),
+        (state.gender = payload?.gender),
+        (state.categories = payload?.categories),
+        (state.emailVerified = payload?.emailVerified),
+        (state.phoneVerified = payload?.phoneVerified),
+        (state.barterAvailability = payload?.barterAvailability),
+        (state.tnc = payload?.tnc),
+        (state.auth = payload?.auth),
+        (state.profilePicture.url = payload?.profilePicture.url),
+        (state.profilePicture.isDefault = payload?.profilePicture.isDefault),
+        (state.profilePicture.reference = payload?.profilePicture.reference);
     },
     selectRole: (state, { payload }) => {
       state.role = payload.role;

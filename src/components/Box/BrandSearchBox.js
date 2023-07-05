@@ -1,8 +1,9 @@
-import { View, Text, Pressable, Switch, ScrollView } from "react-native";
-import React, { useCallback, useState } from "react";
+import { View, Text, Pressable, Switch, ScrollView, Image } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
 import AppText from "../AppText";
 import ChooseImage from "../ChooseImage";
 import {
+  checkIcon,
   facebook,
   instagram,
   radio,
@@ -75,24 +76,18 @@ const sortType = [
   },
 ];
 
-const BrandSearchBox = ({ setFilter, scrollTo }) => {
-  const [filterType, setFilterType] = useState("");
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [active, setActive] = useState("");
-
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+const BrandSearchBox = ({ setFilter, scrollTo, onPress, filter }) => {
+  useEffect(() => {
+    setFilter({ ...filter, isEnabled: false });
+  }, []);
+  const toggleSwitch = () =>
+    setFilter({ ...filter, isEnabled: !filter.isEnabled });
 
   const handleClear = () => {
-    setFilterType("");
-    setIsEnabled(false);
-    setActive("");
+    setFilter(null);
   };
   const handleFilter = () => {
-    setFilter({
-      filterType,
-      isEnabled,
-      active,
-    });
+    onPress();
   };
   return (
     <View style={{ height: h(0.9) }}>
@@ -100,59 +95,93 @@ const BrandSearchBox = ({ setFilter, scrollTo }) => {
         <AppText
           text="Search filters"
           fontFamily={"Poppins_600SemiBold"}
-          fontSize={26}
+          fontSize={24}
         />
         <View style={global.between}>
           {data.map((item, i) => (
-            <Pressable key={i} onPress={() => setActive(item.name)}>
-              <ChooseImage
+            <Pressable
+              key={i}
+              onPress={() => setFilter({ ...filter, active: item.name })}
+            >
+              <View
+                style={[
+                  global.center,
+                  {
+                    flexDirection: "column",
+                    width: w(0.25),
+                    height: h(0.075),
+                    borderRadius: 15,
+                    borderColor:
+                      item.name === filter?.active
+                        ? colors.borderYellow
+                        : colors.black30,
+                    borderWidth: 1,
+                    backgroundColor: colors.white,
+                  },
+                ]}
+              >
+                <Icon name={item.icon} size={w(0.08)} />
+                <AppText
+                  text={item.name}
+                  fontSize={10}
+                  fontFamily={"Poppins_500Medium"}
+                />
+              </View>
+              <BoxShadow
+                height={h(0.075)}
+                width={w(0.25)}
                 radius={15}
-                ft={10}
-                bheight={0.09}
-                iheight={0.085}
-                iwidth={0.25}
-                bwidth={0.26}
-                txttop={h(0.02)}
-                top={10}
-                name={item.icon}
-                height={0.1}
-                width={0.12}
-                check={item.name === active}
-                text={item.name}
+                top={h(0.003)}
               />
+              {item.name === filter?.active && (
+                <Image
+                  source={checkIcon}
+                  style={{
+                    width: 20,
+                    height: 20,
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    resizeMode: "contain",
+                  }}
+                />
+              )}
             </Pressable>
           ))}
         </View>
         <View style={{ marginTop: h(0.03) }}>
           <View
             style={{
-              height: h(0.21),
+              height: h(0.19),
               width: "100%",
               borderColor: colors.borderColor,
               borderWidth: 1,
               borderRadius: 15,
               paddingHorizontal: w(0.05),
-              paddingVertical: h(0.018),
+              paddingVertical: h(0.015),
               backgroundColor: colors.white,
             }}
           >
             {sortType?.map((item, i) => (
-              <Pressable key={i} onPress={() => setFilterType(item.sort)}>
+              <Pressable
+                key={i}
+                onPress={() => setFilter({ ...filter, filterType: item.sort })}
+              >
                 <View style={global.between}>
                   <AppText
                     text={item.name}
                     color={colors.black50}
-                    fontSize={13}
+                    fontSize={11}
                   />
                   <Icon
-                    name={filterType === item.sort ? verified : radio}
-                    size={w(0.05)}
+                    name={filter?.filterType === item.sort ? verified : radio}
+                    size={w(0.04)}
                   />
                 </View>
                 {i < sortType?.length - 1 && (
                   <Hr
                     width={"100%"}
-                    borderWidth={0.5}
+                    borderWidth={1}
                     mt={h(0.01)}
                     mb={h(0.01)}
                   />
@@ -160,7 +189,7 @@ const BrandSearchBox = ({ setFilter, scrollTo }) => {
               </Pressable>
             ))}
           </View>
-          <BoxShadow height={h(0.21)} width="100%" radius={15} top={h(0.003)} />
+          <BoxShadow height={h(0.19)} width="100%" radius={15} top={h(0.003)} />
         </View>
         <View style={{ marginTop: h(0.03) }}>
           <View
@@ -180,7 +209,7 @@ const BrandSearchBox = ({ setFilter, scrollTo }) => {
               <AppText
                 text={"Barter"}
                 fontFamily={"Poppins_500Medium"}
-                fontSize={15}
+                fontSize={13}
               />
               <Switch
                 trackColor={{
@@ -190,7 +219,7 @@ const BrandSearchBox = ({ setFilter, scrollTo }) => {
                 thumbColor={colors.white}
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
-                value={isEnabled}
+                value={filter?.isEnabled}
               />
             </View>
           </View>
@@ -226,8 +255,9 @@ const BrandSearchBox = ({ setFilter, scrollTo }) => {
             <Button
               onPress={handleClear}
               variant={"outline"}
-              height={h(0.07)}
-              width={w(0.38)}
+              height={h(0.065)}
+              width={w(0.4)}
+              fontSize={16}
               name="Clear Filters"
             />
           </View>
@@ -247,9 +277,10 @@ const BrandSearchBox = ({ setFilter, scrollTo }) => {
                 scrollTo(0);
               }}
               variant={"standard"}
-              height={h(0.07)}
-              width={w(0.38)}
+              height={h(0.065)}
+              width={w(0.4)}
               name="Filter"
+              fontSize={16}
             />
           </View>
         </View>

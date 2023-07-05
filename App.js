@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 
-import { View, Text } from "react-native";
+import { View, Text, LogBox } from "react-native";
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthStack, OnboardStack } from "./src/routes";
@@ -15,7 +15,6 @@ import * as Updates from "expo-updates";
 import {
   useBookmark,
   useCustomFonts,
-  useGetAuthStatus,
   useGetOnboardingStatus,
 } from "./src/hooks";
 import {
@@ -37,8 +36,6 @@ import {
 } from "firebase/firestore";
 
 import { mode } from "./src/config/Values";
-import * as Linking from "expo-linking";
-import dynamicLinks from "@react-native-firebase/dynamic-links";
 
 const linking = {
   prefixes: ["https://ingenkart.web.app"],
@@ -53,16 +50,17 @@ const linking = {
     },
   },
 };
-
+// Ignore log notification by message
+LogBox.ignoreAllLogs();
 const App = () => {
+  console.clear();
   const MyApp = () => {
     const { isFirstLaunch, isLoading } = useGetOnboardingStatus();
-    const { err } = useSelector((s) => ({ ...s }));
+    const err = useSelector((s) => s.err);
 
     const { getbookmark } = useBookmark();
     const { ILoaded, MLoaded, PLoaded } = useCustomFonts();
     const dispatch = useDispatch();
-    const [externalLink, setExternalLink] = useState("");
 
     // useEffect(() => {
     //   getDynamicLink();
@@ -121,6 +119,19 @@ const App = () => {
         onFetchUpdateAsync();
       }
     }, []);
+    async function onFetchUpdateAsync() {
+      try {
+        const update = await Updates.checkForUpdateAsync();
+
+        if (update.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          await Updates.reloadAsync();
+        }
+      } catch (error) {
+        // You can also add an alert() to see the error message in case of an error when fetching updates.
+        console.log(`Error fetching latest Expo update: ${error}`);
+      }
+    }
 
     if (!MLoaded && !PLoaded && !ILoaded && isLoading) {
       return null;
@@ -135,19 +146,6 @@ const App = () => {
     );
   };
 
-  async function onFetchUpdateAsync() {
-    try {
-      const update = await Updates.checkForUpdateAsync();
-
-      if (update.isAvailable) {
-        await Updates.fetchUpdateAsync();
-        await Updates.reloadAsync();
-      }
-    } catch (error) {
-      // You can also add an alert() to see the error message in case of an error when fetching updates.
-      console.log(`Error fetching latest Expo update: ${error}`);
-    }
-  }
   return (
     <Provider store={store}>
       <MyApp />

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBookmark } from "../redux/userSlice";
 
 const useBookmark = () => {
-  const { user } = useSelector((state) => ({ ...state }));
   let dispatch = useDispatch();
   async function getbookmark() {
     try {

@@ -18,7 +18,7 @@ const Location = () => {
   let dispatch = useDispatch();
   const isFocussed = useIsFocused();
   // REDUX
-  const { auth } = useSelector((state) => ({ ...state }));
+  const auth = useSelector((state) => state.auth);
   // STATE
   const [stateLocation, setStateLocation] = useState([]);
   const [cityLocation, setCityLocation] = useState([]);

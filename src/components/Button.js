@@ -116,7 +116,7 @@ const Button = ({
               <AppText
                 text={name}
                 fontFamily={"Poppins_500Medium"}
-                fontSize={22}
+                fontSize={fontSize || 22}
                 color={colors.black}
               />
             )}

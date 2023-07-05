@@ -12,7 +12,7 @@ import { HomepageLoader, SplashLoading } from "../components";
 
 const Stack = createStackNavigator();
 const AuthStack = () => {
-  const { user } = useSelector((s) => ({ ...s }));
+  const user = useSelector((s) => s.user);
 
   return user?.isLoading ? (
     <SplashLoading />
